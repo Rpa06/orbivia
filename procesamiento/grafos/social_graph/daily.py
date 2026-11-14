@@ -45,7 +45,8 @@ class DayResult:
     # Por astronauta
     leisure_s: np.ndarray
     leisure_observed_s: np.ndarray
-    accompanied: np.ndarray  # C_i: fracción del ocio observado con alguien cerca
+    available_observed_s: np.ndarray  # ocio observado con algún otro también en ocio
+    accompanied: np.ndarray  # C_i: fracción de ese ocio compartible con alguien cerca
     strength: np.ndarray  # S_i = Σ_j W_ij sobre parejas evaluables
     strength_norm: np.ndarray  # media de W_ij sobre parejas evaluables
     node_status: list[str]
@@ -123,6 +124,7 @@ def close_day(
     leisures = [leisure(schedule, a, window) for a in crew]
     leisure_s = np.array([total(x) for x in leisures], dtype=float)
     leisure_obs = np.array([totals.leisure_observed.get(a, 0.0) for a in crew], dtype=float)
+    available_obs = np.array([totals.available_observed.get(a, 0.0) for a in crew], dtype=float)
     accompanied_s = np.array([totals.accompanied.get(a, 0.0) for a in crew], dtype=float)
 
     interaction = np.zeros((n, n))
@@ -177,8 +179,10 @@ def close_day(
     n_evaluable = evaluable.sum(axis=1)
     strength = weights.sum(axis=1)
     strength_norm = np.where(n_evaluable > 0, strength / np.maximum(n_evaluable, 1), np.nan)
-    enough_observed = leisure_obs >= params.min_leisure_s
-    c = np.where(enough_observed, accompanied_s / np.maximum(leisure_obs, _EPS), np.nan)
+    # Se divide por el ocio en que había alguien disponible: quien descansa cuando
+    # los demás trabajan o duermen no está "solo" por elección
+    enough_available = available_obs >= params.min_leisure_s
+    c = np.where(enough_available, accompanied_s / np.maximum(available_obs, _EPS), np.nan)
 
     min_pairs = math.ceil((n - 1) / 2)
     node_status = []
@@ -198,6 +202,7 @@ def close_day(
         params=params,
         leisure_s=leisure_s,
         leisure_observed_s=leisure_obs,
+        available_observed_s=available_obs,
         accompanied=c,
         strength=strength,
         strength_norm=strength_norm,

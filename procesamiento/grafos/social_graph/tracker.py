@@ -40,6 +40,8 @@ class DayTotals:
     interaction: dict[Pair, float] = field(default_factory=lambda: defaultdict(float))
     overlap_observed: dict[Pair, float] = field(default_factory=lambda: defaultdict(float))
     leisure_observed: dict[str, float] = field(default_factory=lambda: defaultdict(float))
+    # Ocio observado en el que al menos otro tripulante también está en ocio
+    available_observed: dict[str, float] = field(default_factory=lambda: defaultdict(float))
     accompanied: dict[str, float] = field(default_factory=lambda: defaultdict(float))
     n_samples: int = 0
 
@@ -48,6 +50,7 @@ class DayTotals:
             "interaction": {_pair_to_str(k): v for k, v in self.interaction.items()},
             "overlap_observed": {_pair_to_str(k): v for k, v in self.overlap_observed.items()},
             "leisure_observed": dict(self.leisure_observed),
+            "available_observed": dict(self.available_observed),
             "accompanied": dict(self.accompanied),
             "n_samples": self.n_samples,
         }
@@ -60,6 +63,7 @@ class DayTotals:
             {_pair_from_str(k): v for k, v in state["overlap_observed"].items()}
         )
         totals.leisure_observed.update(state["leisure_observed"])
+        totals.available_observed.update(state.get("available_observed", {}))
         totals.accompanied.update(state["accompanied"])
         return totals
 
@@ -99,6 +103,7 @@ class InteractionTracker:
         self._days: dict[int, DayTotals] = {}
         self._closed_through: int | None = None
         self._leisure_cache: dict[tuple[str, int], list[Interval]] = {}
+        self._others_cache: dict[tuple[str, int], list[Interval]] = {}
 
     # --- días -----------------------------------------------------------------
 
@@ -123,8 +128,9 @@ class InteractionTracker:
         """Cierra un día: devuelve sus totales y deja de acumular en él."""
         if self._closed_through is None or day > self._closed_through:
             self._closed_through = day
-        for key in [k for k in self._leisure_cache if k[1] <= day]:
-            del self._leisure_cache[key]
+        for cache in (self._leisure_cache, self._others_cache):
+            for key in [k for k in cache if k[1] <= day]:
+                del cache[key]
         return self._days.pop(day, DayTotals())
 
     def _is_closed(self, day: int) -> bool:
@@ -139,6 +145,15 @@ class InteractionTracker:
             window = day_window(day, self.params.day_cutoff_s)
             self._leisure_cache[key] = leisure(self.schedule, astronaut, window)
         return self._leisure_cache[key]
+
+    def _others_leisure(self, astronaut: str, day: int) -> list[Interval]:
+        """Instantes del día en que algún otro tripulante está en ocio."""
+        key = (astronaut, day)
+        if key not in self._others_cache:
+            self._others_cache[key] = union(
+                *(self._leisure(o, day) for o in self.crew if o != astronaut)
+            )
+        return self._others_cache[key]
 
     # --- muestras -------------------------------------------------------------
 
@@ -184,6 +199,9 @@ class InteractionTracker:
             own = clip(self._leisure(astronaut, day), start, end)
             totals = self._day(day)
             totals.leisure_observed[astronaut] += total(own)
+            totals.available_observed[astronaut] += total(
+                intersect(own, self._others_leisure(astronaut, day))
+            )
             if partners:
                 together = union(*(intersect(own, self._leisure(p, day)) for p in partners))
                 totals.accompanied[astronaut] += total(together)

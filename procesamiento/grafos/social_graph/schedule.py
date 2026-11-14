@@ -52,6 +52,28 @@ def leisure_time(schedule: Schedule, astronaut: str, window: Interval) -> float:
     return total(leisure(schedule, astronaut, window))
 
 
+class SwitchingSchedule:
+    """Usa un horario hasta `switch_t` y otro a partir de ese instante."""
+
+    def __init__(self, before: Schedule, after: Schedule, switch_t: float) -> None:
+        self._before = before
+        self._after = after
+        self._switch_t = switch_t
+
+    def _merge(self, kind: str, astronaut: str, window: Interval) -> list[Interval]:
+        early = getattr(self._before, kind)(astronaut, window)
+        late = getattr(self._after, kind)(astronaut, window)
+        return union(
+            clip(early, window[0], self._switch_t), clip(late, self._switch_t, window[1])
+        )
+
+    def sleep(self, astronaut: str, window: Interval) -> list[Interval]:
+        return self._merge("sleep", astronaut, window)
+
+    def work(self, astronaut: str, window: Interval) -> list[Interval]:
+        return self._merge("work", astronaut, window)
+
+
 class FixedSchedule:
     """Horario diario fijo por astronauta, con variación diaria opcional.
 
