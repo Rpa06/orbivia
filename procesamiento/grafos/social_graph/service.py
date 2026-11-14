@@ -12,6 +12,7 @@ from typing import Any
 
 from .config import params_version
 from .daily import close_day
+from .graph import GraphExporter
 from .isolation import IsolationAnalyzer
 from .params import Params
 from .schedule import Schedule
@@ -41,6 +42,7 @@ class SocialGraphService:
         clock: Callable[[], float] = time.monotonic,
         on_day_closed: Sequence[DayHook] = (),
         analyzer: IsolationAnalyzer | None = None,
+        exporter: GraphExporter | None = None,
         history_days: int = 60,
     ) -> None:
         self.crew = list(crew)
@@ -54,6 +56,7 @@ class SocialGraphService:
         self._clock = clock
         self._hooks = list(on_day_closed)
         self._analyzer = analyzer
+        self._exporter = exporter
         self._history_days = history_days
         self.tracker = InteractionTracker(self.crew, schedule, params)
         self.cursor: dict[str, Any] | None = None
@@ -186,10 +189,15 @@ class SocialGraphService:
         document = result.to_dict()
         document["params_version"] = self.params_version
         document["quality"].update(self._quality.pop(day, dict.fromkeys(QUALITY_KEYS, 0)))
-        if self._analyzer is not None:
+        history: list[Document] = []
+        if self._analyzer is not None or self._exporter is not None:
             history = self.store.load_days(last=self._history_days)
             history = [d for d in history if d["day"] < day and d["crew"] == self.crew]
+        if self._analyzer is not None:
             document["isolation"] = self._analyzer.analyze(history + [document])[-1]
+        if self._exporter is not None:
+            previous = history[-1].get("graph") if history else None
+            document["graph"] = self._exporter.export(document, previous)
         for hook in self._hooks:
             hook(document)
         self.store.save_day(day, document, self.state())

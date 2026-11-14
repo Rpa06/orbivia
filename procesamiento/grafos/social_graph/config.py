@@ -60,6 +60,10 @@ class Settings:
     stream: str = "orbivia:positions"
     checkpoint_every_s: float = 30.0
     isolation: IsolationConfig = field(default_factory=IsolationConfig)
+    # Grafo para Tierra
+    layout: str = "spring"
+    layout_seed: int = 42
+    output_dir: str | None = None
     # Simulación
     sim_scenario: str = "homogeneous"
     sim_seed: int = 42
@@ -125,6 +129,9 @@ def load_settings(env: Mapping[str, str]) -> Settings:
         smooth_days=int(number("SG_SMOOTH_DAYS", iso.smooth_days)),
     )
     sim_days = env.get("SG_SIM_DAYS")
+    layout = env.get("SG_LAYOUT") or "spring"
+    if layout not in ("spring", "circular"):
+        raise ValueError(f"SG_LAYOUT debe ser 'spring' o 'circular': {layout!r}")
 
     source = env.get("SG_SOURCE") or "simulation"
     if source not in ("simulation", "redis"):
@@ -140,6 +147,9 @@ def load_settings(env: Mapping[str, str]) -> Settings:
         stream=env.get("SG_STREAM") or "orbivia:positions",
         checkpoint_every_s=number("SG_CHECKPOINT_EVERY_S", 30.0),
         isolation=isolation,
+        layout=layout,
+        layout_seed=int(number("SG_LAYOUT_SEED", 42)),
+        output_dir=env.get("SG_OUTPUT_DIR") or None,
         sim_scenario=env.get("SG_SIM_SCENARIO") or "homogeneous",
         sim_seed=int(number("SG_SIM_SEED", 42)),
         sim_period_s=number("SG_SIM_SAMPLE_PERIOD_S", 10.0),

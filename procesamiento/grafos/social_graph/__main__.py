@@ -5,6 +5,7 @@ import os
 import signal
 
 from .config import Settings, load_settings
+from .graph import GraphExporter
 from .isolation import IsolationAnalyzer
 from .schedule import Schedule
 from .service import SocialGraphService
@@ -66,6 +67,7 @@ def main() -> None:
         store=PostgresStore.from_env(),
         checkpoint_every_s=settings.checkpoint_every_s,
         analyzer=IsolationAnalyzer(settings.isolation),
+        exporter=GraphExporter(settings.output_dir, settings.layout, settings.layout_seed),
     )
     logger.info(
         "Servicio iniciado: fuente=%s tripulación=%s parámetros=%s",
