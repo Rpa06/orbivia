@@ -123,6 +123,40 @@ def load_snapshot(path: str | Path) -> SocialSnapshot:
     return from_daily_result(json.loads(Path(path).read_text(encoding="utf-8")))
 
 
+_LATEST_SQL = (
+    "SELECT result FROM social_graph.daily_result WHERE day < %s ORDER BY day DESC LIMIT 1"
+)
+
+
+def load_from_postgres(
+    plan_day: int, env: Mapping[str, str], connect: Any = None
+) -> SocialSnapshot | None:
+    """Último resultado del servicio social-graph anterior al día planificado.
+
+    Solo lee. Devuelve None si el esquema no existe todavía o no hay días cerrados:
+    sin grafo, el planificador desactiva los objetivos sociales y lo dice.
+    """
+    if connect is None:
+        import psycopg
+
+        connect = psycopg.connect
+    try:
+        with connect(
+            host=env.get("POSTGRES_HOST", "localhost"),
+            port=int(env.get("POSTGRES_PORT", "5432")),
+            dbname=env.get("POSTGRES_DB", "orbivia"),
+            user=env.get("POSTGRES_USER", "orbivia"),
+            password=env.get("POSTGRES_PASSWORD", ""),
+            connect_timeout=3,
+        ) as connection:
+            row = connection.execute(_LATEST_SQL, (plan_day,)).fetchone()
+    except Exception as error:  # noqa: BLE001 - se informa del motivo, no se oculta
+        if type(error).__name__ == "UndefinedTable":
+            return None
+        raise
+    return from_daily_result(row[0]) if row else None
+
+
 def integration_need(
     snapshot: SocialSnapshot | None, crew: Sequence[str], config: Social
 ) -> dict[str, float]:

@@ -110,3 +110,49 @@ def test_contract_with_social_graph_service():
     assert snap.weight("A", "C") == 0.0  # evaluable y sin interacción: cero legítimo
     assert snap.weight("A", "B") == snap.weight("B", "A")
     assert set(snap.status.values()) <= {"warming_up", "normal", "follow_up", "review"}
+
+
+# --- lectura desde PostgreSQL (con una conexión falsa) ---------------------------
+
+
+class _FakeConnection:
+    def __init__(self, rows, error=None):
+        self.rows, self.error, self.query = rows, error, None
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+    def execute(self, query, params):
+        if self.error:
+            raise self.error
+        self.query = (query, params)
+        return self
+
+    def fetchone(self):
+        return self.rows[0] if self.rows else None
+
+
+def test_load_from_postgres_reads_latest_previous_day():
+    from crew_planner.social import load_from_postgres
+
+    conn = _FakeConnection([(social_doc(8, CREW, W),)])
+    snap = load_from_postgres(9, {"POSTGRES_PASSWORD": "x"}, connect=lambda **kw: conn)
+    assert snap.day == 8 and snap.weight("A1", "A2") == 0.6
+    assert "day < %s" in conn.query[0] and conn.query[1] == (9,)
+
+
+def test_load_from_postgres_without_data():
+    from crew_planner.social import load_from_postgres
+
+    assert load_from_postgres(9, {}, connect=lambda **kw: _FakeConnection([])) is None
+
+    class UndefinedTable(Exception):
+        pass
+
+    missing = _FakeConnection([], error=UndefinedTable("no existe social_graph"))
+    assert load_from_postgres(9, {}, connect=lambda **kw: missing) is None
+    with pytest.raises(ConnectionError):
+        load_from_postgres(9, {}, connect=lambda **kw: _FakeConnection([], error=ConnectionError("caída")))
