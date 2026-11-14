@@ -5,9 +5,14 @@ Un aviso nunca se dispara por un único dato aislado:
 - C1 Desviación aguda: un campo crítico empeora más de 2σ respecto a su línea
   base tres días seguidos.
 - C2 Deterioro progresivo: pendiente móvil de empeoramiento sostenida en la
-  ventana de 14 o de 30 días, aunque el valor diario no cruce el umbral.
-- C3 Combinación de señales: al menos tres campos empeoran más de 1σ el mismo
-  día, sin que ninguno cruce 2σ por sí solo.
+  ventana de 14 o de 30 días, aunque el valor diario no cruce el umbral. Para no
+  confundir ruido con tendencia se exige que la pendiente sea estadísticamente
+  clara (t >= 2,5), positiva en las dos mitades de la ventana y que la media de
+  los últimos 7 días ya empeore al menos 0,5σ.
+- C3 Combinación de señales: al menos tres campos, de al menos dos áreas, con un
+  empeoramiento medio de 1σ o más en los últimos 3 días, sin que ninguno supere
+  2σ. Se usa la media de 3 días porque con 20 campos diarios siempre habría
+  alguno por encima de 1σ por azar.
 - C4 Similitud histórica: preparado y desactivado (ENABLE_HISTORICAL_VECTOR_MATCH).
   Requiere vectores de misiones anteriores etiquetados; no se simula.
 
@@ -28,13 +33,17 @@ from colapso.vector import FIELDS, deterioration
 C1_SIGMA = 2.0
 C1_DAYS = 3
 C2_WINDOWS = ((14, 0.08, 10), (30, 0.04, 20))  # (días, pendiente mínima σ/día, puntos mínimos)
+C2_MIN_T = 2.5
+C2_RECENT_SIGMA = 0.5
 C3_SIGMA = 1.0
+C3_DAYS = 3
 C3_MIN_FIELDS = 3
+C3_MIN_AREAS = 2
 
 REFERENCES = {
     "C1": "±2σ respecto a la línea base individual durante 3 días seguidos (README §2.B)",
     "C2": "Pendiente móvil sostenida a 14 o 30 días (README §2.B)",
-    "C3": "Empeoramiento simultáneo de varias señales, ninguna sobre 2σ (README §2.B)",
+    "C3": "Empeoramiento simultáneo (media de 3 días ≥ 1σ) de varias señales de dos o más áreas, ninguna sobre 2σ (README §2.B)",
     "C4": "Similitud coseno con estados históricos, pgvector (README §2.B, función futura)",
 }
 
@@ -97,6 +106,11 @@ def evaluate(history: Mapping[date, Sequence[float]], today: date, mission_day: 
             slope, n = rolling_slope(pts)
             if n < min_points or math.isnan(slope) or slope < min_slope:
                 continue
+            if _t_stat(pts, slope) < C2_MIN_T:
+                continue
+            recent = [y for _, y in pts[-7:] if not math.isnan(y)]
+            if not recent or sum(recent) / len(recent) < C2_RECENT_SIGMA:
+                continue
             half = days // 2
             first, n1 = rolling_slope(pts[:half])
             second, n2 = rolling_slope(pts[half:])
@@ -113,20 +127,42 @@ def evaluate(history: Mapping[date, Sequence[float]], today: date, mission_day: 
             break
 
     # C3
-    today_vals = {f.name: deterioration(f, history[today][f.index]) for f in FIELDS}
-    worsening = sorted(n for n, v in today_vals.items() if not math.isnan(v) and C3_SIGMA < v <= C1_SIGMA)
-    if len(worsening) >= C3_MIN_FIELDS and not in_adaptation:
-        areas = sorted({next(f.area for f in FIELDS if f.name == n) for n in worsening})
+    recent_mean = {}
+    for f in FIELDS:
+        s = _series(history, f.index)
+        vals = [s.get(today - timedelta(days=k), math.nan) for k in range(C3_DAYS)]
+        vals = [v for v in vals if not math.isnan(v)]
+        if len(vals) == C3_DAYS:
+            recent_mean[f.name] = sum(vals) / len(vals)
+    worsening = sorted(n for n, v in recent_mean.items() if C3_SIGMA <= v <= C1_SIGMA)
+    areas = sorted({next(f.area for f in FIELDS if f.name == n) for n in worsening})
+    if len(worsening) >= C3_MIN_FIELDS and len(areas) >= C3_MIN_AREAS and not in_adaptation:
         for area in areas:
             result.alerts.append(Alert("C3", area, tuple(worsening), {
-                "fields": {n: round(today_vals[n], 2) for n in worsening},
-                "threshold_sigma": C3_SIGMA, "min_fields": C3_MIN_FIELDS,
+                "fields": {n: round(recent_mean[n], 2) for n in worsening},
+                "threshold_sigma": C3_SIGMA, "days": C3_DAYS, "min_fields": C3_MIN_FIELDS,
             }, REFERENCES["C3"]))
 
     result.c4 = {"enabled": historical_match_enabled(), "status": "disabled"}
     if historical_match_enabled():
         result.c4["status"] = "insufficient_history"
     return result
+
+
+def _t_stat(points: Sequence[tuple[int, float]], slope: float) -> float:
+    """t de la pendiente por mínimos cuadrados (pendiente / error típico)."""
+    valid = [(x, y) for x, y in points if not math.isnan(y)]
+    n = len(valid)
+    if n < 3:
+        return 0.0
+    mx = sum(x for x, _ in valid) / n
+    my = sum(y for _, y in valid) / n
+    sxx = sum((x - mx) ** 2 for x, _ in valid)
+    resid = sum((y - (my + slope * (x - mx))) ** 2 for x, y in valid)
+    if sxx == 0:
+        return 0.0
+    se = math.sqrt(resid / (n - 2) / sxx) if resid > 0 else 1e-9
+    return slope / se
 
 
 def c4_query(limit: int = 5) -> str:

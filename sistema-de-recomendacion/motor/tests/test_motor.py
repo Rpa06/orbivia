@@ -53,11 +53,31 @@ def test_c2_progressive_deterioration_over_14_days():
 
 
 def test_c3_combined_signals_below_threshold():
-    h = history(1, sleep_duration_z=lambda k: -1.4, checkin_mood_z=lambda k: -1.3,
+    h = history(3, sleep_duration_z=lambda k: -1.4, checkin_mood_z=lambda k: -1.3,
                 social_centrality_z=lambda k: -1.6)
     ev = alerts.evaluate(h, TODAY, 40, 10)
     c3 = [a for a in ev.alerts if a.criterion == "C3"]
     assert {a.area for a in c3} == {"fatigue_sleep", "psychological", "social_team"}
+
+
+def test_c3_needs_three_days_and_two_areas():
+    one_day = history(3, sleep_duration_z=lambda k: -1.5 if k == 2 else 0.0, checkin_mood_z=lambda k: -1.5 if k == 2 else 0.0,
+                      social_centrality_z=lambda k: -1.5 if k == 2 else 0.0)
+    assert not [a for a in alerts.evaluate(one_day, TODAY, 40, 10).alerts if a.criterion == "C3"]
+    one_area = history(3, grip_strength_z=lambda k: -1.5, spo2_z=lambda k: -1.5, sleep_hrv_z=lambda k: -1.5)
+    assert not [a for a in alerts.evaluate(one_area, TODAY, 40, 10).alerts if a.criterion == "C3"]
+
+
+def test_noise_rarely_alerts():
+    """Con ruido N(0,1) en los 20 campos, casi nunca hay avisos (sin tendencias reales)."""
+    import random
+    rng = random.Random(3)
+    days = [TODAY - timedelta(days=29 - k) for k in range(30)]
+    total = 0
+    for trial in range(20):
+        h = {d: tuple(rng.gauss(0, 1) for _ in range(N_FIELDS)) for d in days}
+        total += len(alerts.evaluate(h, TODAY, 40, 10).alerts)
+    assert total <= 6  # menos de un aviso cada tres tripulantes-día con ruido puro
 
 
 def test_isolated_value_never_alerts():

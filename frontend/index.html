@@ -4,12 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Orbivia</title>
+    <link rel="stylesheet" href="/assets/app.css">
   </head>
   <body>
-    <main>
-      <h1>Orbivia</h1>
-      <p>La infraestructura está desplegada. La interfaz de producto aún no está implementada.</p>
-      <p><a href="/api/health/live">Comprobar API</a></p>
-    </main>
+    <header class="topbar">
+      <div class="brand"><span class="logo" aria-hidden="true"></span>Orbivia</div>
+      <div id="demo-bar" class="demo-bar" hidden>
+        <span class="pill warn">Datos simulados</span>
+        <span id="mission-info" class="muted"></span>
+        <span id="who" class="pill"></span>
+        <button id="btn-collapse" class="ghost small" hidden title="POST /api/v1/ops/trigger-daily-collapse">Ejecutar colapso diario</button>
+        <button id="btn-logout" class="ghost small">Salir</button>
+      </div>
+    </header>
+    <nav id="tabs" class="tabs" hidden></nav>
+    <main id="view" class="view"></main>
+    <footer class="foot muted">
+      Orbivia no diagnostica ni trata enfermedades. Propone; la decisión final es siempre de una persona.
+    </footer>
+    <script type="module" src="/assets/app.js"></script>
   </body>
 </html>

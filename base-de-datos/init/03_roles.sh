@@ -52,6 +52,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA operations TO orbiv
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA biometrics, operations TO orbivia_engine;
 -- Las líneas base terrestres solo se insertan antes de la misión (seed, como administrador)
 REVOKE UPDATE, DELETE ON biometrics.baselines FROM orbivia_engine;
+-- Los servicios de sueño y grafo social son dueños de sus tablas (ejecutan su propio DDL idempotente)
+ALTER TABLE biometrics.sleep_session_summary OWNER TO orbivia_engine;
+ALTER TABLE biometrics.social_graph_daily_result OWNER TO orbivia_engine;
+ALTER TABLE biometrics.social_graph_checkpoint OWNER TO orbivia_engine;
+GRANT SELECT ON biometrics.sleep_session_summary, biometrics.social_graph_daily_result TO orbivia_api;
 
 -- orbivia_cycle ----------------------------------------------------------------
 GRANT USAGE ON SCHEMA private_cycle TO orbivia_cycle;

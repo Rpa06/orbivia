@@ -153,6 +153,11 @@ def ensure_adaptation_baseline(conn, astronaut: str, day: date, mission: dict) -
         if len(values) < 2:
             continue
         b = baseline_from(values, "adaptation")
+        # Con 2-3 días la desviación se subestima: nunca menor que la terrestre
+        terr = conn.execute("SELECT sd FROM biometrics.baselines WHERE astronaut_id = %s AND kind = 'terrestrial' "
+                            "AND variable = %s", (astronaut, variable)).fetchone()
+        if terr and terr[0] > b.sd:
+            b = Baseline(b.mean, terr[0], b.p05, b.p50, b.p95, b.n, "adaptation")
         conn.execute(
             "INSERT INTO biometrics.baselines (astronaut_id, kind, variable, mean, sd, p05, p50, p95, n, source) "
             "VALUES (%s, 'adaptation', %s, %s, %s, %s, %s, %s, %s, 'derived') ON CONFLICT DO NOTHING",
@@ -364,27 +369,41 @@ PLANNER_FROM = {
 }
 
 
+def _latest(conn, sql: str, astronaut: str, day: date):
+    """Valor de hoy o, si aún no existe (check-in pendiente), el de ayer con su antigüedad.
+
+    Devuelve (valor, horas antes de la medianoche del día planificado) o None. La
+    vigencia del planificador es de 24 h: un dato de ayer por la mañana sigue valiendo."""
+    row = conn.execute(sql, (astronaut, day)).fetchone()
+    if row and row[0] is not None:
+        return row[0], 2.0
+    row = conn.execute(sql, (astronaut, day - timedelta(days=1))).fetchone()
+    if row and row[0] is not None:
+        return row[0], 15.0
+    return None
+
+
 def _planner_states(conn, day: date, crew: list[str]) -> tuple[dict, dict]:
     states, baselines = {}, {}
+    measurement = ("SELECT value FROM biometrics.measurements WHERE astronaut_id = %s AND cycle_date = %s "
+                   "AND variable = '{}'")
     for a in crew:
-        s: dict[str, float] = {}
+        s: dict[str, Any] = {}
         for p, var in PLANNER_FROM.items():
-            row = conn.execute("SELECT value FROM biometrics.measurements WHERE astronaut_id = %s AND cycle_date = %s "
-                               "AND variable = %s", (a, day, var)).fetchone()
-            if row:
-                s[p] = row[0]
-        row = conn.execute("SELECT value FROM biometrics.measurements WHERE astronaut_id = %s AND cycle_date = %s "
-                           "AND variable = 'sleep_efficiency'", (a, day)).fetchone()
-        if row:
-            s["sleep_quality"] = row[0] * 100 if row[0] <= 1 else row[0]
-        row = conn.execute("SELECT lapses FROM biometrics.pvt_results WHERE astronaut_id = %s AND cycle_date = %s",
-                           (a, day)).fetchone()
-        if row:
-            s["pvt_lapses"] = row[0]
-        row = conn.execute("SELECT fatigue FROM biometrics.checkins WHERE astronaut_id = %s AND cycle_date = %s",
-                           (a, day)).fetchone()
-        if row:
-            s["fatigue_self"] = row[0]
+            got = _latest(conn, measurement.format(var), a, day)
+            if got:
+                s[p] = got
+        got = _latest(conn, measurement.format("sleep_efficiency"), a, day)
+        if got:
+            s["sleep_quality"] = (got[0] * 100 if got[0] <= 1 else got[0], got[1])
+        got = _latest(conn, "SELECT lapses FROM biometrics.pvt_results WHERE astronaut_id = %s AND cycle_date = %s",
+                      a, day)
+        if got:
+            s["pvt_lapses"] = got
+        got = _latest(conn, "SELECT fatigue FROM biometrics.checkins WHERE astronaut_id = %s AND cycle_date = %s",
+                      a, day)
+        if got:
+            s["fatigue_self"] = got
         row = conn.execute("SELECT coalesce(sum(coalesce(actual_h, planned_h)), 0) FROM operations.worked_hours "
                            "WHERE astronaut_id = %s AND work_date BETWEEN %s AND %s",
                            (a, day - timedelta(days=3), day - timedelta(days=1))).fetchone()
@@ -423,8 +442,12 @@ def generate_plans(conn, day: date, force: bool = False) -> dict[str, Any]:
         (day, doc["status"], json.dumps(doc.get("original")), json.dumps(doc.get("notes", []) + (
             [c["summary"] for c in doc.get("conflicts", [])] if doc["status"] != "ok" else [])),
          json.dumps(doc.get("weekly_limits", []))))
+    # Las tareas aplazadas también quedan en el registro del día
+    if doc.get("deferred_tasks"):
+        conn.execute("UPDATE operations.plan_runs SET notes = notes || %s::jsonb WHERE plan_date = %s",
+                     (json.dumps([{"deferred_tasks": doc["deferred_tasks"]}]), day))
     for plan in doc.get("plans", []):
         conn.execute("INSERT INTO operations.plans (plan_date, option_id, label, payload) VALUES (%s, %s, %s, %s)",
                      (day, plan["option"]["id"], plan["option"]["label"], json.dumps(plan)))
     return {"status": doc["status"], "plans": [p["option"]["id"] for p in doc.get("plans", [])],
-            "notes": doc.get("notes", [])}
+            "notes": doc.get("notes", []), "deferred_tasks": doc.get("deferred_tasks", [])}

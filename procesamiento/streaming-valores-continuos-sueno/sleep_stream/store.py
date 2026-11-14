@@ -60,7 +60,13 @@ class MemoryStore:
 
 
 _SCHEMA_SQL = """
-CREATE SCHEMA IF NOT EXISTS biometrics;
+-- El esquema lo crea base-de-datos/init; solo se crea aquí si falta (sin pedir
+-- privilegios de CREATE sobre la base de datos al rol del servicio).
+DO $$ BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_namespace WHERE nspname = 'biometrics') THEN
+        CREATE SCHEMA biometrics;
+    END IF;
+END $$;
 CREATE TABLE IF NOT EXISTS biometrics.sleep_session_summary (
     astronaut_id text NOT NULL,
     sleep_session_id text NOT NULL,

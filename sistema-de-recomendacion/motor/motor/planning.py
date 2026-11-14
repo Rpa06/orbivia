@@ -18,6 +18,7 @@ Interfaces preparadas para ampliar (no activas en la demo):
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
+from dataclasses import replace
 from typing import Any
 
 from crew_planner.catalog import load_catalog, planner_tasks_for_day
@@ -59,10 +60,13 @@ def _crew(environment: str, catalog, day: int, states: Mapping[str, Mapping[str,
         bad = {k for k in state if any(word in k for word in FORBIDDEN_STATE)}
         if bad:
             raise ValueError(f"Parámetros no admitidos en el planificador: {sorted(bad)}")
-        measurements = [
-            Measurement(p, float(state[p]), ref - 2 * H, source)
-            for p in STATE_PARAMETERS if state.get(p) is not None
-        ]
+        measurements = []
+        for p in STATE_PARAMETERS:
+            raw = state.get(p)
+            if raw is None:
+                continue
+            value, age_h = raw if isinstance(raw, tuple) else (raw, 2.0)
+            measurements.append(Measurement(p, float(value), ref - age_h * H, source))
         base = [Baseline(p, m, s) for p, (m, s) in (baselines.get(a) or {}).items() if p in BASELINE_PARAMETERS]
         unavailable = []
         if exercise.get(a):
@@ -100,6 +104,34 @@ def build_problem(environment: str, day: int, states, baselines, exercise, worke
         for l in limits
     ]
     return PlanningInput(day=day, crew=tuple(crew), tasks=tuple(tasks)), limits_doc
+
+
+# Actividades planificadas de la misión que se pueden posponer si nadie está en
+# condiciones: aplazarlas reduce el riesgo. El mantenimiento y la seguridad
+# recurrentes (soporte vital, limpieza, emergencias) nunca se aplazan solos.
+DEFERRABLE_PLANNED = frozenset({"exploration", "science", "infrastructure", "operations"})
+
+
+def _deferrable(task_doc: Mapping) -> bool:
+    if not task_doc.get("safety_critical"):
+        return True
+    planned = (task_doc.get("frequency") or {}).get("kind") == "mission_specific"
+    return planned and task_doc.get("category") in DEFERRABLE_PLANNED
+
+
+def _defer_uncoverable(problem: PlanningInput, doc: Document, environment: str) -> tuple[PlanningInput, list[Document]]:
+    catalog = load_catalog()
+    docs = {t["task_id"]: t for t in catalog.environment_tasks(environment)}
+    blocked = {tid for c in doc.get("conflicts", []) for tid in c.get("tasks", [])}
+    deferred, tasks = [], []
+    for t in problem.tasks:
+        base = (t.category or t.id).split(":")[0]
+        if t.id in blocked and t.mandatory and base in docs and _deferrable(docs[base]):
+            tasks.append(replace(t, mandatory=False))
+            deferred.append({"task": t.id, "name": t.name, "safety_critical": bool(docs[base]["safety_critical"])})
+        else:
+            tasks.append(t)
+    return replace(problem, tasks=tuple(tasks)), deferred
 
 
 def _assignments(plan: Document) -> dict[str, tuple[str, ...]]:
@@ -174,6 +206,18 @@ def generate(environment: str, day: int, states, baselines, exercise, worked_las
     original = original if original.get("status") == "ok" else None
 
     doc = plan_options(problem, config)
+    deferred: list[Document] = []
+    if doc.get("status") != "ok":
+        # Ninguna restricción se relaja. Solo se proponen como aplazables las tareas que
+        # nadie puede hacer hoy y que no son críticas para la seguridad; la tripulación
+        # decide si acepta el aplazamiento al elegir o rechazar los planes.
+        problem, deferred = _defer_uncoverable(problem, doc, environment)
+        if deferred:
+            doc = plan_options(problem, config)
+            doc.setdefault("notes", []).insert(0, "Propuesta con tareas aplazadas porque hoy nadie cumple sus "
+                                               "requisitos: " + ", ".join(d["name"] for d in deferred)
+                                               + ". Requiere aceptación de la tripulación.")
+    doc["deferred_tasks"] = deferred
     doc["weekly_limits"] = limits
     doc["social_graph_used"] = False
     if doc.get("status") != "ok":
