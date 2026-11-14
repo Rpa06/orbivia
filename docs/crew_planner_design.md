@@ -284,7 +284,17 @@ Límite conocido: la enumeración de equipos crece de forma combinatoria. Con m�
 
 La etapa 3 da una garantía que se puede enunciar: **la inclusión nunca empeora el coste operativo más de un 5 %**, y nunca cambia qué tareas se cubren. Es el método ε-restricción, estándar en optimización multiobjetivo.
 
-Modo alternativo `weighted`: una sola resolución de la suma del enunciado, más un término de tareas no cubiertas. Se mantiene para comparar.
+Modo alternativo `weighted`: una sola resolución de la suma del enunciado, más un término de tareas no cubiertas (`stages.uncovered_penalty × I_j`). Se mantiene para comparar.
+
+Detalles de la implementación (Fase 4):
+
+- **ε sobre una cantidad positiva.** La compatibilidad puede restar coste, así que `Z_op*` puede ser negativo y `(1 + ε) · Z_op*` sería más estricto que el óptimo. La cota se aplica a `Z_op + F`, con `F = Σ γ · I_j · (1 − K_ref)` sobre las tareas colectivas cubiertas, que es la mayor rebaja posible: `Z_op + F ≤ (1 + ε) · (Z_op* + F)`.
+- **Desempate.** Tras la etapa 3 se fija la inclusión obtenida y se vuelve a minimizar `Z_op`, para no aceptar empeoramientos gratuitos dentro de ε.
+- **Descanso.** Una tarea exigente ocupa, para cada participante, su duración más el descanso mínimo. Así ninguna otra tarea puede empezar antes.
+- **Tramos.** Los inicios van en múltiplos de `slot_min` y la duración se redondea hacia arriba en el modelo: el redondeo siempre reserva tiempo de más, nunca de menos.
+- **Enteros.** CP-SAT trabaja con enteros: los costes se escalan ×10¹². La equidad se discretiza a milésimas de hora; los costes de la salida se recalculan en coma flotante.
+- **Red de seguridad.** Todo plan pasa por un verificador independiente del optimizador (`verify_plan`). Si incumpliera una restricción dura, el sistema lanza un error en vez de devolverlo.
+- **Tiempo límite.** Si el optimizador no responde a tiempo, la salida es `timeout`, no `infeasible`: no haber encontrado solución no prueba que no exista.
 
 ### 5.4 Cuando no hay solución
 
