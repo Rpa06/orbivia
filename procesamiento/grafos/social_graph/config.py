@@ -66,12 +66,13 @@ class Settings:
     layout: str = "spring"
     layout_seed: int = 42
     output_dir: str | None = None
+    heartbeat_file: str | None = None
     # Simulación
     sim_scenario: str = "homogeneous"
     sim_seed: int = 42
     sim_period_s: float = 10.0
     sim_speedup: float = 3600.0
-    sim_days: int | None = None
+    sim_days: int | None = 60
 
     def build_schedule(self) -> FixedSchedule:
         return FixedSchedule(self.blocks, jitter_s=self.schedule_jitter_s, seed=self.schedule_seed)
@@ -169,9 +170,11 @@ def load_settings(env: Mapping[str, str]) -> Settings:
         layout=layout,
         layout_seed=int(number("SG_LAYOUT_SEED", 42)),
         output_dir=env.get("SG_OUTPUT_DIR") or None,
+        heartbeat_file=env.get("SG_HEARTBEAT_FILE") or None,
         sim_scenario=env.get("SG_SIM_SCENARIO") or "homogeneous",
         sim_seed=int(number("SG_SIM_SEED", 42)),
         sim_period_s=number("SG_SIM_SAMPLE_PERIOD_S", 10.0),
         sim_speedup=number("SG_SIM_SPEEDUP", 3600.0),
-        sim_days=int(sim_days) if sim_days else None,
+        # Por defecto 60 días, para que una demo olvidada no llene el disco; 0 = sin límite
+        sim_days=(int(sim_days) or None) if sim_days else 60,
     )

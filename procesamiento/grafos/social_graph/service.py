@@ -7,6 +7,7 @@ y hace que el resultado sea reproducible.
 
 import logging
 import time
+from pathlib import Path
 from collections.abc import Callable, Sequence
 from typing import Any
 
@@ -46,6 +47,7 @@ class SocialGraphService:
         exporter: GraphExporter | None = None,
         recommender: CollaborationRecommender | None = None,
         history_days: int = 60,
+        heartbeat_path: str | Path | None = None,
     ) -> None:
         self.crew = list(crew)
         self.schedule = schedule
@@ -60,6 +62,7 @@ class SocialGraphService:
         self._analyzer = analyzer
         self._exporter = exporter
         self._recommender = recommender
+        self._heartbeat_path = Path(heartbeat_path) if heartbeat_path else None
         self._history_days = history_days
         self.tracker = InteractionTracker(self.crew, schedule, params)
         self.cursor: dict[str, Any] | None = None
@@ -109,11 +112,15 @@ class SocialGraphService:
 
     def checkpoint(self) -> None:
         self.store.save_checkpoint(self.state())
+        # Latido para el healthcheck: el servicio está sano si sigue guardando su estado
+        if self._heartbeat_path is not None:
+            self._heartbeat_path.touch()
 
     # --- bucle ----------------------------------------------------------------
 
     def run(self, should_stop: Callable[[], bool] = lambda: False) -> None:
         self.restore()
+        self.checkpoint()  # comprueba pronto que se puede guardar y da el primer latido
         last_checkpoint = self._clock()
         try:
             for message in self.source.stream(self.cursor):

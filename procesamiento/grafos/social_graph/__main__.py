@@ -70,6 +70,7 @@ def main() -> None:
         analyzer=IsolationAnalyzer(settings.isolation),
         exporter=GraphExporter(settings.output_dir, settings.layout, settings.layout_seed),
         recommender=CollaborationRecommender(settings.recommender),
+        heartbeat_path=settings.heartbeat_file,
     )
     logger.info(
         "Servicio iniciado: fuente=%s tripulación=%s parámetros=%s",

@@ -88,6 +88,12 @@ def test_invalid_configuration_is_rejected(env):
         load_settings(env)
 
 
+def test_simulation_length_is_bounded_by_default():
+    assert load_settings({}).sim_days == 60
+    assert load_settings({"SG_SIM_DAYS": "5"}).sim_days == 5
+    assert load_settings({"SG_SIM_DAYS": "0"}).sim_days is None  # sin límite
+
+
 def test_time_of_day():
     assert parse_time_of_day("04:00") == 4 * H
     assert parse_time_of_day("23:59") == 23 * H + 59 * 60
