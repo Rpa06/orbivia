@@ -196,13 +196,14 @@ Alternativa configurable: layout circular fijo, donde solo cambia el grosor. Es 
 
 ## 5. Ética y acceso
 
-- El grafo solo se ve en Tierra y por personal autorizado. Los astronautas no acceden a él.
+- **Producto final:** el grafo solo es accesible desde la base de mando en Tierra, por personal autorizado. Los astronautas no acceden a él.
+- **Demo de la hackathon:** el grafo es accesible para cualquiera, sin control de acceso. Es una decisión consciente para la demo y se indicará en el README del módulo.
 - No se usa para repartir tareas ni para juzgar afinidades.
 - No se guardan posiciones ni trayectorias, solo agregados diarios.
 
 **Punto abierto.** Se ha comentado que las recomendaciones del módulo pasarán al modelo de toma de decisiones que sí ven los astronautas. Hay que definir qué sale exactamente de aquí hacia ese modelo: si son pesos por pareja o alertas individuales, entra en conflicto con la restricción anterior. Propuesta: que este módulo no exponga nada al sistema de recomendación hasta acordarlo.
 
-**Limitación conocida.** La API actual no tiene autenticación, así que hoy cualquiera con acceso a la red podría consultar lo que se publique por ella. Para la demo se asume; en un despliegue real haría falta control de acceso.
+**Pendiente para el producto final.** La API actual no tiene autenticación. Restringir el grafo a la base de mando exigirá añadir control de acceso; no afecta al núcleo del módulo, solo a cómo se publica el resultado.
 
 ## 6. Arquitectura
 
