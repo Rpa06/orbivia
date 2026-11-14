@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .isolation import IsolationConfig
 from .params import DAY_S, Params
+from .recommender import RecommenderConfig
 from .schedule import KINDS, FixedSchedule
 
 DEFAULT_CREW = ("A1", "A2", "A3", "A4", "A5", "A6")
@@ -60,6 +61,7 @@ class Settings:
     stream: str = "orbivia:positions"
     checkpoint_every_s: float = 30.0
     isolation: IsolationConfig = field(default_factory=IsolationConfig)
+    recommender: RecommenderConfig = field(default_factory=RecommenderConfig)
     # Grafo para Tierra
     layout: str = "spring"
     layout_seed: int = 42
@@ -129,6 +131,21 @@ def load_settings(env: Mapping[str, str]) -> Settings:
         smooth_days=int(number("SG_SMOOTH_DAYS", iso.smooth_days)),
         min_modularity=number("SG_MIN_MODULARITY", iso.min_modularity),
     )
+    rec = RecommenderConfig()
+    sizes = env.get("SG_REC_GROUP_SIZES")
+    try:
+        group_sizes = tuple(int(x) for x in sizes.split(",")) if sizes else rec.group_sizes
+    except ValueError as error:
+        raise ValueError(f"SG_REC_GROUP_SIZES debe ser una lista de enteros: {sizes!r}") from error
+    if any(size < 2 or size > 3 for size in group_sizes):
+        raise ValueError("SG_REC_GROUP_SIZES solo admite grupos de 2 o 3")
+    recommender = RecommenderConfig(
+        max_per_day=int(number("SG_REC_MAX_PER_DAY", rec.max_per_day)),
+        max_per_person_week=int(number("SG_REC_MAX_PER_PERSON_WEEK", rec.max_per_person_week)),
+        min_window_s=number("SG_REC_MIN_WINDOW_S", rec.min_window_s),
+        max_leisure_fraction=number("SG_REC_MAX_LEISURE_FRACTION", rec.max_leisure_fraction),
+        group_sizes=group_sizes,
+    )
     sim_days = env.get("SG_SIM_DAYS")
     layout = env.get("SG_LAYOUT") or "spring"
     if layout not in ("spring", "circular"):
@@ -148,6 +165,7 @@ def load_settings(env: Mapping[str, str]) -> Settings:
         stream=env.get("SG_STREAM") or "orbivia:positions",
         checkpoint_every_s=number("SG_CHECKPOINT_EVERY_S", 30.0),
         isolation=isolation,
+        recommender=recommender,
         layout=layout,
         layout_seed=int(number("SG_LAYOUT_SEED", 42)),
         output_dir=env.get("SG_OUTPUT_DIR") or None,

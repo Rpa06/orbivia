@@ -15,7 +15,8 @@ from .daily import close_day
 from .graph import GraphExporter
 from .isolation import IsolationAnalyzer
 from .params import Params
-from .schedule import Schedule
+from .recommender import CollaborationRecommender
+from .schedule import Schedule, day_window, leisure
 from .sources import SampleSource
 from .store import Document, Store
 from .tracker import InteractionTracker
@@ -43,6 +44,7 @@ class SocialGraphService:
         on_day_closed: Sequence[DayHook] = (),
         analyzer: IsolationAnalyzer | None = None,
         exporter: GraphExporter | None = None,
+        recommender: CollaborationRecommender | None = None,
         history_days: int = 60,
     ) -> None:
         self.crew = list(crew)
@@ -57,6 +59,7 @@ class SocialGraphService:
         self._hooks = list(on_day_closed)
         self._analyzer = analyzer
         self._exporter = exporter
+        self._recommender = recommender
         self._history_days = history_days
         self.tracker = InteractionTracker(self.crew, schedule, params)
         self.cursor: dict[str, Any] | None = None
@@ -195,6 +198,16 @@ class SocialGraphService:
             history = [d for d in history if d["day"] < day and d["crew"] == self.crew]
         if self._analyzer is not None:
             document["isolation"] = self._analyzer.analyze(history + [document])[-1]
+        if self._recommender is not None and "isolation" in document:
+            # Propuestas para el día siguiente, con los horarios de ese día
+            window = day_window(day + 1, self.params.day_cutoff_s)
+            past = [p for d in history for p in d.get("recommendations", {}).get("proposals", [])]
+            document["recommendations"] = self._recommender.recommend(
+                document["isolation"],
+                {a: leisure(self.schedule, a, window) for a in self.crew},
+                target_day=day + 1,
+                history=past,
+            )
         if self._exporter is not None:
             previous = history[-1].get("graph") if history else None
             document["graph"] = self._exporter.export(document, previous)

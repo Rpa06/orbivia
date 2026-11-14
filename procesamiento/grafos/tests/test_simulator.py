@@ -22,11 +22,13 @@ PERIOD = 60.0
 PARAMS = Params(max_gap_s=120.0)
 
 
-def simulate(name: str, days: int, seed: int = 1, analyzer=None) -> list[dict]:
+def simulate(name: str, days: int, seed: int = 1, analyzer=None, recommender=None) -> list[dict]:
     scenario = build_scenario(name, CREW, seed)
     source = SimulationSource(PositionSimulator(scenario, seed), PERIOD, 0, n_days=days, idle=False)
     store = MemoryStore()
-    SocialGraphService(CREW, scenario.schedule, PARAMS, source, store, analyzer=analyzer).run()
+    SocialGraphService(
+        CREW, scenario.schedule, PARAMS, source, store, analyzer=analyzer, recommender=recommender
+    ).run()
     return store.load_days()
 
 

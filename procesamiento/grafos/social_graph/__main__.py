@@ -7,6 +7,7 @@ import signal
 from .config import Settings, load_settings
 from .graph import GraphExporter
 from .isolation import IsolationAnalyzer
+from .recommender import CollaborationRecommender
 from .schedule import Schedule
 from .service import SocialGraphService
 from .simulator import PositionSimulator, SimulationSource, build_scenario
@@ -68,6 +69,7 @@ def main() -> None:
         checkpoint_every_s=settings.checkpoint_every_s,
         analyzer=IsolationAnalyzer(settings.isolation),
         exporter=GraphExporter(settings.output_dir, settings.layout, settings.layout_seed),
+        recommender=CollaborationRecommender(settings.recommender),
     )
     logger.info(
         "Servicio iniciado: fuente=%s tripulación=%s parámetros=%s",

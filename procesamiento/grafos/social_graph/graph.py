@@ -198,6 +198,8 @@ def export_graph(doc: Document, positions: Positions) -> Document:
         "nodes": nodes,
         "edges": edges,
         "masked_pairs": masked,
+        # Propuestas de actividades voluntarias para el día siguiente, a revisar
+        "recommendations": doc.get("recommendations"),
         "crew": {
             "drop": isolation.get("crew", {}).get("drop"),
             "score": isolation.get("crew", {}).get("score"),
