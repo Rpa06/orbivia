@@ -21,6 +21,16 @@ from .schedule import Schedule, day_index, day_window, leisure, split_by_day
 from .validation import PositionSample, pair_distances, pair_key
 
 Pair = tuple[str, str]
+_SEP = "|"
+
+
+def _pair_to_str(pair: Pair) -> str:
+    return _SEP.join(pair)
+
+
+def _pair_from_str(text: str) -> Pair:
+    a, b = text.split(_SEP)
+    return (a, b)
 
 
 @dataclass
@@ -32,6 +42,26 @@ class DayTotals:
     leisure_observed: dict[str, float] = field(default_factory=lambda: defaultdict(float))
     accompanied: dict[str, float] = field(default_factory=lambda: defaultdict(float))
     n_samples: int = 0
+
+    def to_state(self) -> dict:
+        return {
+            "interaction": {_pair_to_str(k): v for k, v in self.interaction.items()},
+            "overlap_observed": {_pair_to_str(k): v for k, v in self.overlap_observed.items()},
+            "leisure_observed": dict(self.leisure_observed),
+            "accompanied": dict(self.accompanied),
+            "n_samples": self.n_samples,
+        }
+
+    @classmethod
+    def from_state(cls, state: dict) -> "DayTotals":
+        totals = cls(n_samples=state["n_samples"])
+        totals.interaction.update({_pair_from_str(k): v for k, v in state["interaction"].items()})
+        totals.overlap_observed.update(
+            {_pair_from_str(k): v for k, v in state["overlap_observed"].items()}
+        )
+        totals.leisure_observed.update(state["leisure_observed"])
+        totals.accompanied.update(state["accompanied"])
+        return totals
 
 
 @dataclass
@@ -55,6 +85,8 @@ class InteractionTracker:
     def __init__(self, crew: Sequence[str], schedule: Schedule, params: Params) -> None:
         if len(set(crew)) != len(crew):
             raise ValueError("Identificadores de astronauta repetidos")
+        if any(_SEP in a for a in crew):
+            raise ValueError(f"Los identificadores no pueden contener '{_SEP}'")
         self.crew = list(crew)
         self.schedule = schedule
         self.params = params
@@ -75,6 +107,11 @@ class InteractionTracker:
         if self.last_sample_t is None:
             return None
         return day_index(self.last_sample_t, self.params.day_cutoff_s)
+
+    @property
+    def closed_through(self) -> int | None:
+        """Último día cerrado, o None si aún no se ha cerrado ninguno."""
+        return self._closed_through
 
     def open_days(self) -> list[int]:
         return sorted(self._days)
@@ -200,3 +237,45 @@ class InteractionTracker:
             if not self._is_closed(pending_day):
                 self._day(pending_day).interaction[pair] += seconds
         state.pending = {}
+
+    # --- estado para checkpoint -----------------------------------------------
+
+    def to_state(self) -> dict:
+        """Estado completo en tipos compatibles con JSON."""
+        return {
+            "last_sample_t": self.last_sample_t,
+            "n_discarded": self.n_discarded,
+            "closed_through": self._closed_through,
+            "last_seen": dict(self._last_seen),
+            "pairs": {
+                _pair_to_str(pair): {
+                    "last_t": st.last_t,
+                    "in_contact": st.in_contact,
+                    "dwell_s": st.dwell_s,
+                    "pending": {str(day): s for day, s in st.pending.items()},
+                }
+                for pair, st in self._pairs.items()
+            },
+            "days": {str(day): totals.to_state() for day, totals in self._days.items()},
+        }
+
+    @classmethod
+    def from_state(
+        cls, crew: Sequence[str], schedule: Schedule, params: Params, state: dict
+    ) -> "InteractionTracker":
+        tracker = cls(crew, schedule, params)
+        tracker.last_sample_t = state["last_sample_t"]
+        tracker.n_discarded = state["n_discarded"]
+        tracker._closed_through = state["closed_through"]
+        tracker._last_seen = {a: t for a, t in state["last_seen"].items() if a in tracker.crew}
+        for text, st in state["pairs"].items():
+            pair = _pair_from_str(text)
+            if pair in tracker._pairs:
+                tracker._pairs[pair] = PairState(
+                    last_t=st["last_t"],
+                    in_contact=st["in_contact"],
+                    dwell_s=st["dwell_s"],
+                    pending={int(day): s for day, s in st["pending"].items()},
+                )
+        tracker._days = {int(day): DayTotals.from_state(t) for day, t in state["days"].items()}
+        return tracker

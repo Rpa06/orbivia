@@ -12,7 +12,8 @@ ausencia de relación:
 import logging
 import math
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass, fields
+from typing import Any
 
 import numpy as np
 
@@ -62,6 +63,24 @@ class DayResult:
     # Calidad de datos
     n_samples: int
     bound_violations: int
+
+    def to_dict(self) -> dict[str, Any]:
+        """Documento JSON para el histórico. Los valores no definidos van como null."""
+        skip = {"params", "n_samples", "bound_violations"}
+        doc = {f.name: _jsonable(getattr(self, f.name)) for f in fields(self) if f.name not in skip}
+        doc["params"] = asdict(self.params)
+        doc["quality"] = {"n_samples": self.n_samples, "bound_violations": self.bound_violations}
+        return doc
+
+
+def _jsonable(value: Any) -> Any:
+    if isinstance(value, np.ndarray):
+        return _jsonable(value.tolist())
+    if isinstance(value, list):
+        return [_jsonable(v) for v in value]
+    if isinstance(value, float) and math.isnan(value):
+        return None
+    return value
 
 
 def _pair_status(
