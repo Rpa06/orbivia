@@ -46,7 +46,11 @@ def test_apply_weekly_limits_and_planner_respects_them(config):
 def test_specialized_science_is_never_reassigned():
     crew = {"A1": ["payload_operations"], "A2": ["payload_operations", "eva_certified"]}
     science = {"task_id": "S1", "category": "science", "technical_requirements": ["payload_operations"]}
-    assert specialist_owner(science, crew) == "A1"
+    owner = specialist_owner(science, crew)
+    assert owner in crew and specialist_owner(science, crew) == owner  # estable
+    eva = {"task_id": "S2", "technical_requirements": ["eva_certified"]}
+    assert specialist_owner(eva, crew) == "A2"  # único cualificado
+    assert specialist_owner({"task_id": "S3", "technical_requirements": ["geology"]}, crew) is None
     tasks = [Task.from_dict(task("S1", requirements=[])), Task.from_dict(task("M1", requirements=[]))]
     locked = lock_specialized(tasks, {"S1": "science", "M1": "maintenance"}, {"S1": "A1"})
     assert locked[0].only_for == frozenset({"A1"})

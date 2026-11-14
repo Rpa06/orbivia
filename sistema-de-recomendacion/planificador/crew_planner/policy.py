@@ -14,6 +14,7 @@
 Estas funciones son deterministas y no usan el grafo social.
 """
 
+import zlib
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, replace
 
@@ -79,14 +80,17 @@ def apply_weekly_limits(
 
 
 def specialist_owner(task: Mapping, crew: Mapping[str, Iterable[str]]) -> str | None:
-    """Responsable fijo de una tarea especializada: el primer astronauta (por id)
-    con todas las cualificaciones que pide. Es una convención documentada de la
-    demo: el catálogo no trae el responsable de cada experimento."""
+    """Responsable fijo de una tarea especializada entre quienes tienen todas las
+    cualificaciones que pide, elegido de forma estable por el id de la tarea
+    (CRC32), para repartir los experimentos entre especialistas. Es una convención
+    documentada de la demo: el catálogo no trae el responsable de cada experimento.
+    No depende del estado del día: el responsable no cambia aunque cambie el estado."""
     needed = set(task.get("technical_requirements") or ())
-    for astronaut_id in sorted(crew):
-        if needed <= set(crew[astronaut_id]):
-            return astronaut_id
-    return None
+    qualified = sorted(a for a in crew if needed <= set(crew[a]))
+    if not qualified:
+        return None
+    key = str(task.get("task_id", ""))
+    return qualified[zlib.crc32(key.encode()) % len(qualified)]
 
 
 def lock_specialized(
