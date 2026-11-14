@@ -3,25 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Orbivia</title>
+    <title>Orbivia · Salud de la tripulación</title>
     <link rel="stylesheet" href="/assets/app.css">
   </head>
   <body>
-    <header class="topbar">
-      <div class="brand"><span class="logo" aria-hidden="true"></span>Orbivia</div>
-      <div id="demo-bar" class="demo-bar" hidden>
-        <span class="pill warn">Datos simulados</span>
-        <span id="mission-info" class="muted"></span>
-        <span id="who" class="pill"></span>
-        <button id="btn-collapse" class="ghost small" hidden title="POST /api/v1/ops/trigger-daily-collapse">Ejecutar colapso diario</button>
-        <button id="btn-logout" class="ghost small">Salir</button>
-      </div>
-    </header>
-    <nav id="tabs" class="tabs" hidden></nav>
-    <main id="view" class="view"></main>
-    <footer class="foot muted">
-      Orbivia no diagnostica ni trata enfermedades. Propone; la decisión final es siempre de una persona.
-    </footer>
+    <aside class="sidebar" id="sidebar" hidden>
+      <div class="logo"><div class="logo-mark"></div>Orbivia</div>
+      <nav id="nav" aria-label="Secciones"></nav>
+      <div class="orbit" id="orbit"></div>
+    </aside>
+
+    <main>
+      <header class="top" id="top" hidden>
+        <div>
+          <h1 id="title">Orbivia</h1>
+          <p><span id="subtitle"></span> · <span id="clock"></span></p>
+        </div>
+        <div class="mission" id="pills"></div>
+      </header>
+      <div id="view"></div>
+      <footer>Datos simulados de demostración · Orbivia no diagnostica ni trata enfermedades: propone, y la decisión final es siempre de una persona.</footer>
+    </main>
+
+    <div class="toast" id="toast"></div>
     <script type="module" src="/assets/app.js"></script>
   </body>
 </html>

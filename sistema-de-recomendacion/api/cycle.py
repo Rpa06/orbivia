@@ -17,7 +17,7 @@ from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Body, Depends, HTTPException
 
-from .auth import Principal, own_astronaut, require
+from .auth import CREW_ROLES, Principal, own_astronaut, require
 from .common import clean, parse_day
 from .db import transaction
 
@@ -54,13 +54,13 @@ def _entries(conn, astronaut: str) -> list[dict]:
 
 
 @router.get("/entries")
-def list_entries(p: Principal = Depends(require("astronaut"))) -> list[dict]:
+def list_entries(p: Principal = Depends(require(*CREW_ROLES))) -> list[dict]:
     with transaction("cycle") as conn:
         return _entries(conn, own_astronaut(p))
 
 
 @router.post("/entries", status_code=201)
-def add_entry(body: dict = Body(...), p: Principal = Depends(require("astronaut"))) -> dict:
+def add_entry(body: dict = Body(...), p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     day = parse_day(body.get("date"))
     payload = _validate(body)
@@ -72,7 +72,7 @@ def add_entry(body: dict = Body(...), p: Principal = Depends(require("astronaut"
 
 
 @router.delete("/entries")
-def delete_all(p: Principal = Depends(require("astronaut"))) -> dict:
+def delete_all(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     with transaction("cycle") as conn:
         n = conn.execute("DELETE FROM private_cycle.entries WHERE astronaut_id = %s", (astronaut,)).rowcount
@@ -81,7 +81,7 @@ def delete_all(p: Principal = Depends(require("astronaut"))) -> dict:
 
 
 @router.get("/insights")
-def insights(p: Principal = Depends(require("astronaut"))) -> dict:
+def insights(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     """Aviso individualizado a partir de su propio registro: síntomas frecuentes por fase."""
     with transaction("cycle") as conn:
         entries = _entries(conn, own_astronaut(p))
@@ -102,7 +102,7 @@ def insights(p: Principal = Depends(require("astronaut"))) -> dict:
 
 
 @router.post("/share", status_code=201)
-def share(body: dict = Body(...), p: Principal = Depends(require("astronaut"))) -> dict:
+def share(body: dict = Body(...), p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     hours = int(body.get("hours", 24))
     if not 1 <= hours <= MAX_SHARE_H:
         raise HTTPException(status_code=422, detail=f"Entre 1 y {MAX_SHARE_H} horas")
@@ -115,14 +115,14 @@ def share(body: dict = Body(...), p: Principal = Depends(require("astronaut"))) 
 
 
 @router.delete("/share")
-def revoke(p: Principal = Depends(require("astronaut"))) -> dict:
+def revoke(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     with transaction("cycle") as conn:
         conn.execute("DELETE FROM private_cycle.shares WHERE astronaut_id = %s", (own_astronaut(p),))
     return {"status": "revoked"}
 
 
 @router.get("/share")
-def share_status(p: Principal = Depends(require("astronaut"))) -> dict:
+def share_status(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     with transaction("cycle") as conn:
         row = conn.execute("SELECT expires_at FROM private_cycle.shares WHERE astronaut_id = %s AND expires_at > now()",
                            (own_astronaut(p),)).fetchone()

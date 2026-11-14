@@ -49,8 +49,9 @@ def get_plans(date: str, p: Principal = Depends(require("astronaut", "commander"
 
 
 @router.post("/plans/{date}/decision", status_code=201)
-def decide(date: str, body: dict = Body(...), p: Principal = Depends(require("astronaut", "commander"))) -> dict:
-    """La tripulación elige un plan o rechaza los tres. Con motivo privado solo consta 'motivo personal'."""
+def decide(date: str, body: dict = Body(...), p: Principal = Depends(require("commander"))) -> dict:
+    """Solo el comandante elige un plan o rechaza los tres, tras consultar a la tripulación.
+    Con motivo privado solo consta 'motivo personal'."""
     day = parse_day(date)
     decision = body.get("decision")
     if decision not in ("selected", "rejected_all"):

@@ -48,7 +48,7 @@ export async function renderInterview(root) {
       `La próxima entrevista toca dentro de unos días (cada ${iv.interval_days}). Puedes responder igualmente.`),
     h("p", { style: "font-size:1.15rem" }, `«${iv.question}»`),
     h("p", { class: "muted small" }, "Pregunta abierta y neutra. Habla con naturalidad durante unos 45 segundos."),
-    h("button", { onclick: async (e) => {
+    h("button", { class: "btn", onclick: async (e) => {
       e.target.disabled = true;
       try { const { blob } = await record("audio", 45, status); await send("audio", blob, iv.question_id, status); }
       catch (err) { status.textContent = err.message; }
@@ -58,7 +58,7 @@ export async function renderInterview(root) {
   const vstatus = h("p", { class: "muted" });
   root.append(card("Comprobación de fatiga por vídeo (opcional)",
     h("p", { class: "muted small" }, "Solo detecta signos físicos (ojos cerrados, parpadeo lento). No infiere emociones."),
-    h("button", { class: "ghost", onclick: async (e) => {
+    h("button", { class: "btn btn-sec", onclick: async (e) => {
       e.target.disabled = true;
       try { const { blob } = await record("video", 20, vstatus); await send("video", blob, null, vstatus); }
       catch (err) { vstatus.textContent = err.message; }

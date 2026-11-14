@@ -33,7 +33,12 @@ CREATE TABLE vault_identity.users (
     astronaut_id   text REFERENCES vault_identity.astronauts (pseudonym),
     active         boolean NOT NULL DEFAULT true,
     created_at     timestamptz NOT NULL DEFAULT now(),
-    CHECK ((role = 'astronaut') = (astronaut_id IS NOT NULL))
+    -- Astronautas y comandante son tripulantes (el comandante hace su propio check-in);
+    -- el resto de roles no está ligado a ningún tripulante.
+    CONSTRAINT users_crew_link CHECK (
+        (role = 'astronaut' AND astronaut_id IS NOT NULL)
+        OR (role = 'commander')
+        OR (role NOT IN ('astronaut', 'commander') AND astronaut_id IS NULL))
 );
 
 -- ---------------------------------------------------------------- operations

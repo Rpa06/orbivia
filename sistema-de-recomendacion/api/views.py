@@ -19,7 +19,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 
 from colapso.vector import FIELDS, NLP_FIELDS, ACOUSTIC_FIELDS, CHECKIN_FIELDS, schema_document, unpack
 
-from .auth import Principal, current_principal, own_astronaut, require
+from .auth import CREW_ROLES, Principal, current_principal, own_astronaut, require
 from .common import clean, mission, mission_day, parse_day, today
 from .db import transaction
 
@@ -53,7 +53,7 @@ def mission_info(p: Principal = Depends(current_principal)) -> dict:
 
 
 @router.get("/astronaut/dashboard")
-def astronaut_dashboard(p: Principal = Depends(require("astronaut"))) -> dict:
+def astronaut_dashboard(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     day = parse_day(None)
     with transaction("api") as conn:
@@ -65,12 +65,19 @@ def astronaut_dashboard(p: Principal = Depends(require("astronaut"))) -> dict:
                                (astronaut, day)).fetchone()
         vec = conn.execute("SELECT vector, simulated_mask FROM biometrics.daily_vector WHERE astronaut_id = %s "
                            "ORDER BY cycle_date DESC LIMIT 1", (astronaut,)).fetchone()
+        own_alerts = conn.execute(
+            "SELECT cycle_date, criterion, area, variables, reference FROM biometrics.alerts WHERE astronaut_id = %s "
+            "AND cycle_date = (SELECT max(cycle_date) FROM biometrics.alerts WHERE astronaut_id = %s) "
+            "ORDER BY criterion", (astronaut, astronaut)).fetchall()
     from motor.actions import CATALOG
     return clean({
         "astronaut_id": astronaut,
         "availability": [{"date": d, "score": s, "reason": REASON_LABELS.get(r, r)} for d, s, r in avail],
         "recommendations": [{"code": c, **CATALOG.get(c, {}), "since": f, "last_notified": l} for c, f, l in actions],
         "checkin_done_today": checkin is not None,
+        # Sus propios avisos (nunca los de otros tripulantes)
+        "alerts": [{"date": d, "criterion": c, "area": AREA_LABELS[a], "area_key": a, "variables": v, "reference": r}
+                   for d, c, a, v, r in own_alerts],
         # Sus propios datos objetivos; las puntuaciones de texto y voz las interpreta el equipo médico
         "latest_vector": _named(vec[0], set(NLP_FIELDS) | set(ACOUSTIC_FIELDS)) if vec else None,
         "simulated": bool(vec and vec[1]),
@@ -206,10 +213,11 @@ def earth_history(astronaut_id: str = Query(...), days: int = Query(30, ge=1, le
 
 
 @router.get("/recommendations")
-def recommendations(p: Principal = Depends(require("astronaut", "flight_surgeon"))) -> dict:
+def recommendations(p: Principal = Depends(require(*CREW_ROLES, "flight_surgeon"))) -> dict:
+    """El médico ve las de toda la tripulación; cada tripulante (también el comandante), solo las suyas."""
     from motor.actions import CATALOG
     with transaction("api") as conn:
-        if p.role == "astronaut":
+        if p.role in CREW_ROLES:
             rows = conn.execute("SELECT astronaut_id, action_code, first_date, last_notified FROM biometrics.actions "
                                 "WHERE active AND astronaut_id = %s", (own_astronaut(p),)).fetchall()
         else:
@@ -217,6 +225,61 @@ def recommendations(p: Principal = Depends(require("astronaut", "flight_surgeon"
                                 "WHERE active ORDER BY astronaut_id").fetchall()
     return clean({"actions": [{"astronaut_id": a, "code": c, **CATALOG.get(c, {}), "since": f, "last_notified": l}
                               for a, c, f, l in rows]})
+
+
+SERIES_VARIABLES = ("sleep_duration_h", "grip_strength_kg", "spo2_pct", "resting_hr_bpm", "sleep_hrv_ms",
+                    "sleep_heart_rate_bpm", "radiation_mSv_cumulative", "social_centrality", "weight_kg")
+
+
+def _series(conn, astronaut: str, days: int, include_psych: bool) -> dict:
+    since = today() - timedelta(days=days - 1)
+    out: dict = {"astronaut_id": astronaut, "days": days, "measurements": {}, "pvt": [], "availability": []}
+    for d, var, v, src in conn.execute(
+            "SELECT cycle_date, variable, value, source FROM biometrics.measurements WHERE astronaut_id = %s "
+            "AND cycle_date >= %s AND variable = ANY(%s) ORDER BY cycle_date", (astronaut, since, list(SERIES_VARIABLES))):
+        out["measurements"].setdefault(var, []).append({"date": d, "value": round(v, 3), "simulated": src == "simulated"})
+    out["pvt"] = [{"date": d, "mean_rt_ms": rt, "lapses": l} for d, rt, l in conn.execute(
+        "SELECT cycle_date, mean_rt_ms, lapses FROM biometrics.pvt_results WHERE astronaut_id = %s AND cycle_date >= %s "
+        "ORDER BY cycle_date", (astronaut, since))]
+    out["availability"] = [{"date": d, "score": s} for d, s in conn.execute(
+        "SELECT cycle_date, score FROM biometrics.availability WHERE astronaut_id = %s AND cycle_date >= %s "
+        "ORDER BY cycle_date", (astronaut, since))]
+    # Referencia individual (línea base terrestre): p05-p95 para dibujar la banda de normalidad
+    out["baselines"] = {var: {"p05": p05, "p50": p50, "p95": p95} for var, p05, p50, p95 in conn.execute(
+        "SELECT variable, p05, p50, p95 FROM biometrics.baselines WHERE astronaut_id = %s AND kind = 'terrestrial' "
+        "AND (variable = ANY(%s) OR variable IN ('pvt_mean_rt_ms', 'checkin.sleep', 'checkin.fatigue', "
+        "'checkin.workload', 'checkin.mood', 'checkin.cohesion'))", (astronaut, list(SERIES_VARIABLES)))}
+    if include_psych:
+        out["checkins"] = [{"date": d, "sleep": a, "fatigue": b, "workload": c, "mood": m, "cohesion": co}
+                           for d, a, b, c, m, co in conn.execute(
+            "SELECT cycle_date, sleep, fatigue, workload, mood, cohesion FROM biometrics.checkins WHERE astronaut_id = %s "
+            "AND cycle_date >= %s ORDER BY cycle_date", (astronaut, since))]
+    return clean(out)
+
+
+@router.get("/crew/{astronaut_id}/series")
+def crew_series(astronaut_id: str, days: int = Query(30, ge=7, le=120),
+                p: Principal = Depends(require("flight_surgeon", "earth_medical"))) -> dict:
+    """Series diarias en unidades físicas para el equipo médico (sin audio, vídeo, texto ni ciclo)."""
+    with transaction("api") as conn:
+        return _series(conn, astronaut_id, days, include_psych=True)
+
+
+@router.get("/me/series")
+def my_series(days: int = Query(30, ge=7, le=120), p: Principal = Depends(require(*CREW_ROLES))) -> dict:
+    """Las series propias de cada tripulante, también del comandante."""
+    with transaction("api") as conn:
+        return _series(conn, own_astronaut(p), days, include_psych=True)
+
+
+@router.get("/crew/radiation")
+def crew_radiation(p: Principal = Depends(require("flight_surgeon"))) -> dict:
+    with transaction("api") as conn:
+        rows = conn.execute(
+            "SELECT DISTINCT ON (astronaut_id) astronaut_id, value FROM biometrics.measurements "
+            "WHERE variable = 'radiation_mSv_cumulative' ORDER BY astronaut_id, cycle_date DESC").fetchall()
+    return {"reference_limit_mSv": 100, "note": "Límite de referencia ficticio solo para la demo",
+            "doses": [{"astronaut_id": a, "mSv": round(v, 2)} for a, v in rows]}
 
 
 @router.get("/crew/ids")

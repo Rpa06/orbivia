@@ -305,15 +305,15 @@ docker compose up -d --build
 docker compose run --rm seed
 ```
 
-4. Abre http://127.0.0.1:8080. Usuarios: `astro1`…`astro4` (astronautas A1-A4), `surgeon`, `commander`, `earth.medical` y `earth.mission`.
+4. Abre http://127.0.0.1:8080. Usuarios: `commander` (comandante, que además es el tripulante A1), `astro2`…`astro4` (astronautas A2-A4), `surgeon`, `earth.medical` y `earth.mission`.
 
 Guion de demo:
 
 - **Médico** (`surgeon`): avisos con su referencia, auditoría de la nota, acústica (NLP desactivado), historial y ciclo compartido.
-- **Comandante** (`commander`): solo nota y motivo general. Botón «Ejecutar colapso diario» (`POST /api/v1/ops/trigger-daily-collapse`). Elegir un plan.
-- **Astronauta** `astro3`: hacer el check-in y el PVT-B (con `?pvt30` en la URL dura 30 s). Volver a ejecutar el colapso y ver la brecha de autopercepción (C1).
+- **Comandante** (`commander`): disponibilidad de la tripulación (anillos con el motivo general, sin datos psicológicos de otros), **único rol que elige o rechaza el plan** y botón «Ejecutar colapso diario» (`POST /api/v1/ops/trigger-daily-collapse`). Como tripulante A1 tiene también sus funciones personales: estado propio, check-in y PVT-B, entrevista, ejercicio, recomendaciones y registro privado.
+- **Astronauta** `astro3`: hacer el check-in y el PVT-B (con `?pvt30` en la URL dura 30 s). Volver a ejecutar el colapso y ver la brecha de autopercepción (C1). Los astronautas consultan los planes, pero no los eligen.
 - **Astronauta** `astro4`: registro privado del ciclo, aviso individual, compartir 24 h con el médico.
-- **Astronauta** `astro1`: dos omisiones de ejercicio, asistente «si pasa X, haré Y», entrevista de audio.
+- **Comandante como tripulante A1**: dos omisiones de ejercicio, asistente «si pasa X, haré Y», entrevista de audio.
 - **Tierra**: `earth.medical` ve el historial de vectores; `earth.mission`, solo agregados.
 - **Sincronización**: `volumenes/tierra/received.jsonl` contiene lo recibido en Tierra.
 

@@ -19,7 +19,7 @@ from conductual import (
     score_pvt, validate_checkin,
 )
 
-from .auth import Principal, current_principal, own_astronaut, require
+from .auth import CREW_ROLES, Principal, current_principal, own_astronaut, require
 from .common import MEASUREMENT_REGISTRY, PENDING_VALIDATION, mission, mission_day, parse_day, today
 from .db import media_redis, transaction
 
@@ -36,7 +36,7 @@ VIDEO_TYPES = {"video/webm", "video/mp4"}
 
 
 @router.post("/checkin", status_code=201)
-def submit_checkin(body: dict = Body(...), p: Principal = Depends(require("astronaut"))) -> dict:
+def submit_checkin(body: dict = Body(...), p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     day = today()
     try:
@@ -65,7 +65,7 @@ def submit_checkin(body: dict = Body(...), p: Principal = Depends(require("astro
 
 
 @router.post("/pvt", status_code=201)
-def submit_pvt(body: dict = Body(...), p: Principal = Depends(require("astronaut"))) -> dict:
+def submit_pvt(body: dict = Body(...), p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     day = today()
     try:
@@ -86,7 +86,7 @@ def submit_pvt(body: dict = Body(...), p: Principal = Depends(require("astronaut
 
 
 @router.get("/checkin/today")
-def checkin_today(p: Principal = Depends(require("astronaut"))) -> dict:
+def checkin_today(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     day = today()
     with transaction("api") as conn:
@@ -112,7 +112,7 @@ def checkin_today(p: Principal = Depends(require("astronaut"))) -> dict:
 
 
 @router.get("/weekly-double/result")
-def weekly_double_result(p: Principal = Depends(require("astronaut"))) -> dict:
+def weekly_double_result(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     """Solo la comparación propia: nunca las respuestas de otros astronautas."""
     astronaut = own_astronaut(p)
     iso = today().isocalendar()
@@ -132,7 +132,7 @@ def weekly_double_result(p: Principal = Depends(require("astronaut"))) -> dict:
 
 
 @router.post("/exercise", status_code=201)
-def log_exercise(body: dict = Body(...), p: Principal = Depends(require("astronaut"))) -> dict:
+def log_exercise(body: dict = Body(...), p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     day = today()
     done = bool(body.get("done"))
@@ -148,7 +148,7 @@ def log_exercise(body: dict = Body(...), p: Principal = Depends(require("astrona
 
 
 @router.get("/exercise")
-def exercise_history(p: Principal = Depends(require("astronaut"))) -> dict:
+def exercise_history(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     with transaction("api") as conn:
         rows = conn.execute("SELECT cycle_date, done, minutes FROM biometrics.exercise_log WHERE astronaut_id = %s "
@@ -159,7 +159,7 @@ def exercise_history(p: Principal = Depends(require("astronaut"))) -> dict:
 
 
 @router.get("/intentions")
-def list_intentions(p: Principal = Depends(require("astronaut"))) -> list[dict]:
+def list_intentions(p: Principal = Depends(require(*CREW_ROLES))) -> list[dict]:
     astronaut = own_astronaut(p)
     with transaction("api") as conn:
         rows = conn.execute("SELECT id, if_text, then_text, created_at FROM biometrics.implementation_intentions "
@@ -168,7 +168,7 @@ def list_intentions(p: Principal = Depends(require("astronaut"))) -> list[dict]:
 
 
 @router.post("/intentions", status_code=201)
-def add_intention(body: dict = Body(...), p: Principal = Depends(require("astronaut"))) -> dict:
+def add_intention(body: dict = Body(...), p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     if_text, then_text = str(body.get("if", "")).strip(), str(body.get("then", "")).strip()
     if not if_text or not then_text or len(if_text) > 300 or len(then_text) > 300:
@@ -180,7 +180,7 @@ def add_intention(body: dict = Body(...), p: Principal = Depends(require("astron
 
 
 @router.delete("/intentions/{intention_id}")
-def delete_intention(intention_id: int, p: Principal = Depends(require("astronaut"))) -> dict:
+def delete_intention(intention_id: int, p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     with transaction("api") as conn:
         conn.execute("DELETE FROM biometrics.implementation_intentions WHERE id = %s AND astronaut_id = %s",
@@ -244,7 +244,7 @@ def ingest_hours(body: dict = Body(...), p: Principal = Depends(require("sensor"
 
 
 @router.post("/ingest/media", status_code=202)
-async def ingest_media(request: Request, p: Principal = Depends(require("astronaut")),
+async def ingest_media(request: Request, p: Principal = Depends(require(*CREW_ROLES)),
                        x_media_kind: str = Header("audio"), x_question_id: int | None = Header(None)) -> dict:
     astronaut = own_astronaut(p)
     media_type = (request.headers.get("content-type") or "").split(";")[0].strip().lower()
@@ -283,7 +283,7 @@ async def ingest_media(request: Request, p: Principal = Depends(require("astrona
 
 
 @router.get("/ingest/media/{job_id}")
-def media_status(job_id: uuid.UUID, p: Principal = Depends(require("astronaut"))) -> dict:
+def media_status(job_id: uuid.UUID, p: Principal = Depends(require(*CREW_ROLES))) -> dict:
     astronaut = own_astronaut(p)
     with transaction("api") as conn:
         row = conn.execute("SELECT status, error_code, kind FROM biometrics.media_results WHERE job_id = %s "

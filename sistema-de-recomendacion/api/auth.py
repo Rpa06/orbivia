@@ -116,9 +116,14 @@ def require(*roles: str):
     return dependency
 
 
+# Roles que son tripulantes a bordo y usan las funciones personales (check-in, PVT-B,
+# entrevista, ejercicio, registro privado). El comandante también es tripulante.
+CREW_ROLES = ("astronaut", "commander")
+
+
 def own_astronaut(principal: Principal) -> str:
-    if principal.role != "astronaut" or not principal.astronaut_id:
-        raise HTTPException(status_code=403, detail="Solo el propio astronauta")
+    if principal.role not in CREW_ROLES or not principal.astronaut_id:
+        raise HTTPException(status_code=403, detail="Solo el propio tripulante")
     return principal.astronaut_id
 
 

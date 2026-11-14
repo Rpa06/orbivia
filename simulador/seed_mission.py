@@ -4,14 +4,14 @@ TODOS LOS DATOS SON SIMULADOS. No son mediciones de astronautas ni datos de NASA
 Los valores se calibran solo de forma orientativa (p. ej. ~6-7 h de sueño en vuelo).
 
 Genera, de forma reproducible (semilla fija):
-- 4 astronautas seudonimizados (A1-A4) y 5 usuarios de demo, uno por rol, con
+- 4 tripulantes seudonimizados (A1 = comandante, A2-A4) y 7 usuarios de demo, con
   contraseñas aleatorias que se imprimen una vez (o DEMO_PASSWORD si se define);
 - líneas base terrestres (media, desviación y percentiles de 180 días previos
   simulados), perfil BFI-2-XS, Marlowe-Crowne, referencia DXA y NASA Cognition;
 - 16 días de misión: mediciones diarias, sueño, check-in, PVT-B, ejercicio,
   horas de trabajo, proximidad social, semanales y entrevistas cada 3 días;
 - casos de demostración:
-    A1  nominal; omite el ejercicio los dos últimos días (intención de implementación)
+    A1  comandante; nominal; omite el ejercicio los dos últimos días (intención de implementación)
     A2  deterioro progresivo durante 14 días (C2)
     A3  brecha de autopercepción: declara poco cansancio y el PVT-B empeora (C1)
     A4  señales combinadas (C3: VFC nocturna, ánimo, centralidad y desincronización)
@@ -49,8 +49,10 @@ HISTORY_DAYS = 16            # días de misión ya transcurridos antes de hoy
 AUDIO_INTERVAL = 3
 CREW = ("A1", "A2", "A3", "A4")
 USERS = (
-    ("astro1", "astronaut", "A1"), ("astro2", "astronaut", "A2"), ("astro3", "astronaut", "A3"), ("astro4", "astronaut", "A4"),
-    ("surgeon", "flight_surgeon", None), ("commander", "commander", None),
+    # El comandante es el tripulante A1: hace su check-in y sus funciones con su propio usuario
+    ("commander", "commander", "A1"),
+    ("astro2", "astronaut", "A2"), ("astro3", "astronaut", "A3"), ("astro4", "astronaut", "A4"),
+    ("surgeon", "flight_surgeon", None),
     ("earth.medical", "earth_medical", None), ("earth.mission", "earth_mission", None),
 )
 EXERCISE = {"A1": ["09:00", "10:00"], "A2": ["10:00", "11:00"], "A3": ["14:00", "15:00"], "A4": ["15:00", "16:00"]}

@@ -155,7 +155,9 @@ def test_commander_never_receives_psychological_data():
     for a in r.json()["crew"]:
         assert set(a) == {"astronaut_id", "availability", "reason"}
     assert get("commander", "/earth/history", params={"astronaut_id": "A1"}).status_code == 403
-    assert get("commander", "/recommendations").status_code == 403
+    assert get("commander", "/crew/A2/series").status_code == 403
+    # Sus propias recomendaciones sí (es el tripulante A1), las de otros no
+    assert all(a["astronaut_id"] == "A1" for a in get("commander", "/recommendations").json()["actions"])
 
 
 def test_earth_mission_gets_only_aggregates():
@@ -176,17 +178,20 @@ def test_earth_medical_history_without_media_or_cycle():
 
 
 def test_astronaut_only_sees_own_data():
-    assert get("astro1", "/crew/status").status_code == 403
-    assert get("astro1", "/earth/history", params={"astronaut_id": "A2"}).status_code == 403
-    d = get("astro1", "/astronaut/dashboard").json()
-    assert d["astronaut_id"] == "A1"
+    assert get("astro2", "/crew/status").status_code == 403
+    assert get("astro2", "/earth/history", params={"astronaut_id": "A3"}).status_code == 403
+    assert get("astro2", "/crew/A3/series").status_code == 403
+    assert get("astro2", "/me/series").json()["astronaut_id"] == "A2"
+    d = get("astro2", "/astronaut/dashboard").json()
+    assert d["astronaut_id"] == "A2"
+    assert all("A3" not in str(a) for a in d["alerts"])
     assert all(k not in (d["latest_vector"] or {}) for k in ("nlp_low_mood_z", "acoustic_pause_z"))
 
 
 def test_cycle_private_and_shared_only_with_permission():
     assert get("astro4", "/cycle/entries").status_code == 200
     assert len(get("astro4", "/cycle/entries").json()) > 0
-    assert get("astro1", "/cycle/entries").json() == []        # A1 solo ve lo suyo
+    assert get("astro2", "/cycle/entries").json() == []        # A2 solo ve lo suyo
     assert get("surgeon", "/cycle/entries").status_code == 403
     post("astro4", "/cycle/share", json={"hours": 1})
     assert "A4" in get("surgeon", "/cycle/shared").json()["shared"]
@@ -213,14 +218,23 @@ def test_cycle_payload_is_encrypted_at_rest():
 
 def test_unauthenticated_and_wrong_role_are_rejected():
     assert httpx.get(f"{API}/api/v1/crew/status", timeout=5).status_code == 401
-    assert post("astro1", "/ops/trigger-daily-collapse", json={}).status_code == 403
+    assert post("astro2", "/ops/trigger-daily-collapse", json={}).status_code == 403
+
+
+def test_commander_is_crew_member_with_personal_functions():
+    me = get("commander", "/astronaut/dashboard").json()
+    assert me["astronaut_id"] == "A1"
+    assert get("commander", "/checkin/today").status_code == 200
+    assert get("commander", "/exercise").status_code == 200
+    assert get("commander", "/cycle/entries").status_code == 200
+    assert get("commander", "/me/series").json()["astronaut_id"] == "A1"
 
 
 # --- flujos ------------------------------------------------------------------------------------
 
 
 def test_checkin_then_pvt_without_showing_results_first():
-    user = "astro2"
+    user = "astro3"
     today = get(user, "/checkin/today").json()
     if not today["checkin_done"]:
         assert post(user, "/pvt", json={"reaction_times_ms": [300], "duration_s": 180}).status_code == 409
@@ -237,7 +251,7 @@ def test_trigger_collapse_and_three_plans():
     assert r.status_code == 200
     body = r.json()
     assert len(body["collapse"]["astronauts"]) == 4
-    plans = get("astro1", "/plans/today").json()
+    plans = get("astro2", "/plans/today").json()
     assert plans["status"] == "ok" and len(plans["options"]) == 3
     assert plans["social_graph_used"] is False
     for o in plans["options"]:
@@ -266,8 +280,11 @@ def test_plans_respect_constraints_and_research_is_not_reassigned():
 def test_decisions_are_recorded_and_private_reason_is_masked():
     with db("admin") as conn:
         conn.execute("DELETE FROM operations.plan_decisions WHERE plan_date = current_date")
-    r = post("astro3", "/plans/today/decision", json={"decision": "rejected_all", "private_reason": True,
-                                                      "reason": "texto que no debe guardarse"})
+    # Solo el comandante decide
+    assert post("astro3", "/plans/today/decision", json={"decision": "selected", "option_id": "A"}).status_code == 403
+    assert post("surgeon", "/plans/today/decision", json={"decision": "selected", "option_id": "A"}).status_code == 403
+    r = post("commander", "/plans/today/decision", json={"decision": "rejected_all", "private_reason": True,
+                                                         "reason": "texto que no debe guardarse"})
     assert r.status_code == 201
     r = post("commander", "/plans/today/decision", json={"decision": "selected", "option_id": "B"})
     assert r.status_code == 201
@@ -296,11 +313,11 @@ def _tone_wav(seconds: float = 3.0) -> bytes:
 
 def test_media_is_processed_in_memory_and_purged():
     since = compose("exec", "-T", "worker-ml", "date", "+%s").strip()
-    r = post("astro1", "/ingest/media", content=_tone_wav(), headers={"Content-Type": "audio/wav", "X-Media-Kind": "audio"})
+    r = post("astro2", "/ingest/media", content=_tone_wav(), headers={"Content-Type": "audio/wav", "X-Media-Kind": "audio"})
     assert r.status_code == 202
     job = r.json()["job_id"]
     for _ in range(60):
-        status = get("astro1", f"/ingest/media/{job}").json()
+        status = get("astro2", f"/ingest/media/{job}").json()
         if status["status"] != "queued":
             break
         time.sleep(1)
@@ -318,11 +335,11 @@ def test_media_is_processed_in_memory_and_purged():
 
 
 def test_invalid_media_leaves_nothing_behind():
-    r = post("astro1", "/ingest/media", content=b"esto no es audio" * 50,
+    r = post("astro2", "/ingest/media", content=b"esto no es audio" * 50,
              headers={"Content-Type": "audio/wav", "X-Media-Kind": "audio"})
     job = r.json()["job_id"]
     for _ in range(30):
-        status = get("astro1", f"/ingest/media/{job}").json()
+        status = get("astro2", f"/ingest/media/{job}").json()
         if status["status"] != "queued":
             break
         time.sleep(1)
