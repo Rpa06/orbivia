@@ -4,7 +4,10 @@ import psycopg
 import redis
 from fastapi import FastAPI, HTTPException
 
+from sleep_stream.api import router as sleep_router
+
 app = FastAPI(title="Orbivia API", version="0.1.0")
+app.include_router(sleep_router)
 
 
 @app.get("/health/live")

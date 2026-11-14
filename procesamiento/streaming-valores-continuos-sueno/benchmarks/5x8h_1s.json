@@ -1,0 +1,88 @@
+{
+ "conditions": {
+  "astronauts": 5,
+  "hours": 8.0,
+  "period_s": 1,
+  "seed": 42,
+  "records": 142564,
+  "levels_s": [
+   60,
+   300,
+   900,
+   1800
+  ],
+  "retain_s": [
+   900,
+   3600,
+   7200
+  ],
+  "python": "3.12.16",
+  "machine": "aarch64",
+  "redis": "7.4.12",
+  "durable_store": "PostgresStore"
+ },
+ "A_raw": {
+  "stored_records": 142564,
+  "redis_bytes": 41778356,
+  "redis_bytes_per_record": 293.04983025167644,
+  "ingest_s": 0.7348992079969321,
+  "ingest_us_per_record": 5.154872253843411,
+  "finalize_s_per_session": 1.4403736757987644,
+  "finalize_python_peak_bytes": 59352629
+ },
+ "B_incremental": {
+  "raw_records_left_in_redis": 0,
+  "aggregates_per_session_end_of_night": {
+   "60": 20,
+   "300": 11,
+   "900": 5,
+   "1800": 11
+  },
+  "aggregates_per_session_peak": 47,
+  "aggregates_per_session_final": 16,
+  "redis_bytes_end_of_night": 381481,
+  "redis_bytes_peak_after_processing": 381481,
+  "redis_bytes_peak_with_10min_backlog": 1246633,
+  "redis_bytes_after_finalize": 346225,
+  "submit_s": 0.8975849969938281,
+  "process_s": 3.7216491639956075,
+  "process_us_per_record": 26.10511183745972,
+  "finalize_s_per_session": 0.032656175000738585,
+  "finalize_python_peak_bytes": 365944,
+  "summary_json_bytes": 26242
+ },
+ "comparison": {
+  "redis_memory_ratio_end_of_night": 109.51621705930309,
+  "finalize_speedup": 44.10723778171165,
+  "processing_overhead_us_per_record": 27.246253984122944
+ },
+ "accuracy": {
+  "counts_exact": true,
+  "min_max_exact": true,
+  "actigraphy_identical": true,
+  "max_relative_error_mean": 7.55632145262132e-15,
+  "max_relative_error_std": 5.252878864822554e-13,
+  "max_relative_error_trend": 1.1726840109380205e-09,
+  "max_quantile_error_in_bins": 0.4020982142857292
+ },
+ "information_loss": {
+  "time_resolution_s": {
+   "A": 1,
+   "B_final": 1800
+  },
+  "time_points_per_metric": {
+   "A": 28512,
+   "B_final": 16
+  },
+  "variance_explained_by_final_timeline": {
+   "heart_rate": 0.31993583224375816,
+   "heart_rate_variability": 0.2688116380275237,
+   "spo2": 0.0005584801969822139,
+   "respiratory_rate": 0.48076836419052993,
+   "skin_temperature": 0.9275805333794507,
+   "movement": 0.06690055126993968
+  },
+  "injected_spikes_kept_as_anomalies": "15/15",
+  "anomaly_episodes_per_session": 14.0
+ }
+}

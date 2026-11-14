@@ -10,4 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY sistema-de-recomendacion/api ./api
 COPY docker/workers ./workers
+COPY procesamiento/streaming-valores-continuos-sueno/sleep_stream ./sleep_stream
 
