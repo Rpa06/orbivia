@@ -271,9 +271,11 @@ def seed_days(conn, rng: random.Random, people, start: date, last_day: int, incl
                             "pause_mean_s": round(rng.gauss(*MEDIA_PROFILE["acoustic.pause_mean_s"]), 4)}
                 if a == "A4" and k >= HISTORY_DAYS - 3:
                     acoustic["pause_mean_s"] = round(MEDIA_PROFILE["acoustic.pause_mean_s"][0] + 0.07, 4)
+                # Coherente con ENABLE_NLP: si el NLP está desactivado no hay puntuaciones de texto
+                nlp_json = json.dumps(nlp) if os.environ.get("ENABLE_NLP", "false").lower() in ("1", "true", "yes") else None
                 conn.execute("INSERT INTO biometrics.media_results (job_id, astronaut_id, cycle_date, kind, question_id, "
                              "status, acoustic, nlp, completed_at) VALUES (gen_random_uuid(), %s, %s, 'audio', %s, "
-                             "'completed', %s, %s, now())", (a, day, q, json.dumps(acoustic), json.dumps(nlp)))
+                             "'completed', %s, %s, now())", (a, day, q, json.dumps(acoustic), nlp_json))
         if k % 7 == 0:
             iso = day.isocalendar()
             for a in CREW:

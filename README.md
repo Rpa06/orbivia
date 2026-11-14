@@ -69,9 +69,9 @@ El sistema compara a cada astronauta consigo mismo, nunca con una media de pobla
 
 **Inferencia de estados psicológicos.** El análisis de texto y voz solo se usa con fines médicos y su resultado solo lo ven el médico de a bordo y el equipo médico en Tierra, dentro de la excepción médica del artículo 5.1.f del Reglamento Europeo de Inteligencia Artificial (prohibición en vigor desde el 2 de febrero de 2025). El vídeo no se usa para inferir emociones, solo para detectar signos físicos de fatiga.
 
-**Obligaciones de alto riesgo de la Ley de IA.** Tras el Reglamento (UE) 2026/1744 (Digital Omnibus), las obligaciones para los sistemas de alto riesgo del anexo III se aplican desde el 2 de diciembre de 2027. Orbivia las tiene en cuenta desde el diseño (supervisión humana, registro de decisiones, explicaciones).
+**Obligaciones de alto riesgo de la Ley de IA.** *(Referencia pendiente de verificación.)* Tras el Reglamento (UE) 2026/1744 (Digital Omnibus), las obligaciones para los sistemas de alto riesgo del anexo III se aplican desde el 2 de diciembre de 2027. Orbivia las tiene en cuenta desde el diseño (supervisión humana, registro de decisiones, explicaciones).
 
-**Producto sanitario.** Según la sentencia del TJUE de 2 de julio de 2026 (C-427/24, Diagramm Halbach), un software es producto sanitario cuando procesa datos del paciente y genera recomendaciones con finalidad médica. Orbivia genera repartos de tareas con finalidad operativa y no da recomendaciones clínicas. Lo clínico lo deciden el médico de a bordo y el equipo médico en Tierra.
+**Producto sanitario.** *(Referencia pendiente de verificación.)* Según la sentencia del TJUE de 2 de julio de 2026 (C-427/24, Diagramm Halbach), un software es producto sanitario cuando procesa datos del paciente y genera recomendaciones con finalidad médica. Orbivia genera repartos de tareas con finalidad operativa y no da recomendaciones clínicas. Lo clínico lo deciden el médico de a bordo y el equipo médico en Tierra.
 
 **Supervisión humana (artículo 22 del RGPD).** Orbivia propone varias opciones y la tripulación decide. Ninguna decisión con efectos sobre un astronauta se toma de forma exclusivamente automatizada.
 
@@ -115,7 +115,7 @@ Un aviso nunca se dispara por un único dato aislado. Hay tres mecanismos activo
 
 ### Cómo se interpretan las puntuaciones del modelo de texto
 
-El modelo de texto devuelve cuatro números entre 0 y 1 (neutral, depresión, ansiedad y estable). Son la confianza del clasificador, no la gravedad, y no equivalen a escalas clínicas como el PHQ-9 o el GAD-7. Por eso no se interpretan en valor absoluto. Se comparan contra la línea base de cada astronauta y de cada pregunta. En la interfaz la etiqueta "depresión" se muestra como "ánimo bajo". Si el equipo médico lo considera necesario, aplica una escala clínica validada.
+El modelo de texto devuelve cuatro números entre 0 y 1 (neutral, depresión, ansiedad y estable). Son la confianza del clasificador, no la gravedad, y no equivalen a escalas clínicas como el PHQ-9 o el GAD-7. Por eso no se interpretan en valor absoluto. Se comparan contra la línea base de cada astronauta y de cada pregunta. En la interfaz la etiqueta "depresión" se muestra como "ánimo bajo". Si el equipo médico lo considera necesario, aplica una escala clínica validada. **En esta versión el modelo de texto está desactivado por defecto** (`ENABLE_NLP=false`, ver §7).
 
 ### D. Dinámica social y aviso de aislamiento
 
@@ -228,51 +228,118 @@ El vector diario colapsado de cada astronauta ocupa del orden de decenas de byte
 
 ---
 
-## Cambios en las secciones 4 y 5
+## 4. Arquitectura desplegada
 
-**Sección 4, servicio worker-ml.** Sustituir por:
-
-> worker-ml (python-ml): Contenedor aislado con límite estricto de memoria encargado de ejecutar openSMILE, el modelo de detección de fatiga en vídeo y los modelos de NLP al vuelo sobre las sesiones multimedia, que se purgan tras el procesamiento.
-
-**Sección 4, nuevo servicio.** Añadir:
-
-> sync-tierra: Servicio que envía al equipo médico en Tierra el historial de vectores diarios cuando hay enlace, excluyendo siempre audio, vídeo, transcripciones y el registro del ciclo.
-
-**Sección 5, estructura del repositorio.**
-
-- Quitar todos los `[cite: 1]`.
-- `procesamiento/video/` → `# Detección de signos físicos de fatiga (ojos cerrados, parpadeo lento)`
-- `procesamiento/texto/` → `# Análisis NLP (neutral, ánimo bajo, ansiedad y estable) contra la línea base de cada pregunta`
-- `sistema-de-recomendacion/` → `# Reglas de aviso, acciones recomendadas y optimizador de reparto de tareas`
-- Añadir `procesamiento/conductual/` → `# Check-in, PVT-B, brecha de autopercepción, pregunta doble y ejercicio`
-- Añadir `frontend/eleccion-de-planes/` → `# Vista de los 3 planes propuestos, elección y registro de rechazos`
-- Añadir `frontend/check-in/` → `# Check-in diario, pregunta doble semanal y plan de ejercicio`
-- Añadir `frontend/registro-personal/` → `# Registro privado del ciclo menstrual y avisos individualizados, solo visibles para la astronauta`
-- `frontend/muestra-de-recomendaciones/` → `# Vista de acciones recomendadas y tareas asignadas al astronauta`
-
-## Módulos integrados
-
-### Check-in diario y comparación semanal
-
-El prototipo en `procesamiento/test-cerrado/` recoge, en este orden, sueño, descanso,
-carga de trabajo, ánimo y convivencia en una escala de 1 a 5. La respuesta de descanso
-se registra antes del PVT-B; al terminar el check-in, la CLI indica que se puede
-continuar con ese test. Una vez por semana, `--weekly` añade la estimación de la media
-de convivencia del resto del equipo.
-
-Desde la raíz del repositorio:
-
-```powershell
-python .\procesamiento\test-cerrado\cli.py check-in --participant crew-a
-python .\procesamiento\test-cerrado\cli.py check-in --participant crew-a --weekly
-python .\procesamiento\test-cerrado\cli.py compare --date 2026-11-14
+```
+ sensores ──► broker (Redis Streams, AOF) ──► worker-stream ──┐  sueño + colapso diario programado
+ navegador ─► frontend (Nginx) ─► api (FastAPI, RBAC) ────────┼──► db (PostgreSQL 16 + pgvector)
+                                    │                         │      vault_identity · biometrics
+                                    └─► media-broker (Redis   │      private_cycle · operations
+                                        solo RAM, MAXLEN 10) ─► worker-ml (openSMILE, vídeo, NLP opcional)
+ db ──► sync-tierra ══ red enlace-tierra ══► earth-receiver (Tierra simulada)
 ```
 
-Los registros se guardan localmente en `procesamiento/test-cerrado/respuestas.jsonl`
-(o en otra ruta indicada con `--storage`). Usa alias seudónimos, no nombres reales.
-La comparación informa la media de convivencia de quienes respondieron esa semana,
-excluyendo a la persona comparada; es una discrepancia descriptiva, no un diagnóstico
-ni una implementación validada del Bayesian Truth Serum.
+| Servicio | Imagen | Rol de BD | Qué hace |
+|---|---|---|---|
+| `db` | pgvector/pgvector:pg16 | administrador | Esquemas separados y roles (`base-de-datos/init`) |
+| `broker` | redis:7-alpine | — | Streams de sueño, caché de ventanas 7/14/30 y de cooldown |
+| `media-broker` | redis:7-alpine | — | Stream multimedia efímero, sin persistencia, en tmpfs |
+| `api` | python-core | api / engine / cycle | REST, autenticación, RBAC, ingesta, planes, ciclo privado |
+| `worker-stream` | python-core | engine | Sueño (`sleep_stream`) y colapso diario a `DAILY_COLLAPSE_HOUR` |
+| `worker-ml` | python-ml (4 GB, 2 CPU) | engine | Audio y vídeo en memoria |
+| `sync-tierra` | python-core | sync | Envío de vectores con lista blanca cuando hay enlace |
+| `earth-receiver` | python-core | — | Receptor simulado en Tierra (solo red `enlace-tierra`) |
+| `frontend` | nginx:alpine | — | Interfaz; proxy `/api/` → `http://api:8000` |
+| `seed` (perfil `tools`) | python-core | administrador | Misión simulada |
+| `social-graph` (perfil `social`) | social-graph | engine | Grafo social en vivo; su reloj simulado no coincide con la misión sembrada |
+| `planner` (perfil `planner`) | planner | — | Planificador como herramienta de línea de comandos |
+
+Más detalle: [docs/vector_estado_colapsado.md](docs/vector_estado_colapsado.md) (vector, avisos y nota) y [docs/privacidad_y_alcance.md](docs/privacidad_y_alcance.md) (garantías, alcance del NLP y afirmaciones por verificar).
+
+## 5. Estructura del repositorio
+
+```text
+orbivia/
+├── base-de-datos/init/            # Extensiones, esquemas, tablas y roles de privilegio mínimo
+├── docker/                        # Dockerfiles (python-core, python-ml, frontend, planner, social-graph, sleep-stream)
+├── docs/                          # Diseño de cada módulo, vector, privacidad
+├── frontend/                      # Interfaz sin framework, servida por Nginx
+│   ├── assets/                    # Arranque, sesión, vistas por rol, estilos
+│   ├── check-in/                  # Check-in diario, PVT-B, pregunta doble semanal y ejercicio
+│   ├── eleccion-de-planes/        # Vista de los 3 planes, elección y registro de rechazos
+│   ├── muestra-de-recomendaciones/# Acciones recomendadas y tareas del astronauta
+│   ├── obtencion-de-audio/        # Entrevista de audio y vídeo opcional de fatiga
+│   ├── registro-personal/         # Registro privado del ciclo y avisos, solo para la astronauta
+│   └── visualizacion-de-grafos-solo-mision/  # Grafo de cohesión, solo misión y ante incidencia
+├── procesamiento/
+│   ├── audio/raw-audio/           # Prototipo de escritorio original (no se despliega; ver §7)
+│   ├── colapso/                   # Vector de 20 float32, Welford, ventanas, forward-fill
+│   ├── conductual/                # Check-in, PVT-B, brecha de autopercepción, entrevista, ejercicio, pregunta doble
+│   ├── grafos/                    # Grafo social de ocio (solo vigilancia)
+│   ├── streaming-valores-continuos-sueno/  # Sueño sobre Redis Streams
+│   ├── test-cerrado/              # Modelo y validación del check-in (reutilizado por conductual)
+│   ├── texto/                     # Transcripción faster-whisper int8 y clasificador de texto
+│   └── video/                     # Signos físicos de fatiga (MediaPipe + ONNX), también desde memoria
+├── simulador/seed_mission.py      # Misión simulada y reproducible
+├── sistema-de-recomendacion/
+│   ├── api/                       # FastAPI: auth, RBAC, ingesta, vistas, planes, ciclo
+│   ├── motor/                     # Avisos C1-C4, nota, acciones con cooldown, colapso diario, puente al planificador
+│   └── planificador/              # Optimizador CP-SAT determinista (sin grafo social) y catálogo de tareas
+├── sync-tierra/                   # Sincronización con Tierra y receptor simulado
+├── tests/integration/             # Pruebas contra el despliegue en marcha
+└── workers/                       # worker-ml (multimedia) y worker-stream (sueño + colapso)
+```
+
+## 6. Despliegue y demo
+
+1. `cp .env.example .env` y cambia todas las claves. Los secretos necesitan al menos 32 caracteres. Si `volumenes/postgre` ya tiene una base inicializada sin estos esquemas, usa otro `POSTGRES_DATA_DIR`: los scripts de init solo corren sobre un directorio vacío.
+2. Arranca:
+
+```bash
+docker compose up -d --build
+```
+
+3. Siembra la misión simulada. Imprime las credenciales de demo una sola vez y las guarda en `volumenes/demo/credenciales.txt`:
+
+```bash
+docker compose run --rm seed
+```
+
+4. Abre http://127.0.0.1:8080. Usuarios: `astro1`…`astro4` (astronautas A1-A4), `surgeon`, `commander`, `earth.medical` y `earth.mission`.
+
+Guion de demo:
+
+- **Médico** (`surgeon`): avisos con su referencia, auditoría de la nota, acústica (NLP desactivado), historial y ciclo compartido.
+- **Comandante** (`commander`): solo nota y motivo general. Botón «Ejecutar colapso diario» (`POST /api/v1/ops/trigger-daily-collapse`). Elegir un plan.
+- **Astronauta** `astro3`: hacer el check-in y el PVT-B (con `?pvt30` en la URL dura 30 s). Volver a ejecutar el colapso y ver la brecha de autopercepción (C1).
+- **Astronauta** `astro4`: registro privado del ciclo, aviso individual, compartir 24 h con el médico.
+- **Astronauta** `astro1`: dos omisiones de ejercicio, asistente «si pasa X, haré Y», entrevista de audio.
+- **Tierra**: `earth.medical` ve el historial de vectores; `earth.mission`, solo agregados.
+- **Sincronización**: `volumenes/tierra/received.jsonl` contiene lo recibido en Tierra.
+
+Tests:
+
+```bash
+python -m pytest procesamiento/colapso procesamiento/conductual sistema-de-recomendacion/motor sync-tierra
+```
+
+```bash
+python -m pytest tests/integration
+```
+
+Cada módulo tiene además su propia suite (`pytest` dentro de su carpeta: planificador, grafos, sueño, test-cerrado, texto).
+
+## 7. Estado real y limitaciones
+
+- **Datos simulados.** No hay mediciones de astronautas ni datos de NASA. Umbrales y pesos sin calibrar.
+- **NLP desactivado por defecto** (`ENABLE_NLP=false`). Ver la tensión con el Reglamento de IA en [docs/privacidad_y_alcance.md](docs/privacidad_y_alcance.md). Activarlo descarga los modelos de Hugging Face, así que necesita red.
+- **C4** (similitud histórica) está preparado y desactivado: no hay histórico etiquetado.
+- **Planificador.** Se eliminaron los objetivos que usaban el grafo social. La mínima perturbación se mide (cambios frente al plan de referencia), pero no es un término del optimizador. Si nadie puede hacer una actividad planificada no recurrente, se proponen los planes con esa actividad aplazada y la tripulación decide. El mantenimiento y la seguridad recurrentes nunca se aplazan solos. Franja óptima, parejas de EVA y proyección a 7 días son interfaces sin implementar (`motor/planning.py`).
+- **Investigación especializada.** El catálogo no trae el responsable de cada experimento. Se asigna uno fijo y estable entre los cualificados, que nunca se reasigna.
+- **`procesamiento/audio/raw-audio/codigo_voces.py`** se conserva como prototipo, pero no se despliega: graba en disco, guarda transcripciones y usa etiquetas clínicas (PHQ-9, GAD-7). De él se reutiliza el enfoque openSMILE eGeMAPS en memoria.
+- **Grafo social en vivo** opcional (perfil `social`). En la demo, la centralidad sale del simulador.
+- **Línea base de adaptación.** Con 2-3 días la desviación se toma como la mayor entre la de adaptación y la terrestre.
+- Las referencias jurídicas de §1 están **pendientes de verificación** (ver docs).
 
 ## Fuentes
 
