@@ -110,7 +110,8 @@ def reset(conn) -> None:
                  biometrics.measurements, biometrics.checkins, biometrics.pvt_results, biometrics.weekly_double,
                  biometrics.exercise_log, biometrics.implementation_intentions, biometrics.media_results,
                  biometrics.daily_vector, biometrics.alerts, biometrics.availability, biometrics.actions,
-                 biometrics.sync_log, private_cycle.entries, private_cycle.shares RESTART IDENTITY CASCADE""")
+                 biometrics.sync_log, biometrics.sleep_session_summary, biometrics.social_graph_daily_result,
+                 biometrics.social_graph_checkpoint, private_cycle.entries, private_cycle.shares RESTART IDENTITY CASCADE""")
     # Las líneas base terrestres están protegidas por un trigger: solo el reset de la demo las borra
     conn.execute("ALTER TABLE biometrics.baselines DISABLE TRIGGER terrestrial_baseline_frozen")
     conn.execute("DELETE FROM biometrics.baselines")
