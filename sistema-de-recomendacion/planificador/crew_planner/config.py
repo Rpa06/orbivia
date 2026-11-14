@@ -41,10 +41,12 @@ class Weights:
 class Stages:
     mode: str = "lexicographic"
     epsilon: float = 0.05
+    uncovered_penalty: float = 10.0  # solo en modo weighted: coste por tarea aplazable sin cubrir
 
     def __post_init__(self) -> None:
         _check(self.mode in ("lexicographic", "weighted"), "stages.mode debe ser lexicographic o weighted")
         _check(0 <= self.epsilon <= 1, "stages.epsilon debe estar en [0, 1]")
+        _check(self.uncovered_penalty >= 0, "stages.uncovered_penalty debe ser >= 0")
 
 
 @dataclass(frozen=True)

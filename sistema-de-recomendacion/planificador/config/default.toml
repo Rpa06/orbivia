@@ -19,6 +19,7 @@ mu = 0.2                 # inclusión (solo tareas colectivas de baja carga)
 [stages]
 mode = "lexicographic"   # "lexicographic" (3 etapas) o "weighted" (suma única)
 epsilon = 0.05           # empeoramiento máximo del coste operativo por la inclusión
+uncovered_penalty = 10.0 # solo en modo weighted: coste de dejar sin cubrir una tarea aplazable (× importancia)
 
 [importance]
 scale_min = 1
