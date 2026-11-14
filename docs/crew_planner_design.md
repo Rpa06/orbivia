@@ -177,10 +177,12 @@ C_ij = α_estado · I_j · D_ij  +  α_rep · λ_j · R_ij  +  α_inc · I_j · 
 ### 4.6 Carga y equidad
 
 ```
-w_j  = duración_j · intensidad_j                 carga ponderada de la tarea
+w_j  = duración_j · (0.5 + 0.5 · intensidad_j)   carga ponderada de la tarea, en horas
 L_i  = Σ_j w_j · a_ij                            carga asignada a i
 s_i  = h_i · g_i / Σ_i h_i · g_i                 cuota objetivo de i
 ```
+
+Con `duración · intensidad`, una tarea de intensidad 0 no contaría como carga; así el tiempo ocupado siempre cuenta al menos la mitad.
 
 `h_i` son las horas disponibles del día y `g_i ∈ [g_min, 1]` la capacidad relativa, calculada con los parámetros del dominio de fatiga. Si esos parámetros son desconocidos, `g_i` toma el valor conservador `g_min`.
 
