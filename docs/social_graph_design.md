@@ -194,6 +194,10 @@ Los umbrales son puntos de partida. La Fase 4 comprueba con el simulador que la 
 - Lo no evaluable se dibuja distinto de lo aislado: nodo gris hueco y arista gris discontinua.
 - El grosor de la arista es proporcional a W.
 
+- Para que se lea, los nodos se separan una distancia mínima y cada día solo se aplica la mitad del desplazamiento que pide el algoritmo.
+
+![Ejemplo de grafo diario](img/social_graph_ejemplo.png)
+
 **La distancia visual no es una métrica.** El algoritmo tiene mínimos locales, la posición de un nodo aislado es arbitraria y dos nodos pueden quedar cerca sin relación directa. La figura lo indicará en una nota. Las únicas lecturas válidas son el grosor de las aristas y los valores numéricos.
 
 Alternativa configurable: layout circular fijo, donde solo cambia el grosor. Es el más comparable entre días y el menos expresivo.
