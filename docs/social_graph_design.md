@@ -161,7 +161,7 @@ Este apartado fija la mecánica estadística. Qué indicadores se usan y cómo s
 **Métricas base por astronauta y día:**
 
 - `S_i = Σ_j W_ij` y su versión normalizada, que es la media de `W_ij` sobre las parejas *evaluables* (no sobre `N − 1`: dividir por `N − 1` trata la falta de datos como cero).
-- `C_i` (nueva): fracción del ocio observado con al menos una persona cerca. Está en [0, 1], no cuenta dos veces los grupos y no depende de κ. Cuesta un contador más por astronauta.
+- `C_i` (nueva): fracción del ocio *compartible* con al menos una persona cerca. El ocio compartible es el observado en el que algún otro tripulante también está en ocio; así quien descansa mientras los demás trabajan o duermen no cuenta como solo. Está en [0, 1], no cuenta dos veces los grupos y no depende de κ.
 
 **Línea base individual:**
 
@@ -213,9 +213,9 @@ Módulo puro que recibe el resultado del día y el histórico, y devuelve indica
 | Indicador | Definición | Qué aporta |
 |---|---|---|
 | Intensidad | `S_i` normalizada: media de `W_ij` sobre parejas evaluables | Cuánta relación en total |
-| Tiempo acompañado | `C_i`: fracción del ocio con alguien cerca | Tiempo absoluto, sin depender de κ |
-| Grado | `k_i`: número de compañeros con `W_ij ≥ 0.1`, sobre los evaluables | Con cuántos se relaciona |
-| Diversidad | Número efectivo de compañeros: `exp(H_i)`, con `H_i` la entropía de `p_ij = W_ij / S_i` | Si reparte su tiempo o lo concentra en uno |
+| Tiempo acompañado | `C_i`: fracción del ocio compartible con alguien cerca | Tiempo absoluto, sin depender de κ |
+| Grado | `k_i`: fracción de los compañeros evaluables con `W_ij ≥ 0.1` | Con cuántos se relaciona |
+| Diversidad | Número efectivo de compañeros, `exp(H_i)` con `H_i` la entropía de `p_ij = W_ij / S_i`, como fracción de los evaluables | Si reparte su tiempo o lo concentra en uno |
 
 Notas sobre la especificación:
 
@@ -234,13 +234,15 @@ Cada indicador se compara con la línea base individual del apartado 4f. Además
 | Integración baja frente a la tripulación | `C_i` por debajo de la mitad de la mediana de los demás en 5 de 7 días evaluables | Quien está poco integrado desde el primer día |
 | Aislamiento estructural | En el grafo suavizado: sin aristas, o comunidad de un solo miembro | Desconexión de la red |
 
+Descenso sostenido y tendencia miden lo mismo (caída respecto a uno mismo) y cuentan como una sola señal. Durante un descenso de tripulación, el aislamiento estructural no se señala individualmente.
+
 La tercera señal es necesaria: la línea base individual no puede ver a alguien que está aislado desde el principio, porque su propia normalidad ya es baja.
 
 **Estado por astronauta y día:**
 
 - `normal`
 - `seguimiento`: una señal activa.
-- `revisión`: dos o más señales, o aislamiento estructural sostenido. Es lo que puede generar una alerta para el equipo médico en Tierra.
+- `revisión`: dos o más señales de familias distintas, o aislamiento estructural sostenido. Es lo que puede generar una alerta para el equipo médico en Tierra.
 - `calentando`, `sin datos`, `no evaluable`: no se emite juicio.
 
 Los nombres son deliberadamente neutros: describen qué hacer con el dato, no a la persona.
@@ -446,8 +448,8 @@ Horarios: un JSON por astronauta con intervalos de sueño y trabajo en hora de m
 |---|---|
 | 2 | Núcleo matemático puro y sus tests |
 | 3 | Servicio vivo, checkpoint e histórico |
-| 4 | Simulador de posiciones y escenarios |
+| 4 | Simulador de posiciones y escenarios. Incluye las señales individuales de `IsolationAnalyzer`, necesarias para validar los escenarios |
 | 5 | Grafo, layout, exportación a imagen y JSON |
-| 5b | `IsolationAnalyzer` y tests con grafos simulados |
+| 5b | Estructura de la red en `IsolationAnalyzer` (comunidades, intermediación) |
 | 5c | `CollaborationRecommender` y tests con grafos simulados |
 | 6 | Docker, integración y README |
