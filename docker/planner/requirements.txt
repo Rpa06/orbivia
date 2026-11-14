@@ -1,0 +1,6 @@
+ortools>=9.12,<10
+psycopg[binary]>=3.2,<4
+pytest>=8,<10
+# Solo para el test de contrato con el grafo social real
+numpy>=2,<3
+networkx>=3.2,<4

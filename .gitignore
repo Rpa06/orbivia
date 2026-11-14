@@ -7,3 +7,5 @@ __pycache__/
 !/volumenes/redis/.gitkeep
 /volumenes/social-graph/*
 !/volumenes/social-graph/.gitkeep
+/volumenes/planner/*
+!/volumenes/planner/.gitkeep

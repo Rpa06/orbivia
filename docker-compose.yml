@@ -125,6 +125,28 @@ services:
       retries: 3
       start_period: 30s
 
+  # Planificador diario de tareas. Es una herramienta de línea de comandos, no un
+  # servicio: no arranca con `docker compose up`. Uso:
+  #   docker compose run --rm planner python -m crew_planner.simulation --scenario isolation
+  planner:
+    build:
+      context: .
+      dockerfile: docker/planner/Dockerfile
+    profiles: ["planner"]
+    command: ["python", "-m", "crew_planner.simulation", "--scenario", "nominal"]
+    # Las variables CP_* se definen en .env (ver .env.example)
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-orbivia}
+      POSTGRES_USER: ${POSTGRES_USER:-orbivia}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+    volumes:
+      - ./volumenes/planner:/data
+
   frontend:
     build:
       context: .
