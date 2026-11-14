@@ -91,6 +91,40 @@ services:
     mem_limit: 4g
     cpus: 2.0
 
+  social-graph:
+    build:
+      context: .
+      dockerfile: docker/social-graph/Dockerfile
+    restart: unless-stopped
+    command: ["python", "-m", "social_graph"]
+    # Las variables SG_* se definen en .env (ver .env.example)
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-orbivia}
+      POSTGRES_USER: ${POSTGRES_USER:-orbivia}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      REDIS_HOST: broker
+      REDIS_PORT: 6379
+      SG_OUTPUT_DIR: /data
+      SG_HEARTBEAT_FILE: /tmp/social_graph.heartbeat
+    volumes:
+      - ./volumenes/social-graph:/data
+    depends_on:
+      db:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-m", "social_graph.healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
   frontend:
     build:
       context: .
