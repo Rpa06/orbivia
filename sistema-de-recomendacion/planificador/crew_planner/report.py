@@ -265,7 +265,8 @@ def render_html(plan: Document, raw_input: Mapping[str, Any] | None = None, audi
     if audience not in AUDIENCES:
         raise ValueError(f"audience debe ser una de {AUDIENCES}")
     ok = plan["status"] == "ok"
-    title = f"Plan del día {plan['day']}"
+    meta = (raw_input or {}).get("meta") or plan.get("meta") or {}
+    title = f"Plan del día {plan['day']}" + (f" · {meta['environment_name']}" if meta.get("environment_name") else "")
     body = [f'<header class="top"><h1>{_e(title)}</h1>']
     if audience == CREW:
         body.append('<p class="muted">Propuesta de reparto. La decisión final la toma la tripulación con el centro de control.</p></header>')
@@ -292,6 +293,14 @@ def render_html(plan: Document, raw_input: Mapping[str, Any] | None = None, audi
             if g["pending"]:
                 pending = "".join(f'<li><b>{_e(p["task"])}</b>: {_e(p["reason"])}</li>' for p in g["pending"])
                 body.append(f'<section><h2>Pendientes</h2><ul>{pending}</ul></section>')
+            if meta.get("automated"):
+                auto = "".join(
+                    f'<li><b>{_e(a["task_id"])}</b> {_e(a["name"])} <span class="muted">· {_e(a["execution_mode"])}</span></li>'
+                    for a in meta["automated"]
+                )
+                body.append('<section><h2>Operaciones sin tripulación</h2><p class="muted small">Robóticas o '
+                            'controladas desde Tierra: no se asignan a astronautas. La supervisión humana, si la '
+                            f'hay, figura como tarea propia.</p><ul>{auto}</ul></section>')
             body.append('<section><h2>Asignaciones</h2><div class="cards">'
                         + "".join(_card(e) for e in _entries(plan)) + "</div></section>")
             notes = list(g["warnings"])

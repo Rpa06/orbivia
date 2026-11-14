@@ -59,8 +59,21 @@ def _clock(hours: float) -> str:
 
 
 def _astronaut(a: str, day: int, rng: random.Random) -> Document:
-    ref = day * DAY_S
     ex = float(EXERCISE[a].split(":")[0])
+    return {
+        "id": a,
+        "qualifications": QUALIFICATIONS[a],
+        "work": [["08:00", "17:00"]],
+        "sleep": [["00:00", "07:00"], ["23:00", "24:00"]],
+        "unavailable": [["12:00", "13:00"], [EXERCISE[a], _clock(ex + 1)]],
+        "measurements": _measurements(day, rng),
+        "baselines": [{"parameter": p, "mean": mu, "sd": sd} for p, (mu, sd) in BASELINES.items()],
+    }
+
+
+def _measurements(day: int, rng: random.Random) -> list[Document]:
+    """Mediciones sintéticas de un astronauta en buen estado, marcadas como tales."""
+    ref = day * DAY_S
 
     def m(parameter: str, value: float, age_h: float = 1.0, confidence: float | None = None) -> Document:
         out = {"parameter": parameter, "value": round(value, 3), "measured_at": ref - age_h * H,
@@ -72,24 +85,16 @@ def _astronaut(a: str, day: int, rng: random.Random) -> Document:
     mean_pvt, sd_pvt = BASELINES["pvt_lapses"]
     mean_grip, sd_grip = BASELINES["grip_strength"]
     mean_hr, sd_hr = BASELINES["resting_hr"]
-    return {
-        "id": a,
-        "qualifications": QUALIFICATIONS[a],
-        "work": [["08:00", "17:00"]],
-        "sleep": [["00:00", "07:00"], ["23:00", "24:00"]],
-        "unavailable": [["12:00", "13:00"], [EXERCISE[a], _clock(ex + 1)]],
-        "measurements": [
-            m("sleep_duration_h", rng.uniform(7.0, 8.2), age_h=2),
-            m("sleep_quality", rng.uniform(80, 92), age_h=2, confidence=0.8),
-            m("pvt_lapses", mean_pvt + rng.uniform(-0.8, 0.8) * sd_pvt),
-            m("fatigue_self", rng.uniform(1.5, 2.5)),
-            m("grip_strength", mean_grip + rng.uniform(-0.8, 0.8) * sd_grip),
-            m("spo2", rng.uniform(96, 99)),
-            m("resting_hr", mean_hr + rng.uniform(-0.8, 0.8) * sd_hr),
-            m("work_hours_3d", rng.uniform(20, 25)),
-        ],
-        "baselines": [{"parameter": p, "mean": mu, "sd": sd} for p, (mu, sd) in BASELINES.items()],
-    }
+    return [
+        m("sleep_duration_h", rng.uniform(7.0, 8.2), age_h=2),
+        m("sleep_quality", rng.uniform(80, 92), age_h=2, confidence=0.8),
+        m("pvt_lapses", mean_pvt + rng.uniform(-0.8, 0.8) * sd_pvt),
+        m("fatigue_self", rng.uniform(1.5, 2.5)),
+        m("grip_strength", mean_grip + rng.uniform(-0.8, 0.8) * sd_grip),
+        m("spo2", rng.uniform(96, 99)),
+        m("resting_hr", mean_hr + rng.uniform(-0.8, 0.8) * sd_hr),
+        m("work_hours_3d", rng.uniform(20, 25)),
+    ]
 
 
 def task_catalog() -> list[Document]:
@@ -154,19 +159,20 @@ def task_catalog() -> list[Document]:
     ]
 
 
-def social_document(day: int, statuses: dict[str, str] | None = None, low: float = _W_LOW) -> Document:
+def social_document(day: int, statuses: dict[str, str] | None = None, low: float = _W_LOW,
+                    crew: tuple[str, ...] = CREW) -> Document:
     """Documento diario sintético con la forma que produce el servicio social-graph."""
-    n = len(CREW)
+    n = len(crew)
     weights: list[list[float | None]] = [[None] * n for _ in range(n)]
-    for i, a in enumerate(CREW):
-        for j, b in enumerate(CREW):
+    for i, a in enumerate(crew):
+        for j, b in enumerate(crew):
             if i < j:
                 w = _W.get((a, b), low if "A6" in (a, b) else 0.3)
                 weights[i][j] = weights[j][i] = w
     statuses = statuses or {}
     return {
         "day": day,
-        "crew": list(CREW),
+        "crew": list(crew),
         "params_version": "synthetic",
         "isolation": {
             "day": day,
@@ -174,7 +180,7 @@ def social_document(day: int, statuses: dict[str, str] | None = None, low: float
             "structure": {"smoothed_weights": weights},
             "astronauts": {
                 a: {"status": statuses.get(a, "normal"), "signals": [], "score": None, "indicators": {}}
-                for a in CREW
+                for a in crew
             },
         },
     }
@@ -303,6 +309,48 @@ SCENARIOS: dict[str, Callable[[int, int], Document]] = {
 }
 
 
+def environment_input(environment: str, day: int = 10, seed: int = 42,
+                      extra_events: tuple[str, ...] = (), catalog=None) -> Document:
+    """Entrada de un día con las tareas del catálogo de un entorno (ISS, Luna, Marte, satélites).
+
+    La tripulación y sus mediciones son sintéticas; las tareas salen del catálogo
+    según su frecuencia, el plan de la misión y los eventos del día.
+    """
+    from .catalog import load_catalog, planner_tasks_for_day
+
+    catalog = catalog or load_catalog()
+    env = catalog.environments[environment]
+    rng = random.Random(f"{seed}|{environment}|{day}")
+    crew_ids = tuple(env["crew"])
+    tasks, selection = planner_tasks_for_day(catalog, environment, day, crew_ids, extra_events=extra_events)
+    return {
+        "day": day,
+        "crew": [
+            {
+                "id": a,
+                "qualifications": quals,
+                "work": [env["workday"]],
+                "sleep": [["00:00", "07:00"], ["23:00", "24:00"]],
+                "measurements": _measurements(day, rng),
+                "baselines": [{"parameter": p, "mean": mu, "sd": sd} for p, (mu, sd) in BASELINES.items()],
+            }
+            for a, quals in env["crew"].items()
+        ],
+        "tasks": [t.to_dict() for t in tasks],
+        "history": [],
+        "social": social_document(day - 1, crew=crew_ids),
+        "meta": {
+            "environment": environment,
+            "environment_name": env["name"],
+            "scheduled": {t["task_id"]: selection.reasons[t["task_id"]] for t in selection.scheduled},
+            "automated": [
+                {"task_id": t["task_id"], "name": t["name"], "execution_mode": t["execution_mode"]}
+                for t in selection.automated
+            ],
+        },
+    }
+
+
 def scenario_input(name: str, day: int = 10, seed: int = 42) -> PlanningInput:
     if name not in SCENARIOS:
         raise KeyError(f"Escenario desconocido {name!r}; disponibles: {', '.join(SCENARIOS)}")
@@ -326,15 +374,25 @@ def history_from_plan(plan: Document, tasks: dict[str, Document]) -> list[Histor
     return out
 
 
+def day_input(day: int, seed: int, scenario: str = "nominal", environment: str | None = None,
+              extra_events: tuple[str, ...] = ()) -> Document:
+    if environment:
+        return environment_input(environment, day, seed, extra_events)
+    return SCENARIOS[scenario](day, seed)
+
+
 def simulate(days: int, config: PlannerConfig, scenario: str = "nominal", first_day: int = 10,
-             seed: int = 42) -> list[Document]:
+             seed: int = 42, environment: str | None = None,
+             extra_events: tuple[str, ...] = ()) -> list[Document]:
     """Planifica `days` días seguidos; el plan de cada día pasa al historial del siguiente."""
     history = History()
     plans = []
     for day in range(first_day, first_day + days):
-        raw = SCENARIOS[scenario](day, seed)
+        raw = day_input(day, seed, scenario, environment, extra_events)
         raw["history"] = [e.to_dict() for e in history.entries] + raw.get("history", [])
         plan = plan_day(from_dict(raw), config)
+        if raw.get("meta"):
+            plan["meta"] = raw["meta"]
         plans.append(plan)
         if plan["status"] == "ok":
             history = history.extend(history_from_plan(plan, {t["id"]: t for t in raw["tasks"]}))
@@ -344,7 +402,12 @@ def simulate(days: int, config: PlannerConfig, scenario: str = "nominal", first_
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="crew_planner.simulation", description="Simulación con datos sintéticos")
     parser.add_argument("--scenario", default="nominal", choices=list(SCENARIOS))
+    parser.add_argument("--environment", choices=["iss", "moon", "mars", "satellite"],
+                        help="usar el catálogo de tareas de un entorno de misión en vez de un escenario")
+    parser.add_argument("--event", action="append", default=[],
+                        help="tarea de evento o contingencia que se dispara cada día simulado (repetible)")
     parser.add_argument("--days", type=int, default=1)
+    parser.add_argument("--first-day", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--config")
     parser.add_argument("--out", help="carpeta donde guardar un plan JSON por día")
@@ -353,7 +416,9 @@ def main(argv: list[str] | None = None) -> int:
     import os
 
     config = load_config(args.config, env=os.environ)
-    plans = simulate(args.days, config, args.scenario, seed=args.seed)
+    plans = simulate(args.days, config, args.scenario, first_day=args.first_day, seed=args.seed,
+                     environment=args.environment,
+                     extra_events=tuple(args.event))
     from .report import CREW, GROUND, render_html
 
     for plan in plans:
@@ -362,8 +427,8 @@ def main(argv: list[str] | None = None) -> int:
             folder.mkdir(parents=True, exist_ok=True)
             name = f"plan_{plan['day']:04d}"
             (folder / f"{name}.json").write_text(json.dumps(plan, indent=1, ensure_ascii=False), encoding="utf-8")
-            # El horario de cada astronauta solo depende del escenario y del día
-            raw = SCENARIOS[args.scenario](plan["day"], args.seed)
+            # El horario de cada astronauta solo depende del escenario (o entorno) y del día
+            raw = day_input(plan["day"], args.seed, args.scenario, args.environment, tuple(args.event))
             (folder / f"{name}.html").write_text(render_html(plan, raw, GROUND), encoding="utf-8")
             (folder / f"{name}_tripulacion.html").write_text(render_html(plan, raw, CREW), encoding="utf-8")
         print(summary(plan))
@@ -372,7 +437,9 @@ def main(argv: list[str] | None = None) -> int:
 
 def summary(plan: Document) -> str:
     """Resumen legible de un plan, para la terminal."""
-    lines = [f"Día {plan['day']}: {plan['status']}"]
+    meta = plan.get("meta") or {}
+    where = f" · {meta['environment_name']}" if meta.get("environment_name") else ""
+    lines = [f"Día {plan['day']}{where}: {plan['status']}"]
     for e in sorted(plan["individual"] + plan["collective"], key=lambda e: (e["start"], e["task"])):
         who = e.get("astronaut") or " + ".join(e["members"])
         lines.append(f"  {e['start']}–{e['end']}  {e['task']:<17} {who}")
@@ -384,6 +451,8 @@ def summary(plan: Document) -> str:
         if g["social"]["inclusion"]:
             lines.append("  inclusión: " + ", ".join(g["social"]["inclusion"]))
         lines.append(f"  coste total: {g['costs']['total']:.3f}")
+    if meta.get("automated"):
+        lines.append("  sin tripulación (robótica o Tierra): " + ", ".join(a["task_id"] for a in meta["automated"]))
     for c in plan.get("conflicts", []):
         lines.append(f"  conflicto: {c['summary']}")
         lines.append(f"  sugerencias: {'; '.join(c['suggestions'])}")
