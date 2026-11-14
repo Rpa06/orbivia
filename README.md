@@ -107,6 +107,7 @@ orbivia/
 │   ├── posicion/                         # Procesamiento de proximidad espacial en tiempos de ocio
 │   ├── semanales/                        # Ingesta de analíticas médicas y métricas estructurales
 │   ├── streaming-valores-continuos/      # Consumidores de Redis Streams para sueño y bandas EEG
+│   ├── test-cerrado/                     # Check-in diario y comparación semanal de convivencia
 │   ├── texto/                            # Análisis NLP de ansiedad, depresión y estrés
 │   └── video/                            # Inferencia de microexpresiones y estado emocional (CNN)
 │
@@ -120,6 +121,28 @@ orbivia/
 └── README.md                             # Documentación general de arquitectura y negocio
 
 ```
+
+### Check-in diario y comparación semanal
+
+El prototipo en `procesamiento/test-cerrado/` recoge, en este orden, sueño, descanso,
+carga de trabajo, ánimo y convivencia en una escala de 1 a 5. La respuesta de descanso
+se registra antes del PVT-B; al terminar el check-in, la CLI indica que se puede
+continuar con ese test. Una vez por semana, `--weekly` añade la estimación de la media
+de convivencia del resto del equipo.
+
+Desde la raíz del repositorio:
+
+```powershell
+python .\procesamiento\test-cerrado\cli.py check-in --participant crew-a
+python .\procesamiento\test-cerrado\cli.py check-in --participant crew-a --weekly
+python .\procesamiento\test-cerrado\cli.py compare --date 2026-11-14
+```
+
+Los registros se guardan localmente en `procesamiento/test-cerrado/respuestas.jsonl`
+(o en otra ruta indicada con `--storage`). Usa alias seudónimos, no nombres reales.
+La comparación informa la media de convivencia de quienes respondieron esa semana,
+excluyendo a la persona comparada; es una discrepancia descriptiva, no un diagnóstico
+ni una implementación validada del Bayesian Truth Serum.
 
 ---
 

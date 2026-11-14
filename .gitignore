@@ -5,3 +5,4 @@ __pycache__/
 !/volumenes/postgre/.gitkeep
 /volumenes/redis/*
 !/volumenes/redis/.gitkeep
+/procesamiento/test-cerrado/respuestas.jsonl
