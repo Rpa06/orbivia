@@ -276,6 +276,23 @@ def test_vector_has_every_dimension_in_order():
     assert all(summary["sleep_summary_vector"][name] is not None for name in names)
 
 
+def test_record_exactly_at_the_end_is_scored():
+    records = [record(T0 + 60 * m, heart_rate=60, movement=0.02) for m in range(11)]
+    summary = LocalRun().feed(records).seal(T0 + 600)  # el último registro cae en el instante de fin
+    assert (summary["sleep"]["scored_epochs"], summary["sleep"]["unknown_epochs"]) == (11, 0)
+    aligned = LocalRun().feed(records[:10]).seal(T0 + 600)  # sin dato en el fin no se inventa un minuto
+    assert (aligned["sleep"]["scored_epochs"], aligned["sleep"]["unknown_epochs"]) == (10, 0)
+
+
+def test_vector_as_ordered_list():
+    from sleep_stream.integration import vector_values
+
+    summary = LocalRun().feed([record(T0 + k, heart_rate=60, movement=0.02) for k in range(120)]).seal(T0 + 120)
+    shuffled = {**summary, "sleep_summary_vector": dict(sorted(summary["sleep_summary_vector"].items()))}
+    values = vector_values(shuffled)
+    assert len(values) == 12 and values[0] == pytest.approx(120 / 3600) and values[4] == pytest.approx(60.0)
+
+
 def test_hrv_trend_is_reported_per_hour():
     records = [record(T0 + k, heart_rate_variability=60.0 + 5.0 * k / 3600, movement=0.02)
                for k in range(0, 7200, 10)]

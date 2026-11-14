@@ -358,6 +358,9 @@ class Engine:
         devuelve la línea temporal final. El trabajo está acotado por el número de
         ventanas vivas, no por el de registros."""
         self._score_epochs(session, windows, session.end_ts)
+        # Un registro justo en el instante de fin abre un minuto más: solo cuenta si tiene datos
+        if windows.get(0, session.activity["next"]) is not None:
+            self._score_epochs(session, windows, session.activity["next"] + 1)
         self._flush_episodes(session, out, None)
         for level in range(self.top):
             parent_size = self.levels[level + 1]

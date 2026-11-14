@@ -28,6 +28,13 @@ from typing import Any
 SOURCE = "sleep_stream:actigraphy"
 
 
+def vector_values(summary: dict[str, Any]) -> list[float | None]:
+    """El vector como lista, en el orden de `vector_spec`. Úsese esto y no el orden
+    de las claves del objeto: PostgreSQL (jsonb) no lo conserva."""
+    vector = summary["sleep_summary_vector"]
+    return [vector[item["name"]] for item in summary["vector_spec"]]
+
+
 def planner_measurements(summary: dict[str, Any], mission_epoch_s: float = 0.0) -> list[dict[str, Any]]:
     """Mediciones del resumen para el planificador.
 
