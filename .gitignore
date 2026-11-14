@@ -9,3 +9,4 @@ __pycache__/
 !/volumenes/social-graph/.gitkeep
 /volumenes/planner/*
 !/volumenes/planner/.gitkeep
+/procesamiento/test-cerrado/respuestas.jsonl

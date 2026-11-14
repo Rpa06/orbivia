@@ -250,6 +250,30 @@ El vector diario colapsado de cada astronauta ocupa del orden de decenas de byte
 - Añadir `frontend/registro-personal/` → `# Registro privado del ciclo menstrual y avisos individualizados, solo visibles para la astronauta`
 - `frontend/muestra-de-recomendaciones/` → `# Vista de acciones recomendadas y tareas asignadas al astronauta`
 
+## Módulos integrados
+
+### Check-in diario y comparación semanal
+
+El prototipo en `procesamiento/test-cerrado/` recoge, en este orden, sueño, descanso,
+carga de trabajo, ánimo y convivencia en una escala de 1 a 5. La respuesta de descanso
+se registra antes del PVT-B; al terminar el check-in, la CLI indica que se puede
+continuar con ese test. Una vez por semana, `--weekly` añade la estimación de la media
+de convivencia del resto del equipo.
+
+Desde la raíz del repositorio:
+
+```powershell
+python .\procesamiento\test-cerrado\cli.py check-in --participant crew-a
+python .\procesamiento\test-cerrado\cli.py check-in --participant crew-a --weekly
+python .\procesamiento\test-cerrado\cli.py compare --date 2026-11-14
+```
+
+Los registros se guardan localmente en `procesamiento/test-cerrado/respuestas.jsonl`
+(o en otra ruta indicada con `--storage`). Usa alias seudónimos, no nombres reales.
+La comparación informa la media de convivencia de quienes respondieron esa semana,
+excluyendo a la persona comparada; es una discrepancia descriptiva, no un diagnóstico
+ni una implementación validada del Bayesian Truth Serum.
+
 ## Fuentes
 
 - [NASA Human Research Roadmap, riesgo médico](https://humanresearchroadmap.nasa.gov/Risks/risk.aspx?i=95)
