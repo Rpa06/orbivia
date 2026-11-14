@@ -137,11 +137,11 @@ Tiene dos partes.
 - **Registro de decisiones.** Se guarda qué plan se eligió o si se rechazaron todos, para medir si la tripulación confía demasiado o demasiado poco en el sistema.
 - **Método.** Optimización con reglas explicables, sin modelo entrenado, porque no existen datos reales de astronautas en vuelo para entrenarlo. Inspirado en Playbook, la herramienta de autoplanificación de tripulaciones de NASA Ames.
 
-**3. Funciones futuras del reparto.**
+**3. Funciones futuras del reparto.** (Por cerrar)
 
-- **Cuándo, además de quién.** Proponer la franja horaria en la que cada astronauta rinde mejor según su sueño y su PVT-B. Responde directamente al hueco Sleep-102 de NASA. (por cerrar)
-- **Parejas compatibles.** (por cerrar) Para tareas de dos personas, como las salidas al exterior, emparejar a quienes tienen el sueño sincronizado. Usa solo datos de sueño, nunca el grafo social.
-- **Horizonte semanal.** (por cerrar) Repartir mirando también los días siguientes, para que nadie acumule cansancio, y mostrar cómo quedaría la carga de cada uno al final de la semana.
+- **Cuándo, además de quién.** Proponer la franja horaria en la que cada astronauta rinde mejor según su sueño y su PVT-B. Responde directamente al hueco Sleep-102 de NASA.
+- **Parejas compatibles.** Para tareas de dos personas, como las salidas al exterior, emparejar a quienes tienen el sueño sincronizado. Usa solo datos de sueño, nunca el grafo social.
+- **Horizonte semanal.** Repartir mirando también los días siguientes, para que nadie acumule cansancio, y mostrar cómo quedaría la carga de cada uno al final de la semana.
 
 ### F. Visibilidad por rol
 
