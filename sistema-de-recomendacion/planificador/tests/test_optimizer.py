@@ -163,7 +163,8 @@ def test_inclusion_in_low_load_task_within_epsilon(config):
     base = plan_day(problem(crew, tasks, social), with_weights(cfg, mu=0.0))
     op = lambda p: p["global"]["costs"]["total"] - p["global"]["costs"]["integration"]
     floor = cfg.weights.gamma * cfg.importance.normalize(2) * (1 - 0.1)
-    assert op(plan) <= (1 + cfg.stages.epsilon) * (op(base) + floor) - floor + 1e-6
+    slack = max(cfg.stages.epsilon * (op(base) + floor), cfg.stages.epsilon_abs)
+    assert op(plan) <= op(base) + slack + 1e-6
 
 
 def test_no_inclusion_when_it_costs_too_much(config):

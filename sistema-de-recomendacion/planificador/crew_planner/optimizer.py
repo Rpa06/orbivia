@@ -296,7 +296,10 @@ class PlanModel:
         for t, value in covered_now.items():
             m.add(self.covered[t] == value)
         floor = sum(v for t, v in self.compat_floor.items() if covered_now.get(t))
-        limit = math.floor((1 + cfg.stages.epsilon) * (best + floor)) - floor
+        # Tolerancia: la mayor entre la relativa y la absoluta. Solo con la relativa,
+        # una tripulación en buen estado (óptimo ≈ 0) nunca dejaría margen
+        slack = max(cfg.stages.epsilon * (best + floor), cfg.stages.epsilon_abs * COST_SCALE)
+        limit = math.floor(best + slack)
         m.add(self.operational <= limit)
         m.minimize(self.integration)
         solver, status = self._solve("inclusion", stages, COST_SCALE)

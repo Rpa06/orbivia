@@ -282,7 +282,9 @@ Límite conocido: la enumeración de equipos crece de forma combinatoria. Con m�
 2. **Coste operativo.** Minimizar `Z_op = Σ C_op + α_eq · C_equidad`, que reúne estado, repetición, incertidumbre, compatibilidad y equidad.
 3. **Inclusión.** Minimizar `C_integración` con la restricción `Z_op ≤ (1 + ε) · Z_op*`. Por defecto `ε = 0.05`.
 
-La etapa 3 da una garantía que se puede enunciar: **la inclusión nunca empeora el coste operativo más de un 5 %**, y nunca cambia qué tareas se cubren. Es el método ε-restricción, estándar en optimización multiobjetivo.
+La etapa 3 da una garantía que se puede enunciar: **la inclusión nunca empeora el coste operativo más de `max(ε · (Z_op* + F), ε_abs)`**, y nunca cambia qué tareas se cubren. Es el método ε-restricción, estándar en optimización multiobjetivo.
+
+La tolerancia absoluta `ε_abs` (0.2 por defecto) se añadió en la Fase 5. Con una tripulación en buen estado el óptimo es casi cero y un 5 % de casi nada no deja margen: en el escenario de aislamiento, incluir a la persona en revisión costaba 0.17 y la regla relativa lo impedía siempre. Se fija igual a `μ`: incluir a alguien en `review` puede costar, como mucho, lo que vale su premio, que es lo mismo que haría la suma ponderada para una sola persona.
 
 Modo alternativo `weighted`: una sola resolución de la suma del enunciado, más un término de tareas no cubiertas (`stages.uncovered_penalty × I_j`). Se mantiene para comparar.
 
