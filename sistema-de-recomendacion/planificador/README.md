@@ -98,6 +98,27 @@ Códigos de salida:
 | `2` | Sin solución factible, o el optimizador agotó el tiempo |
 | `1` | Entrada inválida |
 
+## Tres planes para elegir
+
+Por defecto el planificador propone **tres planes completos del día**, entre los que eligen la tripulación y el control de misión:
+
+| Opción | Enfoque |
+|---|---|
+| A · Equilibrado | Los pesos de la configuración |
+| B · Mejor adecuación | Que cada tarea la haga quien mejor encaja hoy con sus requisitos, aunque el reparto sea menos parejo |
+| C · Reparto y rotación | Repartir la carga según la capacidad de cada uno y rotar las actividades repetidas |
+
+- **Los tres son seguros:** cumplen las mismas restricciones duras y pasan el verificador independiente. Solo cambia el peso de los objetivos blandos.
+- **Siempre son distintos:** cada plan difiere de los anteriores en al menos `min_difference` asignaciones (2 por defecto). Si no es posible, se exige menos; si no hay ninguna alternativa, se proponen menos planes y se dice por qué.
+- **Comparación para Tierra:** una tabla con métricas que no dependen de los pesos (adecuación, incertidumbre, reparto de la carga, rotación, interacción del equipo, inclusión). Cada plan lista sus ventajas y en qué asignaciones cambia respecto a la opción A.
+- **Versión de la tripulación:** solo ve los tres horarios con el nombre de cada plan.
+
+El JSON de salida lleva los planes en `plans`, la comparación en `plans[i].option` y la decisión en `decision`, que queda `pending` hasta que se elija. Registrar la elección todavía no está implementado.
+
+Los enfoques, su número y la diferencia mínima se cambian en `[alternatives]` de `config/default.toml`, o con `CP_ALTERNATIVES_COUNT` y `CP_ALTERNATIVES_MIN_DIFFERENCE`. Con `--plans 1` se obtiene un único plan, en el formato anterior.
+
+En la simulación, `--choose B` decide qué plan se da por ejecutado cada día (por defecto, el A); el historial del día siguiente parte de ese plan.
+
 ## Entornos de misión
 
 Hay un catálogo de 160 tareas de cuatro entornos (`catalog/`): ISS, superficie lunar, superficie marciana y servicio de satélites. Cada tarea lleva:
@@ -248,4 +269,4 @@ El grafo social no se modifica: se lee su salida y se reutiliza su módulo de in
 - El descanso entre un día y el siguiente solo se garantiza mediante el bloque de sueño.
 - Los miembros de un equipo trabajan a la vez y durante toda la tarea.
 - La enumeración de equipos está pensada para tripulaciones de hasta unas 10 personas.
-- No hay registro de si el plan se aceptó, ni planes alternativos entre los que elegir.
+- Se proponen tres planes, pero todavía no se registra cuál se elige ni por qué se rechaza.

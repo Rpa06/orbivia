@@ -71,7 +71,7 @@ Hipótesis que conviene declarar: `W̄` mide proximidad en ocio. Que eso prediga
 Ese documento define el reparto con: solo tareas comunes y de mantenimiento, ejercicio diario fijo, dos o tres planes alternativos entre los que elige la tripulación, y mínimo cambio respecto al plan original.
 
 - Ejercicio y otros compromisos fijos: se modelan como bloques ocupados.
-- Planes alternativos: se obtienen resolviendo con dos o tres perfiles de pesos. Queda como ampliación (fase 4b), no en el alcance inicial.
+- Planes alternativos: se obtienen resolviendo con varios perfiles de pesos y una restricción de diversidad (sección 5.3b).
 - Mínimo cambio respecto a un plan previo: fuera de alcance; el modelo lo admite como un término más.
 
 ## 3. Arquitectura
@@ -298,6 +298,31 @@ Detalles de la implementación (Fase 4):
 - **Red de seguridad.** Todo plan pasa por un verificador independiente del optimizador (`verify_plan`). Si incumpliera una restricción dura, el sistema lanza un error en vez de devolverlo.
 - **Tiempo límite.** Si el optimizador no responde a tiempo, la salida es `timeout`, no `infeasible`: no haber encontrado solución no prueba que no exista.
 
+### 5.3b Planes alternativos
+
+Se proponen varios planes completos para que elijan la tripulación y el control de misión, como pide `README.md.2.0.`. Por defecto son tres.
+
+**Generación.** Cada plan se obtiene con su propio enfoque, que multiplica los pesos globales (`[alternatives.profiles]`): equilibrado, mejor adecuación, y reparto y rotación. Pasa por las mismas etapas y el mismo verificador. Para que no salgan planes casi iguales, el plan k exige
+
+```
+Σ_{o ∈ P_j} z_o ≤ |P_j| − d        para cada plan anterior j
+```
+
+siendo `P_j` las opciones (tarea, personas) elegidas en el plan j y `d = min_difference`. Si es infactible, `d` baja hasta 1, y si ni así se puede, se devuelven menos planes con una nota. Relajar la diversidad no toca la seguridad.
+
+**Comparación.** Los costes de cada plan no son comparables entre sí, porque cada uno usa sus pesos. La comparación usa métricas independientes de los pesos:
+
+- adecuación media;
+- incertidumbre;
+- repetición reciente;
+- diferencia de carga y carga máxima frente al objetivo;
+- interacción media de los equipos;
+- inclusión y tareas cubiertas.
+
+Una métrica solo se presenta como ventaja de un plan si es el mejor con una diferencia apreciable (umbral por métrica). Así se evitan frases como «3 % frente a 3 %».
+
+**Pendiente.** Registrar la elección o el rechazo, con su motivo.
+
 ### 5.4 Cuando no hay solución
 
 1. **Comprobación previa**, sin optimizador: para cada tarea obligatoria, cuántos astronautas son elegibles y por qué se descarta a cada uno de los demás. Cubre la mayoría de los casos.
@@ -363,13 +388,13 @@ Fuera del grafo social, `psycopg` se usa solo para leer `social_graph.daily_resu
 | 2. Modelo de datos | Dataclasses, validación, JSON, configuración TOML, adaptador del grafo, historial | Ida y vuelta JSON; adaptador contra la salida real del analizador |
 | 3. Costes y restricciones | Normalización, `D`, `U`, `R`, carga, elegibilidad con motivos, equipos candidatos, `K` y `A` | Propiedades: cotas en [0, 1], dato ausente nunca mejora el coste, sin cualificación nunca elegible |
 | 4. Optimización | Modelo CP-SAT, tres etapas, diagnóstico, explicaciones, salida | Casos pequeños con óptimo conocido; determinismo; garantía de `ε` |
-| 4b. Opcional | Dos o tres planes por perfiles de pesos | — |
+| 4b | Dos o tres planes por perfiles de pesos (hecho, sección 5.3b) | Planes distintos, válidos y comparados |
 | 5. Simulación | Tripulación sintética y los ocho escenarios del enunciado, con semilla | Un test por escenario que comprueba restricciones y el comportamiento esperado |
 | 6. Documentación | Este documento actualizado, README del módulo, ejemplos de ejecución | — |
 
 Al cerrar cada fase: tests pasando, resumen corto, commits pequeños y lista de pendientes.
 
-Estado: fases 2 a 6 terminadas, con 123 tests que pasan en local (Python 3.13) y en la imagen Docker (Python 3.12). La fase 4b sigue pendiente. Se ha probado de principio a fin contra el grafo real guardado en PostgreSQL por la demo `drift` del servicio social-graph.
+Estado: fases 2 a 6 terminadas, con 123 tests que pasan en local (Python 3.13) y en la imagen Docker (Python 3.12). Se ha probado de principio a fin contra el grafo real guardado en PostgreSQL por la demo `drift` del servicio social-graph.
 
 ## 9. Escenarios de validación
 
