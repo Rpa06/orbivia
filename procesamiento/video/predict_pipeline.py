@@ -337,6 +337,58 @@ class VideoPredictionPipeline:
             capture.release()
             raise ValueError("The video does not provide a valid frame rate.")
 
+        def frames():
+            try:
+                while True:
+                    success, frame = capture.read()
+                    if not success:
+                        return
+                    yield frame
+            finally:
+                capture.release()
+
+        return self.analyze_frames(frames(), fps)
+
+    def analyze_bytes(self, data: bytes, fps: float = 15.0) -> Dict[str, object]:
+        """Analiza un vídeo que solo existe en memoria (integración Orbivia).
+
+        ffmpeg lo decodifica por tuberías (stdin -> stdout) a fotogramas BGR de
+        160x120 a `fps` fotogramas por segundo, sin archivos temporales. El búfer
+        decodificado se libera al terminar.
+        """
+        import subprocess
+
+        width, height = 160, 120
+        command = [
+            "ffmpeg", "-hide_banner", "-loglevel", "error", "-protocol_whitelist", "pipe",
+            "-i", "pipe:0", "-an",
+            "-vf", f"fps={fps},scale={width}:{height}:force_original_aspect_ratio=decrease,"
+                   f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2",
+            "-f", "rawvideo", "-pix_fmt", "bgr24", "pipe:1",
+        ]
+        result = subprocess.run(command, input=data, capture_output=True, check=False, timeout=60)
+        if result.returncode != 0 or not result.stdout:
+            raise ValueError("The video could not be decoded.")
+        raw = bytearray(result.stdout)
+        del result
+        frame_bytes = width * height * 3
+        count = len(raw) // frame_bytes
+
+        def frames():
+            for i in range(count):
+                yield np.frombuffer(raw, dtype=np.uint8, count=frame_bytes,
+                                    offset=i * frame_bytes).reshape(height, width, 3).copy()
+
+        try:
+            return self.analyze_frames(frames(), fps)
+        finally:
+            raw[:] = b"\x00" * len(raw)
+            raw.clear()
+
+    def analyze_frames(self, frames, fps: float) -> Dict[str, object]:
+        """Núcleo del análisis sobre un iterable de fotogramas BGR."""
+        if not np.isfinite(fps) or fps <= 0:
+            raise ValueError("The video does not provide a valid frame rate.")
         frame_index = 0
         next_target_index = 0
         first_sample_time: Optional[float] = None
@@ -360,10 +412,7 @@ class VideoPredictionPipeline:
             with vision.FaceLandmarker.create_from_options(
                 landmarker_options
             ) as landmarker:
-                while True:
-                    success, frame = capture.read()
-                    if not success:
-                        break
+                for frame in frames:
                     frame_time = int((frame_index / fps) * 1000.0) / 1000.0
 
                     height, width = frame.shape[:2]
@@ -435,7 +484,9 @@ class VideoPredictionPipeline:
                             previous_raw_geometry = previous_geometry.copy()
                     frame_index += 1
         finally:
-            capture.release()
+            close = getattr(frames, "close", None)
+            if close is not None:
+                close()
 
         if runner is None or first_sample_time is None:
             raise ValueError("No face was detected in the video.")
