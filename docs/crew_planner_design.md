@@ -1,6 +1,6 @@
 # Planificador diario de tareas — documento de diseño
 
-Estado: propuesta de la Fase 1, pendiente de aprobación. Nada de esto está implementado todavía.
+Estado: implementado (fases 2 a 6) en `sistema-de-recomendacion/planificador/`. Uso, entrada, salida y configuración en su [README](../sistema-de-recomendacion/planificador/README.md). Este documento recoge el modelo y las decisiones de diseño, con los cambios hechos durante la implementación.
 
 Módulo de ORBIVIA que genera una planificación diaria de tareas individuales y colectivas a partir del estado de cada astronauta, los requisitos de las tareas, el historial y, de forma acotada, las salidas del grafo social. Es una **herramienta de apoyo: propone, no decide**. Toda planificación la valida una persona.
 
@@ -346,7 +346,15 @@ Cada asignación de la salida lleva su desglose de coste, las cualificaciones sa
 - `networkx` y `numpy`, solo para el test de contrato con el analizador real.
 - Python 3.12, como el resto de imágenes.
 
-Archivos compartidos que habría que tocar, con aviso previo: `docker-compose.yml` y `.env.example` si se añade un servicio; `sistema-de-recomendacion/api/main.py` si se expone un endpoint.
+Archivos compartidos tocados en la Fase 6:
+
+- `docker-compose.yml`: servicio `planner` con el perfil `planner`, que no arranca con `docker compose up`.
+- `.env.example`: ejemplos comentados de `CP_*`.
+- `.gitignore`: la carpeta de salida `volumenes/planner/`.
+
+`sistema-de-recomendacion/api/main.py` no se ha tocado: no hay endpoint todavía.
+
+Fuera del grafo social, `psycopg` se usa solo para leer `social_graph.daily_result` con `--social-db`.
 
 ## 8. Plan de implementación
 
@@ -360,6 +368,8 @@ Archivos compartidos que habría que tocar, con aviso previo: `docker-compose.ym
 | 6. Documentación | Este documento actualizado, README del módulo, ejemplos de ejecución | — |
 
 Al cerrar cada fase: tests pasando, resumen corto, commits pequeños y lista de pendientes.
+
+Estado: fases 2 a 6 terminadas, con 123 tests que pasan en local (Python 3.13) y en la imagen Docker (Python 3.12). La fase 4b sigue pendiente. Se ha probado de principio a fin contra el grafo real guardado en PostgreSQL por la demo `drift` del servicio social-graph.
 
 ## 9. Escenarios de validación
 
