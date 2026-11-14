@@ -16,6 +16,18 @@ Servicio de ORBIVIA que estima cuánto tiempo de ocio pasan juntos los astronaut
 
 ## Ejecutar
 
+### Demo en un paso
+
+Borra el histórico, compila, levanta la pila, simula 30 días del escenario `drift` y muestra los resultados (unos 2 minutos):
+
+```bash
+bash procesamiento/grafos/demo.sh
+```
+
+Admite escenario y número de días: `bash procesamiento/grafos/demo.sh cliques 15`. Fija `SG_SIM_SCENARIO` y `SG_SIM_SPEEDUP=86400` en tu `.env`.
+
+### Paso a paso
+
 Desde la raíz del repositorio, con `.env` creado a partir de `.env.example`:
 
 ```bash
