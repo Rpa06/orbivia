@@ -236,7 +236,7 @@ Cada indicador se compara con la línea base individual del apartado 4f. Además
 | Descenso sostenido | Al menos 2 de los 4 indicadores con desviación sostenida (3 de 5 días) | Deriva o caída respecto a uno mismo |
 | Tendencia | Al menos 2 indicadores con tendencia a la baja | Deriva lenta |
 | Integración baja frente a la tripulación | `C_i` por debajo de la mitad de la mediana de los demás en 5 de 7 días evaluables | Quien está poco integrado desde el primer día |
-| Aislamiento estructural | En el grafo suavizado: sin aristas, o comunidad de un solo miembro | Desconexión de la red |
+| Aislamiento estructural | En el grafo suavizado: sin aristas, o comunidad de un solo miembro, mientras al menos la mitad del resto sí forma una red | Desconexión de la red |
 
 Descenso sostenido y tendencia miden lo mismo (caída respecto a uno mismo) y cuentan como una sola señal. Durante un descenso de tripulación, el aislamiento estructural no se señala individualmente.
 
@@ -262,6 +262,8 @@ Limitación: los cuatro indicadores salen de la misma medida de proximidad y est
 - **Comunidades:** `greedy_modularity_communities` de NetworkX, con pesos. Es determinista, sin semilla. Se informa de la modularidad `Q`, y solo se habla de comunidades si `Q ≥ 0.2`; por debajo, el resultado es "sin estructura de grupos clara".
 - **Conexión entre comunidades:** para cada par de comunidades, peso medio de las aristas que las unen. Es la entrada principal del recomendador.
 - **Intermediación** (betweenness): ponderada, con distancia `1 / W_ij`. Identifica a quien une grupos.
+- **Puentes:** cuando hay grupos claros, quienes tienen aristas con más de una comunidad, ordenados por intermediación.
+- **Desconocidos:** quien no tiene ninguna pareja evaluable en la ventana no aparece como aislado, sino como desconocido.
 
 Advertencias:
 
