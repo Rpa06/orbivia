@@ -139,7 +139,7 @@ Tiene dos partes.
 
 **3. Funciones futuras del reparto.**
 
-- **Cuándo, además de quién.** Proponer la franja horaria en la que cada astronauta rinde mejor según su sueño y su PVT-B. Responde directamente al hueco Sleep-102 de NASA.
+- **Cuándo, además de quién.** Proponer la franja horaria en la que cada astronauta rinde mejor según su sueño y su PVT-B. Responde directamente al hueco Sleep-102 de NASA. (por cerrar)
 - **Parejas compatibles.** Para tareas de dos personas, como las salidas al exterior, emparejar a quienes tienen el sueño sincronizado. Usa solo datos de sueño, nunca el grafo social.
 - **Horizonte semanal.** Repartir mirando también los días siguientes, para que nadie acumule cansancio, y mostrar cómo quedaría la carga de cada uno al final de la semana.
 
