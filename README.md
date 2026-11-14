@@ -201,7 +201,7 @@ Registro opcional que solo ve la astronauta. Nunca entra en la nota de disponibi
 - Ritmo circadiano, calidad del sueño, ritmo cardíaco, exposición a la luz, temperatura corporal y tensión arterial.
 - EEG por bandas, pendiente de confirmar que se puede medir a bordo.
 
-**Evaluación psicológica (cada 3 días).**
+**Evaluación psicológica (depende la longitud de la mision aumneta la frecuencia si la mision es mas corta)..**
 
 - Audio de las respuestas abiertas, con extracción acústica mediante openSMILE.
 - Texto transcrito, con análisis de lenguaje que devuelve cuatro puntuaciones (neutral, ánimo bajo, ansiedad y estable), interpretadas contra la línea base de cada pregunta.
