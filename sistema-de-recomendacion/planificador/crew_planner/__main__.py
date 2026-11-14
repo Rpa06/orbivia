@@ -1,5 +1,8 @@
 """Línea de comandos: python -m crew_planner entrada.json [--config f.toml] [--out plan.json]
 
+Por defecto propone varios planes alternativos (alternatives.count en la configuración);
+con --plans 1 devuelve un único plan.
+
 Con --social-db, si la entrada no trae grafo social, se lee el último día cerrado
 del servicio social-graph en PostgreSQL (variables POSTGRES_*).
 
@@ -16,8 +19,9 @@ from pathlib import Path
 from .config import load_config
 from .inputs import load_input, validate
 from .model import ValidationError
+from .options import plan_options
 from .planner import plan_day
-from .report import CREW, GROUND, render_html
+from .report import CREW, GROUND, render_html, render_options_html
 from .social import load_from_postgres
 
 
@@ -28,6 +32,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", help="fichero de salida; por defecto, la salida estándar")
     parser.add_argument("--social-db", action="store_true",
                         help="leer el grafo social de PostgreSQL si la entrada no lo trae")
+    parser.add_argument("--plans", type=int,
+                        help="número de planes alternativos (por defecto alternatives.count; 1 = un solo plan)")
     parser.add_argument("--html", help="además, informe visual en HTML (para Tierra)")
     parser.add_argument("--html-crew", help="además, informe HTML para la tripulación: solo el horario")
     args = parser.parse_args(argv)
@@ -44,7 +50,14 @@ def main(argv: list[str] | None = None) -> int:
     for warning in warnings:
         print(f"Aviso: {warning}", file=sys.stderr)
 
-    plan = plan_day(problem, config)
+    count = args.plans or config.alternatives.count
+    if not 1 <= count <= len(config.alternatives.profiles):
+        print(f"--plans debe estar entre 1 y {len(config.alternatives.profiles)}", file=sys.stderr)
+        return 1
+    if count == 1:
+        plan, render = plan_day(problem, config), render_html
+    else:
+        plan, render = plan_options(problem, config, count), render_options_html
     text = json.dumps(plan, indent=1, ensure_ascii=False)
     if args.out:
         Path(args.out).write_text(text, encoding="utf-8")
@@ -54,7 +67,7 @@ def main(argv: list[str] | None = None) -> int:
         raw = json.loads(Path(args.input).read_text(encoding="utf-8"))
         for path, audience in ((args.html, GROUND), (args.html_crew, CREW)):
             if path:
-                Path(path).write_text(render_html(plan, raw, audience), encoding="utf-8")
+                Path(path).write_text(render(plan, raw, audience), encoding="utf-8")
                 print(f"Informe ({audience}): {path}", file=sys.stderr)
     return 0 if plan["status"] == "ok" else 2
 

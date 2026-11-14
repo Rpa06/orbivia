@@ -383,20 +383,32 @@ def day_input(day: int, seed: int, scenario: str = "nominal", environment: str |
 
 def simulate(days: int, config: PlannerConfig, scenario: str = "nominal", first_day: int = 10,
              seed: int = 42, environment: str | None = None,
-             extra_events: tuple[str, ...] = ()) -> list[Document]:
-    """Planifica `days` días seguidos; el plan de cada día pasa al historial del siguiente."""
+             extra_events: tuple[str, ...] = (), options: int | None = None,
+             choose: int = 0) -> list[Document]:
+    """Planifica `days` días seguidos; el plan de cada día pasa al historial del siguiente.
+
+    Con `options` > 1 cada día es un documento con varios planes alternativos y se da
+    por ejecutado el de índice `choose` (0 = opción A).
+    """
+    from .options import plan_options
+
     history = History()
-    plans = []
+    out = []
     for day in range(first_day, first_day + days):
         raw = day_input(day, seed, scenario, environment, extra_events)
         raw["history"] = [e.to_dict() for e in history.entries] + raw.get("history", [])
-        plan = plan_day(from_dict(raw), config)
+        problem = from_dict(raw)
+        doc = plan_options(problem, config, options) if options and options > 1 else plan_day(problem, config)
         if raw.get("meta"):
-            plan["meta"] = raw["meta"]
-        plans.append(plan)
-        if plan["status"] == "ok":
-            history = history.extend(history_from_plan(plan, {t["id"]: t for t in raw["tasks"]}))
-    return plans
+            doc["meta"] = raw["meta"]
+        out.append(doc)
+        executed = doc
+        if "plans" in doc:
+            executed = doc["plans"][min(choose, len(doc["plans"]) - 1)] if doc["status"] == "ok" else doc
+            doc["executed"] = executed["option"]["id"] if doc["status"] == "ok" else None
+        if executed["status"] == "ok":
+            history = history.extend(history_from_plan(executed, {t["id"]: t for t in raw["tasks"]}))
+    return out
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -411,28 +423,49 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--config")
     parser.add_argument("--out", help="carpeta donde guardar un plan JSON por día")
+    parser.add_argument("--plans", type=int, help="planes alternativos por día (por defecto alternatives.count)")
+    parser.add_argument("--choose", default="A", help="plan que se da por ejecutado cada día (A, B, C...)")
     args = parser.parse_args(argv)
 
     import os
 
     config = load_config(args.config, env=os.environ)
-    plans = simulate(args.days, config, args.scenario, first_day=args.first_day, seed=args.seed,
-                     environment=args.environment,
-                     extra_events=tuple(args.event))
-    from .report import CREW, GROUND, render_html
+    count = args.plans or config.alternatives.count
+    choose = max(0, "ABCDEFGHIJ".find(args.choose.upper()))
+    docs = simulate(args.days, config, args.scenario, first_day=args.first_day, seed=args.seed,
+                    environment=args.environment, extra_events=tuple(args.event),
+                    options=count, choose=choose)
+    from .report import CREW, GROUND, render_html, render_options_html
 
-    for plan in plans:
+    render = render_options_html if count > 1 else render_html
+    for doc in docs:
         if args.out:
             folder = Path(args.out)
             folder.mkdir(parents=True, exist_ok=True)
-            name = f"plan_{plan['day']:04d}"
-            (folder / f"{name}.json").write_text(json.dumps(plan, indent=1, ensure_ascii=False), encoding="utf-8")
+            name = f"plan_{doc['day']:04d}"
+            (folder / f"{name}.json").write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
             # El horario de cada astronauta solo depende del escenario (o entorno) y del día
-            raw = day_input(plan["day"], args.seed, args.scenario, args.environment, tuple(args.event))
-            (folder / f"{name}.html").write_text(render_html(plan, raw, GROUND), encoding="utf-8")
-            (folder / f"{name}_tripulacion.html").write_text(render_html(plan, raw, CREW), encoding="utf-8")
-        print(summary(plan))
-    return 0 if all(p["status"] == "ok" for p in plans) else 2
+            raw = day_input(doc["day"], args.seed, args.scenario, args.environment, tuple(args.event))
+            (folder / f"{name}.html").write_text(render(doc, raw, GROUND), encoding="utf-8")
+            (folder / f"{name}_tripulacion.html").write_text(render(doc, raw, CREW), encoding="utf-8")
+        print(summary_options(doc) if "plans" in doc else summary(doc))
+    return 0 if all(d["status"] == "ok" for d in docs) else 2
+
+
+def summary_options(doc: Document) -> str:
+    """Resumen de un día con varios planes: el plan A completo y en qué cambian los demás."""
+    if doc["status"] != "ok":
+        return summary(doc)
+    plans = doc["plans"]
+    first = dict(plans[0], meta=doc.get("meta"))
+    lines = [summary(first).replace(": ok", f": {len(plans)} planes (se ejecuta {doc.get('executed', 'A')})", 1)]
+    for plan in plans:
+        o = plan["option"]
+        lines.append(f"  Opción {o['id']} · {o['label']}: " + "; ".join(o["advantages"]))
+        for d in o.get("differences_vs_A", []):
+            lines.append(f"      {d['task']:<17} {' + '.join(d['in_A']) or '—'} → {' + '.join(d['here']) or '—'}")
+    lines += [f"  Nota: {n}" for n in doc.get("notes", [])]
+    return "\n".join(lines)
 
 
 def summary(plan: Document) -> str:

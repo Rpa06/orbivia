@@ -261,59 +261,160 @@ def _conflicts(plan: Document) -> str:
     return "".join(out)
 
 
-def render_html(plan: Document, raw_input: Mapping[str, Any] | None = None, audience: str = GROUND) -> str:
+def _crew_body(plan: Document, raw_input) -> list[str]:
+    items = "".join(f"<li>{_e(e['crew_text'])}</li>" for e in _entries(plan))
+    return [f'<section><h2>Horario</h2>{gantt_svg(plan, raw_input)}{_legend(plan)}</section>',
+            f'<section><h2>Tareas</h2><ul class="plain">{items}</ul></section>']
+
+
+def _ground_body(plan: Document, raw_input, meta: Mapping[str, Any]) -> list[str]:
+    g = plan["global"]
+    body = [f'<section><h2>Cronograma</h2>{gantt_svg(plan, raw_input)}{_legend(plan)}</section>',
+            '<div class="two"><section><h2>Carga de trabajo</h2>' + _workload(plan) + "</section>"
+            '<section><h2>Coste de la solución</h2>' + _costs(plan) + "</section></div>"]
+    if g["pending"]:
+        pending = "".join(f'<li><b>{_e(p["task"])}</b>: {_e(p["reason"])}</li>' for p in g["pending"])
+        body.append(f'<section><h2>Pendientes</h2><ul>{pending}</ul></section>')
+    if meta.get("automated"):
+        auto = "".join(
+            f'<li><b>{_e(a["task_id"])}</b> {_e(a["name"])} <span class="muted">· {_e(a["execution_mode"])}</span></li>'
+            for a in meta["automated"]
+        )
+        body.append('<section><h2>Operaciones sin tripulación</h2><p class="muted small">Robóticas o '
+                    'controladas desde Tierra: no se asignan a astronautas. La supervisión humana, si la '
+                    f'hay, figura como tarea propia.</p><ul>{auto}</ul></section>')
+    body.append('<section><h2>Asignaciones</h2><div class="cards">'
+                + "".join(_card(e) for e in _entries(plan)) + "</div></section>")
+    notes = list(g["warnings"])
+    unknown = {a: p for a, p in g["uncertainty"]["unknown_parameters"].items() if p}
+    if unknown:
+        notes += [f"{a}: datos desconocidos ({', '.join(p)})" for a, p in unknown.items()]
+    if notes:
+        body.append('<section><h2>Avisos y datos</h2><ul>'
+                    + "".join(f"<li>{_e(n)}</li>" for n in notes) + "</ul></section>")
+    return body
+
+
+_BADGE = {"ok": "Plan generado", "infeasible": "Sin solución factible", "timeout": "Sin respuesta a tiempo"}
+_CREW_NOTE = '<p class="muted">Propuesta de reparto. La decisión final la toma la tripulación con el centro de control.</p>'
+_CREW_NONE = '<section><p>No hay una propuesta para este día. El centro de control está revisando el reparto.</p></section>'
+_FOOTER = '<footer class="muted small">ORBIVIA · Planificador de tareas · Herramienta de apoyo: propone, no decide.</footer>'
+
+
+def _meta(doc: Document, raw_input) -> Mapping[str, Any]:
+    return (raw_input or {}).get("meta") or doc.get("meta") or {}
+
+
+def _title(prefix: str, doc: Document, meta) -> str:
+    return f"{prefix} {doc['day']}" + (f" · {meta['environment_name']}" if meta.get("environment_name") else "")
+
+
+def _check_audience(audience: str) -> None:
     if audience not in AUDIENCES:
         raise ValueError(f"audience debe ser una de {AUDIENCES}")
+
+
+def render_html(plan: Document, raw_input: Mapping[str, Any] | None = None, audience: str = GROUND) -> str:
+    _check_audience(audience)
     ok = plan["status"] == "ok"
-    meta = (raw_input or {}).get("meta") or plan.get("meta") or {}
-    title = f"Plan del día {plan['day']}" + (f" · {meta['environment_name']}" if meta.get("environment_name") else "")
+    meta = _meta(plan, raw_input)
+    title = _title("Plan del día", plan, meta)
     body = [f'<header class="top"><h1>{_e(title)}</h1>']
     if audience == CREW:
-        body.append('<p class="muted">Propuesta de reparto. La decisión final la toma la tripulación con el centro de control.</p></header>')
-        if ok:
-            body.append(f'<section><h2>Horario</h2>{gantt_svg(plan, raw_input)}{_legend(plan)}</section>')
-            items = "".join(f"<li>{_e(e['crew_text'])}</li>" for e in _entries(plan))
-            body.append(f'<section><h2>Tareas</h2><ul class="plain">{items}</ul></section>')
-        else:
-            body.append('<section><p>No hay una propuesta para este día. El centro de control está revisando el reparto.</p></section>')
+        body.append(_CREW_NOTE + "</header>")
+        body += _crew_body(plan, raw_input) if ok else [_CREW_NONE]
     else:
-        badge = {"ok": "Plan generado", "infeasible": "Sin solución factible", "timeout": "Sin respuesta a tiempo"}
         body.append(
-            f'<p><span class="status {plan["status"]}">{badge.get(plan["status"], plan["status"])}</span> '
+            f'<p><span class="status {plan["status"]}">{_BADGE.get(plan["status"], plan["status"])}</span> '
             f'<span class="muted">configuración {_e(plan.get("config_version"))} · uso exclusivo de personal autorizado</span></p>'
             f'{_status(plan)}</header>'
         )
         if ok:
-            g = plan["global"]
-            body.append(f'<section><h2>Cronograma</h2>{gantt_svg(plan, raw_input)}{_legend(plan)}</section>')
-            body.append(
-                '<div class="two"><section><h2>Carga de trabajo</h2>' + _workload(plan) + "</section>"
-                '<section><h2>Coste de la solución</h2>' + _costs(plan) + "</section></div>"
-            )
-            if g["pending"]:
-                pending = "".join(f'<li><b>{_e(p["task"])}</b>: {_e(p["reason"])}</li>' for p in g["pending"])
-                body.append(f'<section><h2>Pendientes</h2><ul>{pending}</ul></section>')
-            if meta.get("automated"):
-                auto = "".join(
-                    f'<li><b>{_e(a["task_id"])}</b> {_e(a["name"])} <span class="muted">· {_e(a["execution_mode"])}</span></li>'
-                    for a in meta["automated"]
-                )
-                body.append('<section><h2>Operaciones sin tripulación</h2><p class="muted small">Robóticas o '
-                            'controladas desde Tierra: no se asignan a astronautas. La supervisión humana, si la '
-                            f'hay, figura como tarea propia.</p><ul>{auto}</ul></section>')
-            body.append('<section><h2>Asignaciones</h2><div class="cards">'
-                        + "".join(_card(e) for e in _entries(plan)) + "</div></section>")
-            notes = list(g["warnings"])
-            unknown = {a: p for a, p in g["uncertainty"]["unknown_parameters"].items() if p}
-            if unknown:
-                notes += [f"{a}: datos desconocidos ({', '.join(p)})" for a, p in unknown.items()]
-            if notes:
-                body.append('<section><h2>Avisos y datos</h2><ul>'
-                            + "".join(f"<li>{_e(n)}</li>" for n in notes) + "</ul></section>")
+            body += _ground_body(plan, raw_input, meta)
         else:
             body.append(f'<section><h2>Conflictos</h2>{_conflicts(plan)}'
                         '<p class="muted small">No se ha relajado ninguna restricción.</p></section>')
-    body.append('<footer class="muted small">ORBIVIA · Planificador de tareas · Herramienta de apoyo: propone, no decide.</footer>')
+    body.append(_FOOTER)
+    return _PAGE.format(title=_e(title), css=_css(), body="".join(body))
+
+
+# --- varios planes alternativos -------------------------------------------------------
+
+_METRIC_ROWS = (
+    ("covered", "Tareas cubiertas", "{:.0f}", True),
+    ("adequacy", "Adecuación media al estado", "{:.0%}", True),
+    ("uncertainty", "Incertidumbre media de los datos", "{:.0%}", False),
+    ("load_spread_h", "Diferencia de carga entre el más y el menos cargado", "{:.2f} h", False),
+    ("max_load_vs_target", "Carga máxima frente a la carga objetivo", "{:.0%}", False),
+    ("repetition", "Repetición reciente media", "{:.0%}", False),
+    ("team_interaction", "Interacción observada media de los equipos", "{:.2f}", True),
+    ("inclusion", "Oportunidades de colaboración (baja carga)", "{:.0f}", True),
+)
+
+
+def _comparison(plans: list[Document]) -> str:
+    head = "".join(f'<th>{_e(p["option"]["id"])} · {_e(p["option"]["label"])}</th>' for p in plans)
+    rows = []
+    for key, label, fmt, higher in _METRIC_ROWS:
+        values = [p["option"]["metrics"].get(key) for p in plans]
+        known = [v for v in values if v is not None]
+        best = (max(known) if higher else min(known)) if known else None
+        cells = "".join(
+            '<td class="num">—</td>' if v is None else
+            f'<td class="num{" best" if len(set(known)) > 1 and v == best else ""}">{fmt.format(v)}</td>'
+            for v in values
+        )
+        rows.append(f"<tr><td>{label}</td>{cells}</tr>")
+    return (f'<table class="compare"><thead><tr><th></th>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table>'
+            '<p class="muted small">Métricas independientes de los pesos de cada enfoque, para comparar con justicia. '
+            'En negrita, la mejor de cada fila.</p>')
+
+
+def _option_header(plan: Document, audience: str) -> str:
+    o = plan["option"]
+    parts = [f'<h2>Opción {_e(o["id"])} · {_e(o["label"])}</h2>']
+    # La tripulación solo ve el nombre: la descripción y las ventajas hablan de
+    # capacidades, datos y métricas que no le corresponde ver
+    if audience == GROUND:
+        parts.append(f'<p class="muted">{_e(o["description"])}</p>')
+        parts.append("<ul>" + "".join(f"<li>{_e(a)}</li>" for a in o["advantages"]) + "</ul>")
+        diffs = o.get("differences_vs_A") or []
+        if diffs:
+            items = "".join(
+                f'<li><b>{_e(d["task"])}</b>: {_e(" + ".join(d["in_A"]) or "sin asignar")} → '
+                f'{_e(" + ".join(d["here"]) or "sin asignar")}</li>' for d in diffs
+            )
+            parts.append(f"<details><summary>{len(diffs)} asignaciones distintas de la opción A</summary><ul>{items}</ul></details>")
+    return f'<section class="option">{"".join(parts)}</section>'
+
+
+def render_options_html(doc: Document, raw_input: Mapping[str, Any] | None = None, audience: str = GROUND) -> str:
+    """Informe con varios planes alternativos y su comparación (solo para Tierra)."""
+    _check_audience(audience)
+    if doc["status"] != "ok":
+        return render_html(doc, raw_input, audience)
+    meta = _meta(doc, raw_input)
+    plans = doc["plans"]
+    title = _title("Planes propuestos para el día", doc, meta)
+    nav = " · ".join(f'<a href="#op-{_e(p["option"]["id"])}">Opción {_e(p["option"]["id"])}: {_e(p["option"]["label"])}</a>'
+                     for p in plans)
+    body = [f'<header class="top"><h1>{_e(title)}</h1>']
+    if audience == CREW:
+        body.append(_CREW_NOTE + f'<p class="small">{nav}</p></header>')
+    else:
+        body.append(
+            f'<p><span class="status ok">{len(plans)} planes válidos</span> <span class="muted">configuración '
+            f'{_e(doc.get("config_version"))} · uso exclusivo de personal autorizado</span></p>'
+            f'<p class="small">{nav}</p></header>'
+            f'<section><h2>Comparación</h2>{_comparison(plans)}</section>'
+        )
+        notes = list(doc.get("notes", [])) + [doc["decision"]["note"]]
+        body.append('<section><h2>Decisión</h2><ul>' + "".join(f"<li>{_e(n)}</li>" for n in notes) + "</ul></section>")
+    for plan in plans:
+        body.append(f'<div class="plan-option" id="op-{_e(plan["option"]["id"])}">{_option_header(plan, audience)}')
+        body += _crew_body(plan, raw_input) if audience == CREW else _ground_body(plan, raw_input, meta)
+        body.append("</div>")
+    body.append(_FOOTER)
     return _PAGE.format(title=_e(title), css=_css(), body="".join(body))
 
 
@@ -374,6 +475,15 @@ table.costs tr.total td{font-weight:700;border-bottom:0}
 .chip.accent{color:var(--accent);border-color:var(--accent)}
 details summary{cursor:pointer;color:var(--accent);font-size:13px}
 ul.plain{padding-left:18px}footer{margin-top:24px;text-align:center}
+a{color:var(--accent)}
+table.compare{width:100%;border-collapse:collapse;font-size:14px}
+table.compare th,table.compare td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+table.compare th{font-size:13px;color:var(--muted);font-weight:600}
+table.compare td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.compare td.best{font-weight:700;color:var(--accent)}
+.plan-option{margin-top:40px;padding-top:8px;border-top:3px solid var(--line)}
+section.option{border-color:var(--accent)}
+@media (max-width:760px){table.compare{font-size:12px}table.compare th,table.compare td{padding:4px}}
 """
 
 _PAGE = """<!doctype html>

@@ -180,6 +180,6 @@ def test_simulation_cli(tmp_path, capsys, config):
         f"plan_{d}{suffix}" for d in ("0010", "0011")
         for suffix in (".html", ".json", "_tripulacion.html")
     ]
-    assert "Día 11: ok" in capsys.readouterr().out
+    assert "Día 11: 3 planes" in capsys.readouterr().out
     assert main(["--scenario", "infeasible"]) == 2
     assert "conflicto" in summary(run("infeasible", config))
