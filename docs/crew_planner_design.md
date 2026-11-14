@@ -1,5 +1,7 @@
 # Planificador diario de tareas — documento de diseño
 
+> **Nota de integración (rama `integracion/orbivia-demo`).** Este documento describe el diseño original. Al integrar Orbivia se eliminaron del planificador todas las partes que usaban el grafo social (compatibilidad `γ`, inclusión `μ`, la etapa 3 y el adaptador `social.py`), porque el README prohíbe usar el grafo para repartir, agrupar o separar a la tripulación. Las secciones que las mencionan se conservan solo como historial del diseño. Los límites semanales y la regla de investigación no reasignable están en `crew_planner/policy.py`.
+
 Estado: implementado (fases 2 a 6) en `sistema-de-recomendacion/planificador/`. El catálogo de tareas por entorno (ISS, Luna, Marte, satélites) y su traducción a requisitos están en [task_catalog_methodology.md](task_catalog_methodology.md); añadió al modelo de tarea `only_for` (tareas de una persona concreta) e `interdependence`, que multiplica el término de compatibilidad: `C_comp = γ · I_j · d_j · (K_ref − K(G))`. Uso, entrada, salida y configuración en su [README](../sistema-de-recomendacion/planificador/README.md). Este documento recoge el modelo y las decisiones de diseño, con los cambios hechos durante la implementación.
 
 Módulo de ORBIVIA que genera una planificación diaria de tareas individuales y colectivas a partir del estado de cada astronauta, los requisitos de las tareas, el historial y, de forma acotada, las salidas del grafo social. Es una **herramienta de apoyo: propone, no decide**. Toda planificación la valida una persona.
@@ -18,7 +20,7 @@ Módulo de ORBIVIA que genera una planificación diaria de tareas individuales y
 | API (`sistema-de-recomendacion/api/main.py`) | Solo endpoints de salud; la rama de audio la modifica | No se toca en las primeras fases |
 | Optimización | Ninguna dependencia de optimización | Se añade OR-Tools |
 
-Salidas del grafo que consume el planificador, tal como se guardan en `social_graph.daily_result.result`:
+Salidas del grafo que consume el planificador, tal como se guardan en `biometrics.social_graph_daily_result.result`:
 
 - `crew`: orden de la tripulación.
 - `isolation.structure.smoothed_weights`: matriz `W̄` de 7 días, simétrica, en [0, 1], con `null` en la diagonal y en las parejas nunca evaluables.
@@ -77,7 +79,7 @@ Ese documento define el reparto con: solo tareas comunes y de mantenimiento, eje
 ## 3. Arquitectura
 
 ```
- estado de astronautas      tareas del día       historial de        social_graph.daily_result
+ estado de astronautas      tareas del día       historial de        biometrics.social_graph_daily_result
  (contrato JSON; futuro:    (catálogo JSON)      asignaciones        (solo lectura)
   vector colapsado)               │                   │                     │
         │                         │                   │                     │
@@ -379,7 +381,7 @@ Archivos compartidos tocados en la Fase 6:
 
 `sistema-de-recomendacion/api/main.py` no se ha tocado: no hay endpoint todavía.
 
-Fuera del grafo social, `psycopg` se usa solo para leer `social_graph.daily_result` con `--social-db`.
+Fuera del grafo social, `psycopg` se usa solo para leer `biometrics.social_graph_daily_result` con `--social-db`.
 
 ## 8. Plan de implementación
 

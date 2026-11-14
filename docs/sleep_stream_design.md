@@ -27,7 +27,7 @@ flowchart TD
     I -.->|recorte de lo confirmado| X[Registros originales borrados]
     E[Señal de fin<br/>POST .../end] -->|XADD| I
     W -->|fin recibido y nada pendiente| F[Cerrar ventanas<br/>y calcular el resumen]
-    F --> P[(PostgreSQL<br/>sleep.session_summary)]
+    F --> P[(PostgreSQL<br/>biometrics.sleep_session_summary)]
     P -->|solo tras guardar| R[(Stream orbivia:sleep:summaries<br/>aviso al sistema principal)]
     P -->|solo tras guardar| L[Caducidad del<br/>estado temporal]
 ```
@@ -223,7 +223,7 @@ El trabajo de cerrar está acotado por el número de ventanas vivas (unas decena
 
 ### Persistencia de Redis
 
-Redis no es el almacenamiento permanente: el resumen final vive en PostgreSQL (`sleep.session_summary`, clave primaria astronauta + sesión).
+Redis no es el almacenamiento permanente: el resumen final vive en PostgreSQL (`biometrics.sleep_session_summary`, clave primaria astronauta + sesión).
 
 Mientras la sesión está abierta, su estado depende de la persistencia de Redis, configurada en `docker-compose.yml`:
 

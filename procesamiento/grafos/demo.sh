@@ -52,7 +52,7 @@ fi
 
 echo "== Simulando $DIAS días del escenario $ESCENARIO"
 while :; do
-  ultimo="$(q -At -c 'SELECT coalesce(max(day), -1) FROM social_graph.daily_result' 2>/dev/null)"
+  ultimo="$(q -At -c 'SELECT coalesce(max(day), -1) FROM biometrics.social_graph_daily_result' 2>/dev/null)"
   [ "${ultimo:--1}" -ge $((DIAS - 1)) ] 2>/dev/null && break
   if docker compose ps social-graph --format '{{.Status}}' </dev/null | grep -q -E "Restarting|Exited"; then
     echo; echo "El servicio se ha caído. Últimas líneas del log:"
@@ -73,17 +73,17 @@ q -c "SELECT day AS dia,
          result#>>'{isolation,astronauts,A5,status}' AS a5,
          result#>>'{isolation,astronauts,A6,status}' AS a6,
          result#>>'{isolation,crew,drop}' AS descenso_grupo
-      FROM social_graph.daily_result WHERE day < $DIAS ORDER BY day"
+      FROM biometrics.social_graph_daily_result WHERE day < $DIAS ORDER BY day"
 
 echo "== Propuestas de actividades voluntarias"
 q -c "SELECT day AS dia, p->>'crew_text' AS texto_tripulacion
-      FROM social_graph.daily_result,
+      FROM biometrics.social_graph_daily_result,
            jsonb_array_elements(result->'recommendations'->'proposals') p
       WHERE day < $DIAS ORDER BY day"
 
 echo "== Justificación para Tierra de la última propuesta"
 q -At -c "SELECT p->>'justification'
-          FROM social_graph.daily_result,
+          FROM biometrics.social_graph_daily_result,
                jsonb_array_elements(result->'recommendations'->'proposals') p
           WHERE day < $DIAS ORDER BY day DESC LIMIT 1"
 

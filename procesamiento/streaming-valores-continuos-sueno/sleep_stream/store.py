@@ -60,8 +60,8 @@ class MemoryStore:
 
 
 _SCHEMA_SQL = """
-CREATE SCHEMA IF NOT EXISTS sleep;
-CREATE TABLE IF NOT EXISTS sleep.session_summary (
+CREATE SCHEMA IF NOT EXISTS biometrics;
+CREATE TABLE IF NOT EXISTS biometrics.sleep_session_summary (
     astronaut_id text NOT NULL,
     sleep_session_id text NOT NULL,
     start_ts double precision NOT NULL,
@@ -71,19 +71,19 @@ CREATE TABLE IF NOT EXISTS sleep.session_summary (
     created_at timestamptz NOT NULL DEFAULT now(),
     PRIMARY KEY (astronaut_id, sleep_session_id)
 );
-CREATE INDEX IF NOT EXISTS session_summary_by_start
-    ON sleep.session_summary (astronaut_id, start_ts);
+CREATE INDEX IF NOT EXISTS sleep_session_summary_by_start
+    ON biometrics.sleep_session_summary (astronaut_id, start_ts);
 """
 
 _INSERT = """
-INSERT INTO sleep.session_summary
+INSERT INTO biometrics.sleep_session_summary
     (astronaut_id, sleep_session_id, start_ts, end_ts, config_version, summary)
 VALUES (%s, %s, %s, %s, %s, %s)
 ON CONFLICT (astronaut_id, sleep_session_id) DO NOTHING
 """
 
 _SELECT = """
-SELECT summary FROM sleep.session_summary WHERE astronaut_id = %s AND sleep_session_id = %s
+SELECT summary FROM biometrics.sleep_session_summary WHERE astronaut_id = %s AND sleep_session_id = %s
 """
 
 
@@ -132,7 +132,7 @@ class PostgresStore:
     def list_sessions(self, astronaut_id: str) -> list[Document]:
         with self._connect() as connection:
             rows = connection.execute(
-                "SELECT summary FROM sleep.session_summary WHERE astronaut_id = %s ORDER BY start_ts",
+                "SELECT summary FROM biometrics.sleep_session_summary WHERE astronaut_id = %s ORDER BY start_ts",
                 (astronaut_id,),
             ).fetchall()
         return [_brief(row[0]) for row in rows]

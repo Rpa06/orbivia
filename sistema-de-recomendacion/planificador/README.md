@@ -7,7 +7,9 @@ Módulo de ORBIVIA que propone el reparto diario de tareas individuales y colect
 - las cualificaciones,
 - el historial reciente,
 - la equidad de carga,
-- y, como objetivo secundario, el grafo social.
+- y los límites semanales de NASA-STD-3001 que fija el proyecto.
+
+No usa el grafo social, ni directa ni indirectamente.
 
 **Es una herramienta de apoyo: propone, no decide.** Toda planificación la valida una persona. El modelo matemático y las decisiones de diseño están en [docs/crew_planner_design.md](../../docs/crew_planner_design.md).
 
@@ -19,15 +21,15 @@ Módulo de ORBIVIA que propone el reparto diario de tareas individuales y colect
   - si es crítico para la tarea, el astronauta no es elegible;
   - si no lo es, se penaliza como incertidumbre.
   - La confianza de una medición solo se usa si la da la fuente.
-- **No se infieren emociones.** El grafo social solo aporta patrones de proximidad observados en ocio. No entran en el vector de estado el ánimo, la personalidad ni las puntuaciones de voz o texto.
-- **Separación de objetivos.** El coste operativo se optimiza primero. Después se busca la inclusión de personas poco integradas, solo en tareas de baja carga y sin empeorar el coste operativo más de un margen acotado.
+- **No se infieren emociones ni se usa el grafo social.** No entran en el estado el ánimo, la personalidad, las puntuaciones de voz o texto ni el grafo social.
+- **Objetivos por etapas.** Primero la cobertura de tareas aplazables y después el coste operativo (estado, repetición, incertidumbre y equidad).
 - **Explicable y reproducible.** Cada asignación lleva su desglose y sus alternativas. El mismo dato con la misma configuración da siempre el mismo plan.
 
 ## Acceso a los resultados
 
-- La **justificación** (`justification`) y los indicadores sociales son para personal autorizado en Tierra.
+- La **justificación** (`justification`) es para personal autorizado.
 - La tripulación solo debe ver `crew_text`: tarea, personas y horario, sin métricas ni motivos.
-- **En esta demo no hay control de acceso**, igual que en el módulo del grafo social.
+- En Orbivia integrado, el acceso lo controla la API por rol (ver README principal).
 
 ## Ejecutar
 
@@ -42,7 +44,7 @@ docker compose --profile planner build planner
 Escenario de demostración:
 
 ```bash
-docker compose run --rm --no-deps planner python -m crew_planner.simulation --scenario isolation
+docker compose run --rm --no-deps planner python -m crew_planner.simulation --scenario high_fatigue
 ```
 
 Siete días seguidos, guardando en `volumenes/planner/` un plan JSON y dos informes visuales por día (`plan_NNNN.html` para Tierra y `plan_NNNN_tripulacion.html`):
@@ -51,10 +53,10 @@ Siete días seguidos, guardando en `volumenes/planner/` un plan JSON y dos infor
 docker compose run --rm --no-deps planner python -m crew_planner.simulation --days 7 --out /data
 ```
 
-Planificar una entrada propia, leyendo el grafo social real de PostgreSQL si la entrada no lo trae:
+Planificar una entrada propia:
 
 ```bash
-docker compose run --rm planner python -m crew_planner examples/day_nominal.json --social-db
+docker compose run --rm --no-deps planner python -m crew_planner examples/day_nominal.json
 ```
 
 Tests:
@@ -72,7 +74,7 @@ python -m pytest
 ```
 
 ```bash
-PYTHONPATH=.:../../procesamiento/grafos python -m crew_planner examples/day_isolation.json --out plan.json
+PYTHONPATH=.:../../procesamiento/grafos python -m crew_planner examples/day_nominal.json --out plan.json
 ```
 
 ### Informe visual
@@ -87,7 +89,7 @@ PYTHONPATH=.:../../procesamiento/grafos python -m crew_planner examples/day_isol
 `--html-crew horario.html` genera la versión para la tripulación: solo el horario y el texto neutro de cada tarea. Lo demás no se oculta, simplemente no se escribe en el fichero.
 
 ```bash
-docker compose run --rm --no-deps planner python -m crew_planner examples/day_isolation.json --html /data/plan.html --html-crew /data/horario.html
+docker compose run --rm --no-deps planner python -m crew_planner examples/day_nominal.json --html /data/plan.html --html-crew /data/horario.html
 ```
 
 Códigos de salida:
@@ -110,7 +112,7 @@ Por defecto el planificador propone **tres planes completos del día**, entre lo
 
 - **Los tres son seguros:** cumplen las mismas restricciones duras y pasan el verificador independiente. Solo cambia el peso de los objetivos blandos.
 - **Siempre son distintos:** cada plan difiere de los anteriores en al menos `min_difference` asignaciones (2 por defecto). Si no es posible, se exige menos; si no hay ninguna alternativa, se proponen menos planes y se dice por qué.
-- **Comparación para Tierra:** una tabla con métricas que no dependen de los pesos (adecuación, incertidumbre, reparto de la carga, rotación, interacción del equipo, inclusión). Cada plan lista sus ventajas y en qué asignaciones cambia respecto a la opción A.
+- **Comparación para Tierra:** una tabla con métricas que no dependen de los pesos (adecuación, incertidumbre, reparto de la carga, rotación). Cada plan lista sus ventajas y en qué asignaciones cambia respecto a la opción A.
 - **Versión de la tripulación:** solo ve los tres horarios con el nombre de cada plan.
 
 El JSON de salida lleva los planes en `plans`, la comparación en `plans[i].option` y la decisión en `decision`, que queda `pending` hasta que se elija. Registrar la elección todavía no está implementado.
@@ -152,7 +154,6 @@ La tripulación, las tareas y las mediciones son **sintéticas**: cada medición
 | `critical_task` | La EVA va a la única persona que cumple todos los umbrales, aunque la hiciera ayer |
 | `unqualified` | A4, en mejor estado que nadie, nunca recibe una tarea de robótica |
 | `repetition` | Rota la preparación de comidas; la revisión médica se queda con la única persona cualificada |
-| `isolation` | A6, en `review`, entra en una tarea colectiva de baja carga |
 | `workload_imbalance` | La equidad reparte la carga de quien es la mejor opción para casi todo |
 | `infeasible` | Dos EVA obligatorias imposibles: devuelve el conflicto mínimo y sugerencias, sin plan |
 
@@ -180,8 +181,7 @@ Un JSON por día; hay ejemplos completos en [examples/](examples/).
     "qualifications": ["eva"], "resources": ["airlock"], "mandatory": true,
     "requirements": [{"parameter": "sleep_duration_h", "min": 6.5, "critical": true, "weight": 2}]
   }],
-  "history": [{"day": 9, "astronaut": "A1", "task_id": "EVA_PREP", "category": "EVA_PREP", "duration_min": 90}],
-  "social": null
+  "history": [{"day": 9, "astronaut": "A1", "task_id": "EVA_PREP", "category": "EVA_PREP", "duration_min": 90}]
 }
 ```
 
@@ -199,9 +199,9 @@ Un JSON por día; hay ejemplos completos en [examples/](examples/).
 - `min`, `max` o ambos, en la escala del parámetro: unidades físicas si se normaliza por rango, puntuación z si se compara con la línea base.
 - `critical: true` los convierte en restricción dura.
 
-**Grafo social:** `social` es el documento diario del servicio social-graph (`social_graph.daily_result.result`), o `null`.
-- Con `--social-db` se lee de PostgreSQL el último día cerrado anterior al planificado.
-- Los ficheros `day_NNNN.json` de `volumenes/social-graph/` son la exportación del panel y no sirven aquí: no llevan la matriz suavizada.
+**Grafo social:** no es una entrada del planificador. Una entrada con la clave `social` se rechaza. En Orbivia el grafo social nunca se usa para repartir, agrupar ni separar a la tripulación (README principal, sección 2.D). Los pesos `gamma` y `mu`, la etapa de inclusión y el escenario `isolation` de versiones anteriores se han eliminado por ese motivo.
+
+**Límites semanales e investigación:** `crew_planner/policy.py` traduce las horas trabajadas en los 6 días anteriores a un tope para el día (60 h semanales y como máximo dos jornadas de 10 h o más) y fija las tareas de categoría `science` a su responsable, para que nunca se reasignen.
 
 Los campos desconocidos son un error, para que una errata no pase desapercibida.
 
@@ -233,14 +233,10 @@ Todos los pesos y límites están en [config/default.toml](config/default.toml),
 | `CP_WEIGHTS_ALPHA_REPETITION` | `0.3` | Monotonía |
 | `CP_WEIGHTS_ALPHA_UNCERTAINTY` | `0.5` | Datos desconocidos o poco fiables |
 | `CP_WEIGHTS_ALPHA_EQUITY` / `CP_WEIGHTS_BETA_SPREAD` | `0.5` / `0.5` | Equidad de carga |
-| `CP_WEIGHTS_GAMMA` | `0.3` | Compatibilidad del equipo (todas las tareas colectivas) |
-| `CP_WEIGHTS_MU` | `0.2` | Inclusión (solo tareas colectivas de baja carga) |
 | `CP_STAGES_MODE` | `lexicographic` | `lexicographic` (por etapas) o `weighted` (suma única) |
-| `CP_STAGES_EPSILON` / `CP_STAGES_EPSILON_ABS` | `0.05` / `0.2` | Cuánto puede empeorar el coste operativo por la inclusión |
 | `CP_LIMITS_MAX_WORK_H` | `8` | Horas de tarea por astronauta y día |
 | `CP_LIMITS_MAX_DEMANDING_PER_DAY` | `2` | Tareas exigentes por día |
 | `CP_LIMITS_REST_AFTER_DEMANDING_MIN` | `30` | Descanso tras una tarea exigente |
-| `CP_SOCIAL_MAX_AGE_DAYS` | `2` | Antigüedad máxima del grafo social |
 | `CP_SOLVER_TIME_LIMIT_S` | `20` | Tiempo máximo por etapa |
 
 El catálogo de parámetros del vector de estado también está en el TOML (`[[parameters]]`). Para añadir uno nuevo basta con declararlo con su tipo, su normalización, su vigencia y su dominio.
@@ -253,20 +249,19 @@ El catálogo de parámetros del vector de estado también está en el TOML (`[[p
 | `crew_planner/config.py`, `config/default.toml` | Configuración |
 | `crew_planner/state.py`, `costs.py` | Estado normalizado y costes blandos |
 | `crew_planner/eligibility.py` | Restricciones duras y verificador de planes |
-| `crew_planner/social.py`, `teams.py` | Lectura del grafo social, equipos, compatibilidad e inclusión |
+| `crew_planner/teams.py`, `policy.py` | Equipos candidatos; límites semanales e investigación no reasignable |
 | `crew_planner/context.py`, `optimizer.py` | Preparación del problema y modelo CP-SAT |
 | `crew_planner/diagnosis.py`, `explain.py`, `planner.py` | Sin solución, salida explicable y orquestación |
 | `crew_planner/report.py` | Informe visual en HTML, para Tierra y para la tripulación |
 | `crew_planner/catalog.py`, `catalog_report.py`, `catalog/`, `config/requirement_mapping.toml` | Catálogo de tareas por entorno, su validación, su traducción a requisitos y la tabla comparativa |
 | `crew_planner/simulation.py` | Tripulación sintética y escenarios |
 
-El grafo social no se modifica: se lee su salida y se reutiliza su módulo de intervalos.
+Del módulo del grafo social solo se reutiliza `social_graph.intervals`, el álgebra de tramos horarios, que no contiene datos sociales.
 
 ## Limitaciones
 
 - No hay datos fisiológicos reales en el proyecto. Todo está validado con datos sintéticos, y los umbrales y pesos no están calibrados.
-- La proximidad en ocio como predictor del trabajo en equipo es una hipótesis. Con `γ = 0.3` el planificador tiende a juntar a quienes ya se relacionan; la inclusión en tareas de baja carga es el contrapeso.
 - El descanso entre un día y el siguiente solo se garantiza mediante el bloque de sueño.
 - Los miembros de un equipo trabajan a la vez y durante toda la tarea.
 - La enumeración de equipos está pensada para tripulaciones de hasta unas 10 personas.
-- Se proponen tres planes, pero todavía no se registra cuál se elige ni por qué se rechaza.
+- La elección o el rechazo de los tres planes se registra en la API de Orbivia (`operations.plan_decisions`), no en este módulo.

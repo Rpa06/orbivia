@@ -48,13 +48,13 @@ Los resultados aparecen en dos sitios:
 Ver los últimos días y el estado de cada astronauta:
 
 ```bash
-docker compose exec db psql -U orbivia -d orbivia -c "SELECT day, jsonb_object_agg(a.key, a.value->>'status') AS estados FROM social_graph.daily_result, jsonb_each(result->'isolation'->'astronauts') a GROUP BY day ORDER BY day DESC LIMIT 5"
+docker compose exec db psql -U orbivia -d orbivia -c "SELECT day, jsonb_object_agg(a.key, a.value->>'status') AS estados FROM biometrics.social_graph_daily_result, jsonb_each(result->'isolation'->'astronauts') a GROUP BY day ORDER BY day DESC LIMIT 5"
 ```
 
 Ver las propuestas del último día:
 
 ```bash
-docker compose exec db psql -U orbivia -d orbivia -c "SELECT p->>'crew_text' AS tripulacion, p->>'justification' AS tierra FROM social_graph.daily_result, jsonb_array_elements(result->'recommendations'->'proposals') p ORDER BY day DESC LIMIT 2"
+docker compose exec db psql -U orbivia -d orbivia -c "SELECT p->>'crew_text' AS tripulacion, p->>'justification' AS tierra FROM biometrics.social_graph_daily_result, jsonb_array_elements(result->'recommendations'->'proposals') p ORDER BY day DESC LIMIT 2"
 ```
 
 ## Reinicios

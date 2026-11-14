@@ -56,14 +56,14 @@ class MemoryStore:
 
 
 _SCHEMA_SQL = """
-CREATE SCHEMA IF NOT EXISTS social_graph;
-CREATE TABLE IF NOT EXISTS social_graph.daily_result (
+CREATE SCHEMA IF NOT EXISTS biometrics;
+CREATE TABLE IF NOT EXISTS biometrics.social_graph_daily_result (
     day integer PRIMARY KEY,
     params_version text NOT NULL,
     result jsonb NOT NULL,
     created_at timestamptz NOT NULL DEFAULT now()
 );
-CREATE TABLE IF NOT EXISTS social_graph.checkpoint (
+CREATE TABLE IF NOT EXISTS biometrics.social_graph_checkpoint (
     id smallint PRIMARY KEY CHECK (id = 1),
     state jsonb NOT NULL,
     updated_at timestamptz NOT NULL DEFAULT now()
@@ -71,12 +71,12 @@ CREATE TABLE IF NOT EXISTS social_graph.checkpoint (
 """
 
 _UPSERT_CHECKPOINT = """
-INSERT INTO social_graph.checkpoint (id, state) VALUES (1, %s)
+INSERT INTO biometrics.social_graph_checkpoint (id, state) VALUES (1, %s)
 ON CONFLICT (id) DO UPDATE SET state = EXCLUDED.state, updated_at = now()
 """
 
 _UPSERT_DAY = """
-INSERT INTO social_graph.daily_result (day, params_version, result) VALUES (%s, %s, %s)
+INSERT INTO biometrics.social_graph_daily_result (day, params_version, result) VALUES (%s, %s, %s)
 ON CONFLICT (day) DO UPDATE
 SET params_version = EXCLUDED.params_version, result = EXCLUDED.result, created_at = now()
 """
@@ -119,7 +119,7 @@ class PostgresStore:
     def load_checkpoint(self) -> Document | None:
         with self._connect() as connection:
             row = connection.execute(
-                "SELECT state FROM social_graph.checkpoint WHERE id = 1"
+                "SELECT state FROM biometrics.social_graph_checkpoint WHERE id = 1"
             ).fetchone()
         return row[0] if row else None
 
@@ -134,7 +134,7 @@ class PostgresStore:
             connection.execute(_UPSERT_CHECKPOINT, (self._jsonb(state),))
 
     def load_days(self, last: int | None = None) -> list[Document]:
-        query = "SELECT result FROM social_graph.daily_result ORDER BY day DESC"
+        query = "SELECT result FROM biometrics.social_graph_daily_result ORDER BY day DESC"
         params: tuple = ()
         if last is not None:
             query += " LIMIT %s"

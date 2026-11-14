@@ -28,7 +28,7 @@ def store(request):
     astronaut = f"TEST_{uuid.uuid4().hex[:8]}"
     yield store, astronaut
     with store._connect() as connection:
-        connection.execute("DELETE FROM sleep.session_summary WHERE astronaut_id = %s", (astronaut,))
+        connection.execute("DELETE FROM biometrics.sleep_session_summary WHERE astronaut_id = %s", (astronaut,))
 
 
 def test_summary_roundtrip(store):
@@ -61,4 +61,4 @@ def test_history_is_per_astronaut_and_chronological(store):
     finally:
         if isinstance(store, PostgresStore):
             with store._connect() as connection:
-                connection.execute("DELETE FROM sleep.session_summary WHERE astronaut_id = %s", (astronaut + "X",))
+                connection.execute("DELETE FROM biometrics.sleep_session_summary WHERE astronaut_id = %s", (astronaut + "X",))

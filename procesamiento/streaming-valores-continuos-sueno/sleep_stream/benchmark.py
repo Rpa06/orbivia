@@ -264,7 +264,7 @@ def run(astronauts: int, hours: float, period: int, seed: int, cfg: Settings, st
         client.delete(*keys)
     if isinstance(store, PostgresStore):
         with store._connect() as connection:
-            connection.execute("DELETE FROM sleep.session_summary WHERE astronaut_id LIKE %s", (f"BENCH{tag}_%",))
+            connection.execute("DELETE FROM biometrics.sleep_session_summary WHERE astronaut_id LIKE %s", (f"BENCH{tag}_%",))
     return result
 
 
