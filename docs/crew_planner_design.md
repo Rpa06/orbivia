@@ -298,18 +298,28 @@ Dataclasses inmutables con ida y vuelta a JSON.
 ParameterSpec    id, kind, normalization, lo, hi, validity_h, domain
 Measurement      parameter, value, measured_at, source, confidence?
 Baseline         parameter, mean, sd
-Astronaut        id, qualifications, measurements, baselines, unavailable, max_work_h
+Astronaut        id, qualifications, work, sleep, unavailable, measurements, baselines, max_work_h
 Requirement      parameter, min?, max?, weight, critical
 TeamQualification  qualification, mode (all | at_least), count
 Task             id, name, category, kind (individual | collective), importance,
                  requirements, qualifications, team_qualifications, duration_min,
                  min_people, max_people, intensity, demanding, earliest, latest,
-                 mandatory, postponable, exclusive_with, low_load (solo para desactivar)
-HistoryEntry     day, astronaut, task_id, category, duration_min, intensity
-SocialSnapshot   day, crew, weights (con None), status, crew_drop
+                 mandatory, resources, low_load (solo para desactivar)
+HistoryEntry     day, astronaut, task_id, category, duration_min, intensity, demanding
+SocialSnapshot   day, crew, weights (con None), status, signals, crew_drop
 PlannerConfig    pesos α, β, γ, μ, ε, escala de importancia, repetición, límites, semilla
+PlanningInput    day, as_of, crew, tasks, history, social
 Plan             day, individual[], collective[], global, diagnostics, config_version
 ```
+
+Convenciones fijadas en la Fase 2:
+
+- Las horas del día van en «HH:MM» desde la medianoche del día planificado. Un sueño que cruza la medianoche se escribe en dos tramos (`00:00–06:00` y `22:00–24:00`).
+- Los umbrales de un requisito van en la escala natural del parámetro: unidades físicas si se normaliza por rango, puntuación z si se normaliza por línea base.
+- `mandatory = false` equivale a aplazable; no hay un campo aparte.
+- La simultaneidad se expresa con `resources`: dos tareas que comparten un recurso no se solapan.
+- La vigencia de un dato se mide desde `as_of` (por defecto, la medianoche del día). Una medición posterior a `as_of` es un error, no un dato.
+- Un campo desconocido en el JSON o en el TOML es un error, para que una errata no se convierta en un valor por defecto silencioso.
 
 Configuración en `config/default.toml` (se lee con `tomllib`, de la biblioteca estándar, y admite comentarios), con sobrescritura por variables `CP_*`. Los datos de entrada y la salida van en JSON.
 
