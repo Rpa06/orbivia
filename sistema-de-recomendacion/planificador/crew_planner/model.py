@@ -326,6 +326,10 @@ class Task:
     - `mandatory`: debe quedar cubierta hoy. Si no, es aplazable.
     - `resources`: dos tareas que comparten un recurso no pueden solaparse.
     - `low_load`: solo admite False, para excluir una tarea de las de baja carga.
+    - `only_for`: si no está vacío, solo esas personas pueden hacerla (p. ej. el
+      ejercicio diario de cada astronauta).
+    - `interdependence` ∈ [0, 1]: cuánto depende el resultado de que el equipo
+      funcione como uno. Escala el peso de la compatibilidad; None = 1.
     """
 
     id: str
@@ -346,6 +350,8 @@ class Task:
     mandatory: bool = True
     resources: frozenset[str] = frozenset()
     low_load: bool | None = None
+    only_for: frozenset[str] = frozenset()
+    interdependence: float | None = None
 
     def __post_init__(self) -> None:
         check_id(self.id, "Identificador de tarea")
@@ -355,6 +361,12 @@ class Task:
         check_id(self.category, f"{where}: categoría")
         object.__setattr__(self, "qualifications", frozenset(self.qualifications))
         object.__setattr__(self, "resources", frozenset(self.resources))
+        object.__setattr__(self, "only_for", frozenset(self.only_for))
+        for a in self.only_for:
+            check_id(a, f"{where}: only_for")
+        if self.interdependence is not None:
+            _check(0 <= _finite(self.interdependence, f"{where}: interdependence") <= 1,
+                   f"{where}: interdependence debe estar en [0, 1]")
         _check(self.kind in TASK_KINDS, f"{where}: kind debe ser individual o collective")
         _finite(self.importance, f"{where}: importance")
         duration = _finite(self.duration_min, f"{where}: duration_min")
@@ -401,6 +413,7 @@ class Task:
         )
         data["qualifications"] = frozenset(data.get("qualifications", ()))
         data["resources"] = frozenset(data.get("resources", ()))
+        data["only_for"] = frozenset(data.get("only_for", ()))
         if data.get("kind") == INDIVIDUAL:
             data.setdefault("min_people", 1)
             data.setdefault("max_people", 1)
@@ -414,6 +427,7 @@ class Task:
         out["team_qualifications"] = [q.to_dict() for q in self.team_qualifications]
         out["qualifications"] = sorted(self.qualifications)
         out["resources"] = sorted(self.resources)
+        out["only_for"] = sorted(self.only_for)
         return out
 
 

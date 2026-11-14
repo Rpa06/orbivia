@@ -30,7 +30,8 @@ from .model import (
 )
 from .social import SocialSnapshot, from_daily_result
 
-_KEYS = {"day", "as_of", "crew", "tasks", "history", "social"}
+# "meta" es informativo (entorno, origen de las tareas): el planificador no lo usa
+_KEYS = {"day", "as_of", "crew", "tasks", "history", "social", "meta"}
 
 
 @dataclass(frozen=True)

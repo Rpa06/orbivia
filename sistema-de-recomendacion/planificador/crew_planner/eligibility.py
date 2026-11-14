@@ -24,6 +24,7 @@ CRITICAL_UNKNOWN = "critical_unknown"
 NO_TIME = "no_time"
 OVER_HOURS = "over_hours"
 DEMANDING_LIMIT = "demanding_limit"
+ONLY_FOR = "only_for"
 
 _EPS = 1e-6
 
@@ -64,6 +65,8 @@ def eligibility(
     astronaut: Astronaut, task: Task, state: Mapping[str, StateValue], config: PlannerConfig
 ) -> Eligibility:
     reasons = []
+    if task.only_for and astronaut.id not in task.only_for:
+        reasons.append(Reason(ONLY_FOR, f"la tarea es de {', '.join(sorted(task.only_for))}"))
     missing = sorted(task.qualifications - astronaut.qualifications)
     if missing:
         reasons.append(Reason(QUALIFICATION, f"le falta la cualificación {', '.join(missing)}"))

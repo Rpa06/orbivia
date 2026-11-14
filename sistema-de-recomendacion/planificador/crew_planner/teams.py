@@ -76,10 +76,20 @@ def reference_compatibility(snapshot: SocialSnapshot | None) -> float | None:
 def compatibility_cost(
     task: Task, compat: Compatibility, k_ref: float | None, active: bool, config: PlannerConfig
 ) -> float:
-    """C_comp = γ · I_j · (K_ref − K(G)). Neutro (0) si falta cualquier dato."""
+    """C_comp = γ · I_j · d_j · (K_ref − K(G)). Neutro (0) si falta cualquier dato.
+
+    d_j es la interdependencia de la tarea (1 si no se indica): la compatibilidad
+    pesa más donde el equipo depende mucho entre sí.
+    """
     if not active or compat.score is None or k_ref is None:
         return 0.0
-    return config.weights.gamma * config.importance.normalize(task.importance) * (k_ref - compat.score)
+    return compatibility_scale(task, config) * (k_ref - compat.score)
+
+
+def compatibility_scale(task: Task, config: PlannerConfig) -> float:
+    """γ · I_j · d_j: lo que vale una unidad de interacción observada en esta tarea."""
+    d = 1.0 if task.interdependence is None else task.interdependence
+    return config.weights.gamma * config.importance.normalize(task.importance) * d
 
 
 def common_free(free: Mapping[str, Sequence[Interval]], members: Sequence[str]) -> list[Interval]:

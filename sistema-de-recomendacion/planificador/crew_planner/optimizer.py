@@ -24,6 +24,7 @@ from dataclasses import dataclass, field
 from ortools.sat.python import cp_model
 
 from .context import Option, PlanningContext
+from .teams import compatibility_scale
 
 COST_SCALE = 10**12
 LOAD_SCALE = 1000    # cargas en milésimas de hora
@@ -208,9 +209,7 @@ class PlanModel:
         if ctx.social_active and ctx.k_ref is not None:
             for t in ctx.problem.tasks:
                 if t.collective:
-                    self.compat_floor[t.id] = round(
-                        w.gamma * cfg.importance.normalize(t.importance) * (1 - ctx.k_ref) * COST_SCALE
-                    )
+                    self.compat_floor[t.id] = round(compatibility_scale(t, cfg) * (1 - ctx.k_ref) * COST_SCALE)
         self.coverage_value = sum(
             round(cfg.importance.normalize(t.importance) * 1000) * self.covered[t.id]
             for t in ctx.problem.tasks if not t.mandatory
