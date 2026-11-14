@@ -354,13 +354,18 @@ def main(argv: list[str] | None = None) -> int:
 
     config = load_config(args.config, env=os.environ)
     plans = simulate(args.days, config, args.scenario, seed=args.seed)
+    from .report import CREW, GROUND, render_html
+
     for plan in plans:
         if args.out:
             folder = Path(args.out)
             folder.mkdir(parents=True, exist_ok=True)
-            (folder / f"plan_{plan['day']:04d}.json").write_text(
-                json.dumps(plan, indent=1, ensure_ascii=False), encoding="utf-8"
-            )
+            name = f"plan_{plan['day']:04d}"
+            (folder / f"{name}.json").write_text(json.dumps(plan, indent=1, ensure_ascii=False), encoding="utf-8")
+            # El horario de cada astronauta solo depende del escenario y del día
+            raw = SCENARIOS[args.scenario](plan["day"], args.seed)
+            (folder / f"{name}.html").write_text(render_html(plan, raw, GROUND), encoding="utf-8")
+            (folder / f"{name}_tripulacion.html").write_text(render_html(plan, raw, CREW), encoding="utf-8")
         print(summary(plan))
     return 0 if all(p["status"] == "ok" for p in plans) else 2
 

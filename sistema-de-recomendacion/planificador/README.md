@@ -45,7 +45,7 @@ Escenario de demostración:
 docker compose run --rm --no-deps planner python -m crew_planner.simulation --scenario isolation
 ```
 
-Siete días seguidos, guardando un plan por día en `volumenes/planner/`:
+Siete días seguidos, guardando en `volumenes/planner/` un plan JSON y dos informes visuales por día (`plan_NNNN.html` para Tierra y `plan_NNNN_tripulacion.html`):
 
 ```bash
 docker compose run --rm --no-deps planner python -m crew_planner.simulation --days 7 --out /data
@@ -73,6 +73,21 @@ python -m pytest
 
 ```bash
 PYTHONPATH=.:../../procesamiento/grafos python -m crew_planner examples/day_isolation.json --out plan.json
+```
+
+### Informe visual
+
+`--html plan.html` genera, además del JSON, un informe que se abre con doble clic en el navegador, sin conexión y en modo claro u oscuro. Contiene:
+
+- el cronograma por astronauta, con las franjas no disponibles;
+- la carga frente a la carga objetivo;
+- el coste por término;
+- una ficha por tarea con su justificación, alternativas y descartes.
+
+`--html-crew horario.html` genera la versión para la tripulación: solo el horario y el texto neutro de cada tarea. Lo demás no se oculta, simplemente no se escribe en el fichero.
+
+```bash
+docker compose run --rm --no-deps planner python -m crew_planner examples/day_isolation.json --html /data/plan.html --html-crew /data/horario.html
 ```
 
 Códigos de salida:
@@ -199,6 +214,7 @@ El catálogo de parámetros del vector de estado también está en el TOML (`[[p
 | `crew_planner/social.py`, `teams.py` | Lectura del grafo social, equipos, compatibilidad e inclusión |
 | `crew_planner/context.py`, `optimizer.py` | Preparación del problema y modelo CP-SAT |
 | `crew_planner/diagnosis.py`, `explain.py`, `planner.py` | Sin solución, salida explicable y orquestación |
+| `crew_planner/report.py` | Informe visual en HTML, para Tierra y para la tripulación |
 | `crew_planner/simulation.py` | Tripulación sintética y escenarios |
 
 El grafo social no se modifica: se lee su salida y se reutiliza su módulo de intervalos.

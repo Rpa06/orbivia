@@ -17,6 +17,7 @@ from .config import load_config
 from .inputs import load_input, validate
 from .model import ValidationError
 from .planner import plan_day
+from .report import CREW, GROUND, render_html
 from .social import load_from_postgres
 
 
@@ -27,6 +28,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", help="fichero de salida; por defecto, la salida estándar")
     parser.add_argument("--social-db", action="store_true",
                         help="leer el grafo social de PostgreSQL si la entrada no lo trae")
+    parser.add_argument("--html", help="además, informe visual en HTML (para Tierra)")
+    parser.add_argument("--html-crew", help="además, informe HTML para la tripulación: solo el horario")
     args = parser.parse_args(argv)
 
     try:
@@ -45,8 +48,14 @@ def main(argv: list[str] | None = None) -> int:
     text = json.dumps(plan, indent=1, ensure_ascii=False)
     if args.out:
         Path(args.out).write_text(text, encoding="utf-8")
-    else:
+    elif not (args.html or args.html_crew):
         print(text)
+    if args.html or args.html_crew:
+        raw = json.loads(Path(args.input).read_text(encoding="utf-8"))
+        for path, audience in ((args.html, GROUND), (args.html_crew, CREW)):
+            if path:
+                Path(path).write_text(render_html(plan, raw, audience), encoding="utf-8")
+                print(f"Informe ({audience}): {path}", file=sys.stderr)
     return 0 if plan["status"] == "ok" else 2
 
 

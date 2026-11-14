@@ -176,7 +176,10 @@ def test_simulation_is_reproducible(config):
 
 def test_simulation_cli(tmp_path, capsys, config):
     assert main(["--scenario", "nominal", "--days", "2", "--out", str(tmp_path)]) == 0
-    assert sorted(p.name for p in tmp_path.iterdir()) == ["plan_0010.json", "plan_0011.json"]
+    assert sorted(p.name for p in tmp_path.iterdir()) == [
+        f"plan_{d}{suffix}" for d in ("0010", "0011")
+        for suffix in (".html", ".json", "_tripulacion.html")
+    ]
     assert "Día 11: ok" in capsys.readouterr().out
     assert main(["--scenario", "infeasible"]) == 2
     assert "conflicto" in summary(run("infeasible", config))
