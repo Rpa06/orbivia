@@ -10,7 +10,7 @@ def test_default_file_matches_dataclass_defaults(config):
     # El fichero por defecto y los valores del código no deben divergir
     defaults = PlannerConfig()
     for section in ("weights", "stages", "importance", "repetition", "adequacy",
-                    "workload", "limits", "low_load", "social", "solver"):
+                    "workload", "limits", "low_load", "social", "solver", "alternatives"):
         assert getattr(config, section) == getattr(defaults, section), section
     assert "sleep_duration_h" in config.parameters
     assert config.parameters["pvt_lapses"].normalization == "baseline_z"

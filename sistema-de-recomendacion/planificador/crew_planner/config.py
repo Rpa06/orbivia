@@ -140,6 +140,60 @@ class Solver:
         _check(self.max_team_candidates >= 1, "solver.max_team_candidates debe ser >= 1")
 
 
+@dataclass(frozen=True)
+class PlanProfile:
+    """Enfoque de un plan alternativo: multiplica los pesos globales del objetivo."""
+
+    id: str
+    label: str
+    description: str
+    multipliers: Mapping[str, float] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        known = {f.name for f in fields(Weights)}
+        for name, value in self.multipliers.items():
+            _check(name in known, f"alternatives.profiles[{self.id}]: peso desconocido {name!r}")
+            _check(isinstance(value, (int, float)) and value >= 0,
+                   f"alternatives.profiles[{self.id}]: el multiplicador de {name} debe ser >= 0")
+
+    def apply(self, weights: Weights) -> Weights:
+        return replace(weights, **{k: getattr(weights, k) * v for k, v in self.multipliers.items()})
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"id": self.id, "label": self.label, "description": self.description,
+                "multipliers": dict(sorted(self.multipliers.items()))}
+
+
+DEFAULT_PROFILES = (
+    PlanProfile("balanced", "Equilibrado",
+                "Los pesos de la configuración, sin cambios."),
+    PlanProfile("best_fit", "Mejor adecuación",
+                "Prioriza que cada tarea la haga quien mejor encaja hoy con sus requisitos, aunque el reparto sea menos parejo.",
+                {"alpha_state": 2.0, "alpha_uncertainty": 1.5, "alpha_equity": 0.5, "beta_spread": 0.5}),
+    PlanProfile("rotation", "Reparto y rotación",
+                "Prioriza repartir la carga según la capacidad de cada uno y rotar las actividades repetidas.",
+                {"alpha_equity": 2.0, "beta_spread": 2.0, "alpha_repetition": 2.5}),
+)
+
+
+@dataclass(frozen=True)
+class Alternatives:
+    count: int = 3
+    min_difference: int = 2   # asignaciones distintas como mínimo frente a cada plan anterior
+    profiles: tuple[PlanProfile, ...] = DEFAULT_PROFILES
+
+    def __post_init__(self) -> None:
+        _check(len(self.profiles) >= 1, "alternatives: hace falta al menos un enfoque")
+        _check(1 <= self.count <= len(self.profiles), "alternatives.count debe estar entre 1 y el número de enfoques")
+        _check(self.min_difference >= 1, "alternatives.min_difference debe ser >= 1")
+        ids = [p.id for p in self.profiles]
+        _check(len(set(ids)) == len(ids), "alternatives: enfoques repetidos")
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"count": self.count, "min_difference": self.min_difference,
+                "profiles": [p.to_dict() for p in self.profiles]}
+
+
 SECTIONS: dict[str, type] = {
     "weights": Weights,
     "stages": Stages,
@@ -167,6 +221,7 @@ class PlannerConfig:
     social: Social = field(default_factory=Social)
     solver: Solver = field(default_factory=Solver)
     parameters: Mapping[str, ParameterSpec] = field(default_factory=dict)
+    alternatives: Alternatives = field(default_factory=Alternatives)
 
     @property
     def version(self) -> str:
@@ -177,6 +232,7 @@ class PlannerConfig:
     def to_dict(self) -> dict[str, Any]:
         out: dict[str, Any] = {name: asdict(getattr(self, name)) for name in SECTIONS}
         out["parameters"] = [self.parameters[k].to_dict() for k in sorted(self.parameters)]
+        out["alternatives"] = self.alternatives.to_dict()
         return out
 
 
@@ -226,11 +282,35 @@ def load_config(path: str | Path | None = None, env: Mapping[str, str] | None = 
     except tomllib.TOMLDecodeError as error:
         raise ValidationError(f"{path}: TOML inválido: {error}") from error
 
-    unknown = set(raw) - set(SECTIONS) - {"parameters"}
+    unknown = set(raw) - set(SECTIONS) - {"parameters", "alternatives"}
     _check(not unknown, f"Secciones desconocidas en {path.name}: {sorted(unknown)}")
     sections = {name: _section(cls, raw.get(name, {}), env, name) for name, cls in SECTIONS.items()}
 
     specs = [ParameterSpec.from_dict(p) for p in raw.get("parameters", ())]
     ids = [s.id for s in specs]
     _check(len(set(ids)) == len(ids), f"Parámetros repetidos en {path.name}")
-    return PlannerConfig(**sections, parameters={s.id: s for s in specs})
+    return PlannerConfig(**sections, parameters={s.id: s for s in specs},
+                         alternatives=_alternatives(raw.get("alternatives", {}), env))
+
+
+def _alternatives(raw: Mapping[str, Any], env: Mapping[str, str]) -> Alternatives:
+    _check(isinstance(raw, Mapping), "[alternatives] debe ser una tabla")
+    unknown = set(raw) - {"count", "min_difference", "profiles"}
+    _check(not unknown, f"Claves desconocidas en [alternatives]: {sorted(unknown)}")
+    defaults = Alternatives()
+    profiles = defaults.profiles
+    if "profiles" in raw:
+        profiles = []
+        for p in raw["profiles"]:
+            extra = set(p) - {"id", "label", "description", "multipliers"}
+            _check(not extra, f"Claves desconocidas en un enfoque de [alternatives]: {sorted(extra)}")
+            profiles.append(PlanProfile(p["id"], p["label"], p.get("description", ""), dict(p.get("multipliers", {}))))
+        profiles = tuple(profiles)
+    values = {}
+    for name in ("count", "min_difference"):
+        key = f"CP_ALTERNATIVES_{name}".upper()
+        if env.get(key, "") != "":
+            values[name] = _coerce(env[key], 0, key)
+        elif name in raw:
+            values[name] = _coerce(raw[name], 0, f"alternatives.{name}")
+    return Alternatives(profiles=profiles, **values)
