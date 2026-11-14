@@ -6,6 +6,7 @@ from collections.abc import Mapping
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
+from .isolation import IsolationConfig
 from .params import DAY_S, Params
 from .schedule import KINDS, FixedSchedule
 
@@ -58,6 +59,13 @@ class Settings:
     source: str = "simulation"
     stream: str = "orbivia:positions"
     checkpoint_every_s: float = 30.0
+    isolation: IsolationConfig = field(default_factory=IsolationConfig)
+    # Simulación
+    sim_scenario: str = "homogeneous"
+    sim_seed: int = 42
+    sim_period_s: float = 10.0
+    sim_speedup: float = 3600.0
+    sim_days: int | None = None
 
     def build_schedule(self) -> FixedSchedule:
         return FixedSchedule(self.blocks, jitter_s=self.schedule_jitter_s, seed=self.schedule_seed)
@@ -104,6 +112,20 @@ def load_settings(env: Mapping[str, str]) -> Settings:
     # Quien no tenga horario propio usa el horario por defecto
     blocks = parse_blocks({a: raw_blocks.get(a, DEFAULT_BLOCKS) for a in crew})
 
+    iso = IsolationConfig()
+    isolation = IsolationConfig(
+        warmup_days=int(number("SG_BASELINE_WARMUP_DAYS", iso.warmup_days)),
+        window_days=int(number("SG_BASELINE_WINDOW_DAYS", iso.window_days)),
+        lag_days=int(number("SG_BASELINE_LAG_DAYS", iso.lag_days)),
+        z_alert=number("SG_ALERT_Z", iso.z_alert),
+        persist_k=int(number("SG_ALERT_K", iso.persist_k)),
+        persist_m=int(number("SG_ALERT_M", iso.persist_m)),
+        crew_ratio_min=number("SG_CREW_RATIO_MIN", iso.crew_ratio_min),
+        edge_min_w=number("SG_EDGE_MIN_W", iso.edge_min_w),
+        smooth_days=int(number("SG_SMOOTH_DAYS", iso.smooth_days)),
+    )
+    sim_days = env.get("SG_SIM_DAYS")
+
     source = env.get("SG_SOURCE") or "simulation"
     if source not in ("simulation", "redis"):
         raise ValueError(f"SG_SOURCE debe ser 'simulation' o 'redis': {source!r}")
@@ -117,4 +139,10 @@ def load_settings(env: Mapping[str, str]) -> Settings:
         source=source,
         stream=env.get("SG_STREAM") or "orbivia:positions",
         checkpoint_every_s=number("SG_CHECKPOINT_EVERY_S", 30.0),
+        isolation=isolation,
+        sim_scenario=env.get("SG_SIM_SCENARIO") or "homogeneous",
+        sim_seed=int(number("SG_SIM_SEED", 42)),
+        sim_period_s=number("SG_SIM_SAMPLE_PERIOD_S", 10.0),
+        sim_speedup=number("SG_SIM_SPEEDUP", 3600.0),
+        sim_days=int(sim_days) if sim_days else None,
     )

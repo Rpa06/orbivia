@@ -4,15 +4,19 @@ import logging
 import os
 import signal
 
-from .config import load_settings
+from .config import Settings, load_settings
+from .isolation import IsolationAnalyzer
+from .schedule import Schedule
 from .service import SocialGraphService
+from .simulator import PositionSimulator, SimulationSource, build_scenario
 from .sources import RedisStreamSource, SampleSource
 from .store import PostgresStore
 
 logger = logging.getLogger("social-graph")
 
 
-def build_source(settings) -> SampleSource:
+def build_source(settings: Settings) -> tuple[SampleSource, Schedule]:
+    """Fuente de datos y horario que le corresponde."""
     if settings.source == "redis":
         import redis
 
@@ -21,8 +25,21 @@ def build_source(settings) -> SampleSource:
             port=int(os.environ.get("REDIS_PORT", "6379")),
             socket_connect_timeout=3,
         )
-        return RedisStreamSource(client, settings.stream)
-    raise NotImplementedError("La fuente de simulación se añade con el simulador (Fase 4)")
+        return RedisStreamSource(client, settings.stream), settings.build_schedule()
+
+    # En simulación el horario lo define el escenario: es el que siguen los astronautas simulados
+    scenario = build_scenario(settings.sim_scenario, settings.crew, settings.sim_seed)
+    if settings.sim_period_s > settings.params.max_gap_s:
+        logger.warning(
+            "SG_SIM_SAMPLE_PERIOD_S (%.0f s) supera SG_MAX_GAP_S (%.0f s): no se observará nada",
+            settings.sim_period_s, settings.params.max_gap_s,
+        )
+    simulator = PositionSimulator(scenario, settings.sim_seed, settings.params.day_cutoff_s)
+    source = SimulationSource(
+        simulator, settings.sim_period_s, settings.sim_speedup, settings.sim_days
+    )
+    logger.info("Escenario simulado: %s. %s", scenario.name, scenario.description)
+    return source, scenario.schedule
 
 
 def main() -> None:
@@ -40,13 +57,15 @@ def main() -> None:
     signal.signal(signal.SIGTERM, stop)
     signal.signal(signal.SIGINT, stop)
 
+    source, schedule = build_source(settings)
     service = SocialGraphService(
         crew=settings.crew,
-        schedule=settings.build_schedule(),
+        schedule=schedule,
         params=settings.params,
-        source=build_source(settings),
+        source=source,
         store=PostgresStore.from_env(),
         checkpoint_every_s=settings.checkpoint_every_s,
+        analyzer=IsolationAnalyzer(settings.isolation),
     )
     logger.info(
         "Servicio iniciado: fuente=%s tripulación=%s parámetros=%s",

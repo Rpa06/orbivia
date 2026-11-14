@@ -12,6 +12,7 @@ from typing import Any
 
 from .config import params_version
 from .daily import close_day
+from .isolation import IsolationAnalyzer
 from .params import Params
 from .schedule import Schedule
 from .sources import SampleSource
@@ -39,6 +40,8 @@ class SocialGraphService:
         max_empty_days: int = 30,
         clock: Callable[[], float] = time.monotonic,
         on_day_closed: Sequence[DayHook] = (),
+        analyzer: IsolationAnalyzer | None = None,
+        history_days: int = 60,
     ) -> None:
         self.crew = list(crew)
         self.schedule = schedule
@@ -50,6 +53,8 @@ class SocialGraphService:
         self.max_empty_days = max_empty_days
         self._clock = clock
         self._hooks = list(on_day_closed)
+        self._analyzer = analyzer
+        self._history_days = history_days
         self.tracker = InteractionTracker(self.crew, schedule, params)
         self.cursor: dict[str, Any] | None = None
         self._quality: dict[int, dict[str, int]] = {}
@@ -181,6 +186,10 @@ class SocialGraphService:
         document = result.to_dict()
         document["params_version"] = self.params_version
         document["quality"].update(self._quality.pop(day, dict.fromkeys(QUALITY_KEYS, 0)))
+        if self._analyzer is not None:
+            history = self.store.load_days(last=self._history_days)
+            history = [d for d in history if d["day"] < day and d["crew"] == self.crew]
+            document["isolation"] = self._analyzer.analyze(history + [document])[-1]
         for hook in self._hooks:
             hook(document)
         self.store.save_day(day, document, self.state())
