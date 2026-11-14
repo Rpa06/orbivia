@@ -165,6 +165,8 @@ def check_consistency(session: Session, timeline: list[dict[str, Any]]) -> bool:
 def build_summary(session: Session, timeline: list[dict[str, Any]],
                   anomalies: list[dict[str, Any]], cfg: Settings) -> dict[str, Any]:
     specs = cfg.specs
+    # Orden estable: el de cierre de los episodios depende de cómo se agrupen los lotes
+    anomalies = sorted(anomalies, key=lambda a: (a["start_ts"], a["metric"], a["method"]))
     complete = completeness(session)
     sleep = sleep_metrics(session, cfg)
     vector = build_vector(session, sleep, complete)

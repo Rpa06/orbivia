@@ -137,22 +137,41 @@ def test_trend_needs_time_span():
     assert trend.slope is None
 
 
+def run_ewma(values, period=1.0):
+    """Devuelve la referencia y las z de cada valor, como hace el motor."""
+    ewma, scores = Ewma(), []
+    for k, value in enumerate(values):
+        scores.append(ewma.zscore(value, 1.0, 30, 600.0))
+        ewma.update(value, k * period, 1.0, 600.0, 30, 600.0, 4.0)
+    return ewma, scores
+
+
+def test_ewma_does_not_score_during_warmup():
+    _, scores = run_ewma([60.0] * 700)
+    assert all(z is None for z in scores[:601])
+    assert all(z is not None for z in scores[601:])
+
+
 def test_ewma_flags_a_spike_but_follows_slow_drift():
-    ewma = Ewma()
-    flagged = 0
-    for t in range(3600):
-        value = 60.0 - 0.002 * t + math.sin(t / 7.0)  # deriva lenta con oscilación
-        z = ewma.zscore(value, 1.0, 30)
-        flagged += z is not None and abs(z) > 4
-        ewma.update(value, t, 600.0, 30)
-    assert flagged == 0
-    assert abs(ewma.zscore(110.0, 1.0, 30)) > 4
+    values = [60.0 - 0.002 * t + math.sin(t / 7.0) for t in range(3600)]  # deriva lenta con oscilación
+    ewma, scores = run_ewma(values)
+    assert not any(z is not None and abs(z) > 4 for z in scores)
+    assert abs(ewma.zscore(110.0, 1.0, 30, 600.0)) > 4
+
+
+def test_ewma_spike_does_not_mask_the_next_one():
+    rng = random.Random(6)
+    values = [60.0 + rng.gauss(0, 1) for _ in range(3000)]
+    for k in (1500, 1501, 1502, 1700):
+        values[k] = 110.0
+    _, scores = run_ewma(values)
+    assert all(abs(scores[k]) > 4 for k in (1500, 1501, 1502, 1700))
+    # Tras el primer pico la referencia no se ha desplazado ni ensanchado apenas
+    assert not any(abs(z) > 4 for z in scores[1503:1700])
 
 
 def test_ewma_ignores_late_values():
-    ewma = Ewma()
-    for t in range(100):
-        ewma.update(60.0, t, 600.0, 30)
+    ewma, _ = run_ewma([60.0] * 100)
     before = ewma.dump()
-    ewma.update(200.0, 50, 600.0, 30)
+    ewma.update(200.0, 50, 1.0, 600.0, 30, 600.0, 4.0)
     assert ewma.dump() == before

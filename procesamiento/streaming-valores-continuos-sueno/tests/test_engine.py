@@ -9,10 +9,6 @@ from sleep_stream.simulate import night_records
 
 from conftest import T0, LocalRun, record, truth
 
-# Colapso inmediato: cada nivel se funde en cuanto su ventana madre queda atrás
-EAGER = Settings(retain_s=(180, 180, 180), lateness_s=60)
-
-
 def minute_records(minutes, start=T0, **extra):
     """Un registro por minuto, con valores distintos para poder comprobar medias."""
     return [record(start + 60 * k, heart_rate=50.0 + k % 20, movement=0.02, **extra) for k in range(minutes)]
@@ -222,21 +218,25 @@ def test_slow_overnight_drift_is_not_an_anomaly():
 
 def test_individual_baseline_adds_a_second_method():
     run = LocalRun(baselines={"metrics": {"heart_rate": {"mean": 60.0, "sd": 2.0}}})
-    records = steady(600)
-    records[300]["metrics"]["heart_rate"] = 75.0
-    summary = run.feed(records, advance_every=60).seal(T0 + 600)
-    methods = {a["method"] for a in summary["anomalies"] if a["peak_ts"] == T0 + 300}
+    records = steady(1200)
+    records[100]["metrics"]["heart_rate"] = 75.0  # en el calentamiento solo lo ve la línea base
+    records[900]["metrics"]["heart_rate"] = 75.0
+    summary = run.feed(records, advance_every=60).seal(T0 + 1200)
+    early = {a["method"] for a in summary["anomalies"] if a["peak_ts"] == T0 + 100}
+    assert early == {"baseline_zscore"}
+    methods = {a["method"] for a in summary["anomalies"] if a["peak_ts"] == T0 + 900}
     assert methods == {"ewma_zscore", "baseline_zscore"}
 
 
 def test_anomaly_list_is_capped_and_the_overflow_is_counted():
     cfg = Settings(max_anomalies=3, episode_gap_s=5)
     records = steady(3600)
-    for k in range(600, 3600, 300):  # 10 picos bien separados
+    for k in range(900, 3600, 300):  # 9 picos bien separados, pasado el calentamiento
         records[k]["metrics"]["heart_rate"] = 130.0
     summary = LocalRun(cfg).feed(records, advance_every=60).seal(T0 + 3600)
     assert len(summary["anomalies"]) == 3
-    assert summary["session_metadata"]["anomalies_dropped"] == 7
+    assert summary["session_metadata"]["anomalies_dropped"] == 6
+    assert summary["session_metadata"]["anomalous_samples"] == 9
 
 
 # --- actigrafía y vector --------------------------------------------------------------

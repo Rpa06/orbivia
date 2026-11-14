@@ -85,7 +85,6 @@ class Settings:
     # El último nivel se conserva hasta el final de la sesión.
     levels_s: tuple[int, ...] = (60, 300, 900, 1800)
     retain_s: tuple[int, ...] = (900, 3600, 7200)
-    lateness_s: int = 120          # espera antes de dar por cerrado un minuto
     max_session_s: int = 86400     # duración máxima de una sesión
     dedup_resolution_s: float = 1.0  # dos registros en el mismo intervalo son el mismo
 
@@ -93,6 +92,7 @@ class Settings:
     ewma_halflife_s: float = 600.0
     z_threshold: float = 4.0
     warmup_n: int = 30
+    warmup_s: float = 600.0
     baseline_z_threshold: float = 4.0
     episode_gap_s: float = 120.0
     max_anomalies: int = 200
@@ -123,8 +123,8 @@ class Settings:
                 raise ConfigError("Cada nivel debe ser múltiplo estricto del anterior")
         if len(self.retain_s) != len(self.levels_s) - 1:
             raise ConfigError("retain_s necesita un valor por cada nivel salvo el último")
-        if self.retain_s and self.retain_s[0] < self.lateness_s + self.levels_s[0]:
-            raise ConfigError("retain_s[0] debe cubrir lateness_s más una ventana del primer nivel")
+        if self.retain_s and self.retain_s[0] < self.levels_s[0]:
+            raise ConfigError("retain_s[0] debe cubrir al menos una ventana del primer nivel")
         # Si un nivel grueso viviera menos que uno fino, el colapso dejaría ventanas huérfanas
         if any(later < earlier for earlier, later in zip(self.retain_s, self.retain_s[1:])):
             raise ConfigError("retain_s no puede decrecer")
@@ -186,12 +186,12 @@ def load_settings(env: Mapping[str, str]) -> Settings:
     if env.get("SLEEP_RETAIN_S"):
         values["retain_s"] = _ints(env["SLEEP_RETAIN_S"], "SLEEP_RETAIN_S")
     for name, key, cast in (
-        ("SLEEP_LATENESS_S", "lateness_s", int),
         ("SLEEP_MAX_SESSION_S", "max_session_s", int),
         ("SLEEP_DEDUP_RESOLUTION_S", "dedup_resolution_s", float),
         ("SLEEP_EWMA_HALFLIFE_S", "ewma_halflife_s", float),
         ("SLEEP_Z_THRESHOLD", "z_threshold", float),
         ("SLEEP_WARMUP_N", "warmup_n", int),
+        ("SLEEP_WARMUP_S", "warmup_s", float),
         ("SLEEP_BASELINE_Z_THRESHOLD", "baseline_z_threshold", float),
         ("SLEEP_EPISODE_GAP_S", "episode_gap_s", float),
         ("SLEEP_MAX_ANOMALIES", "max_anomalies", int),

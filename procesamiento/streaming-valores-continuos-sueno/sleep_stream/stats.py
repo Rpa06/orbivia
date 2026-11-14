@@ -184,31 +184,44 @@ class Ewma:
 
     Sirve de referencia local para detectar anomalías: durante la noche las
     constantes derivan, así que la media de toda la sesión no es buena referencia.
+
+    Calentamiento: hasta reunir `warmup_n` valores a lo largo de `warmup_s`
+    segundos se promedia sin olvido y no se puntúa nada. Después, un valor que
+    se aleja más de `z_threshold` desviaciones entra recortado a ese límite: la
+    referencia sigue un cambio de nivel sostenido, pero un pico no la infla ni
+    oculta los siguientes.
     """
 
-    __slots__ = ("n", "mean", "var", "last_ts")
+    __slots__ = ("n", "mean", "var", "first_ts", "last_ts")
 
     def __init__(self, raw: list[Any] | None = None) -> None:
-        self.n, self.mean, self.var, self.last_ts = raw or [0, 0.0, 0.0, None]
+        self.n, self.mean, self.var, self.first_ts, self.last_ts = raw or [0, 0.0, 0.0, None, None]
 
-    def zscore(self, value: float, min_std: float, warmup_n: int) -> float | None:
-        if self.n < warmup_n:
-            return None
-        return (value - self.mean) / max(math.sqrt(self.var), min_std)
+    def ready(self, warmup_n: int, warmup_s: float) -> bool:
+        return self.n >= warmup_n and self.last_ts - self.first_ts >= warmup_s
 
     def std(self, min_std: float) -> float:
         return max(math.sqrt(self.var), min_std)
 
-    def update(self, value: float, ts: float, halflife_s: float, warmup_n: int) -> None:
-        if self.last_ts is not None and ts < self.last_ts:
-            return  # un dato atrasado no mueve la referencia
+    def zscore(self, value: float, min_std: float, warmup_n: int, warmup_s: float) -> float | None:
+        if not self.ready(warmup_n, warmup_s):
+            return None
+        return (value - self.mean) / self.std(min_std)
+
+    def update(self, value: float, ts: float, min_std: float, halflife_s: float,
+               warmup_n: int, warmup_s: float, z_threshold: float) -> None:
         if self.n == 0:
-            self.n, self.mean, self.var, self.last_ts = 1, value, 0.0, ts
+            self.n, self.mean, self.var, self.first_ts, self.last_ts = 1, value, 0.0, ts, ts
             return
-        alpha = 1.0 - math.exp(-math.log(2.0) * (ts - self.last_ts) / halflife_s)
-        if self.n < warmup_n:
-            alpha = max(alpha, 1.0 / (self.n + 1))
+        if ts < self.last_ts:
+            return  # un dato atrasado no mueve la referencia
         diff = value - self.mean
+        if self.ready(warmup_n, warmup_s):
+            alpha = 1.0 - math.exp(-math.log(2.0) * (ts - self.last_ts) / halflife_s)
+            limit = z_threshold * self.std(min_std)
+            diff = min(max(diff, -limit), limit)
+        else:
+            alpha = 1.0 / (self.n + 1)
         incr = alpha * diff
         self.mean += incr
         self.var = (1.0 - alpha) * (self.var + diff * incr)
@@ -216,4 +229,4 @@ class Ewma:
         self.last_ts = ts
 
     def dump(self) -> list[Any]:
-        return [self.n, self.mean, self.var, self.last_ts]
+        return [self.n, self.mean, self.var, self.first_ts, self.last_ts]

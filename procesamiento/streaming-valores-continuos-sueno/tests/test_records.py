@@ -92,7 +92,7 @@ def test_settings_from_environment():
 @pytest.mark.parametrize("kwargs", [
     {"levels_s": (60, 100, 900, 1800)},           # 100 no es múltiplo de 60
     {"retain_s": (900, 3600)},                     # falta un nivel
-    {"retain_s": (60, 3600, 7200)},                # no cubre el margen de llegada tardía
+    {"retain_s": (30, 3600, 7200)},                # menos que una ventana del primer nivel
     {"retain_s": (900, 600, 7200)},                # un nivel grueso no puede vivir menos que uno fino
 ])
 def test_inconsistent_settings_are_refused(kwargs):

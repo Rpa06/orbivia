@@ -10,6 +10,11 @@ lo más antiguo se funde en el nivel k+1 y se borra. `floors[k]` es el instante
 por debajo del cual el nivel k ya no existe. Un registro atrasado va al nivel
 más fino que todavía cubre su instante, de modo que nunca se pierde.
 
+Actigrafía. Cada ventana del nivel 0 se clasifica (activa, quieta o sin dato de
+movimiento) justo antes de colapsarse, es decir, `retain_s[0]` después de su
+instante. Un registro que llegue aún más tarde cuenta en todas las estadísticas
+pero ya no cambia la clasificación de su minuto.
+
 Además se mantiene un acumulador global por métrica (`total`), actualizado con
 cada registro: las métricas finales no requieren recorrer nada al terminar.
 """
@@ -208,8 +213,10 @@ class Engine:
             in_window.add(value, ts, spec)
             in_total.add(value, ts, spec)
             session.trend.setdefault(name, Trend()).add(ts - session.start_ts, value)
-            session.ewma.setdefault(name, Ewma()).update(
-                value, ts, self.cfg.ewma_halflife_s, self.cfg.warmup_n)
+            if spec is not None:
+                session.ewma.setdefault(name, Ewma()).update(
+                    value, ts, spec.min_std, self.cfg.ewma_halflife_s, self.cfg.warmup_n,
+                    self.cfg.warmup_s, self.cfg.z_threshold)
 
         windows.put(level, start, window)
         if session.watermark is None or ts > session.watermark:
@@ -223,7 +230,7 @@ class Engine:
         found: list[tuple[str, float, dict[str, float]]] = []
         ewma = session.ewma.get(name)
         if ewma is not None and spec is not None:
-            z = ewma.zscore(value, spec.min_std, self.cfg.warmup_n)
+            z = ewma.zscore(value, spec.min_std, self.cfg.warmup_n, self.cfg.warmup_s)
             if z is not None and abs(z) > self.cfg.z_threshold:
                 found.append(("ewma_zscore", z, {"mean": ewma.mean, "std": ewma.std(spec.min_std)}))
         baseline = session.baselines["metrics"].get(name)
@@ -291,10 +298,9 @@ class Engine:
     # --- avance tras un lote ---------------------------------------------------------
 
     def advance(self, session: Session, windows: WindowStore, out: list[dict[str, Any]]) -> None:
-        """Puntúa los minutos ya cerrados, cierra episodios y colapsa lo antiguo."""
+        """Cierra episodios de anomalía y colapsa lo antiguo."""
         if session.watermark is None:
             return
-        self._score_epochs(session, windows, session.watermark - self.cfg.lateness_s, closed_only=True)
         self._flush_episodes(session, out, session.watermark - self.cfg.episode_gap_s)
         for level in range(self.top):
             target = _align(session.watermark - self.cfg.retain_s[level], self.levels[level + 1])
@@ -308,6 +314,8 @@ class Engine:
             floor = _align(session.start_ts, parent_size)
         if target <= floor:
             return
+        if level == 0:
+            self._score_epochs(session, windows, target)  # antes de que desaparezcan
         for start in range(floor, target, self.levels[level]):
             child = windows.get(level, start)
             if child is None:
@@ -320,13 +328,14 @@ class Engine:
             windows.delete(level, start)
         session.floors[level] = target
 
-    def _score_epochs(self, session: Session, windows: WindowStore, until: float, closed_only: bool) -> None:
-        """Clasifica cada minuto como activo, quieto o sin dato de movimiento."""
+    def _score_epochs(self, session: Session, windows: WindowStore, until: float) -> None:
+        """Clasifica como activa, quieta o sin dato de movimiento cada ventana del
+        nivel 0 que empieza antes de `until`."""
         size = self.levels[0]
         activity = session.activity
         if activity["next"] is None:
             activity["next"] = _align(session.start_ts, size)
-        while (activity["next"] + size <= until) if closed_only else (activity["next"] < until):
+        while activity["next"] < until:
             window = windows.get(0, activity["next"])
             agg = window.get(self.cfg.activity_metric) if window else None
             if agg is None or agg.n == 0:
@@ -348,7 +357,7 @@ class Engine:
         """Cierra la sesión: puntúa lo que queda, funde todo en el último nivel y
         devuelve la línea temporal final. El trabajo está acotado por el número de
         ventanas vivas, no por el de registros."""
-        self._score_epochs(session, windows, session.end_ts, closed_only=False)
+        self._score_epochs(session, windows, session.end_ts)
         self._flush_episodes(session, out, None)
         for level in range(self.top):
             parent_size = self.levels[level + 1]
