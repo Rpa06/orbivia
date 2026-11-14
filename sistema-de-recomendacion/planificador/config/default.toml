@@ -1,0 +1,172 @@
+# Configuración por defecto del planificador. Ver docs/crew_planner_design.md.
+#
+# Cualquier valor escalar se puede sobrescribir con una variable de entorno
+# CP_<SECCIÓN>_<CLAVE>, por ejemplo CP_WEIGHTS_GAMMA=0.5. Otro fichero completo
+# se indica con CP_CONFIG_FILE.
+#
+# Todos los valores son puntos de partida razonados, no calibrados con datos reales.
+
+[weights]
+# Coeficientes globales de los objetivos (sección 4 del diseño)
+alpha_state = 1.0        # desviación entre estado y requisitos
+alpha_repetition = 0.3   # monotonía
+alpha_uncertainty = 0.5  # datos ausentes o poco fiables
+alpha_equity = 0.5       # desviación de cada uno respecto a su carga objetivo
+beta_spread = 0.5        # diferencia entre el más y el menos cargado
+gamma = 0.3              # compatibilidad del equipo (todas las tareas colectivas)
+mu = 0.2                 # inclusión (solo tareas colectivas de baja carga)
+
+[stages]
+mode = "lexicographic"   # "lexicographic" (3 etapas) o "weighted" (suma única)
+epsilon = 0.05           # empeoramiento máximo relativo del coste operativo por la inclusión
+epsilon_abs = 0.2        # ... o absoluto, el mayor de los dos. Igual a mu: incluir a una persona
+                         # en revisión puede costar como mucho lo que vale su premio
+uncovered_penalty = 10.0 # solo en modo weighted: coste de dejar sin cubrir una tarea aplazable (× importancia)
+
+[importance]
+scale_min = 1
+scale_max = 5
+
+[repetition]
+window_days = 14
+tau_days = 3.0           # constante de tiempo del decaimiento exponencial
+
+[adequacy]
+max_domain_share = 0.5   # peso máximo de un dominio dentro de una tarea
+
+[workload]
+capacity_min = 0.5       # capacidad relativa g_i mínima, también si la fatiga es desconocida
+
+[limits]
+slot_min = 15            # resolución temporal del plan
+max_work_h = 8.0         # horas de tarea por astronauta y día
+max_demanding_per_day = 2
+rest_after_demanding_min = 30
+
+[low_load]
+max_intensity = 0.4
+max_importance = 0.6     # importancia normalizada en (0, 1]
+
+[social]
+max_age_days = 2         # antigüedad máxima del grafo; si es mayor no se usa
+need_review = 1.0        # A_i para el estado "review"
+need_follow_up = 0.5     # A_i para el estado "follow_up"
+
+[solver]
+seed = 42
+workers = 1              # un hilo: resultado reproducible
+time_limit_s = 20.0
+max_team_candidates = 500
+
+# --- catálogo de parámetros del vector de estado ------------------------------
+# Variables previstas en README.md.2.0 (develop). Quedan fuera por diseño el
+# ánimo, la personalidad y las puntuaciones de voz o texto.
+
+[[parameters]]
+id = "sleep_duration_h"
+kind = "range"
+normalization = "minmax"
+lo = 0.0
+hi = 12.0
+unit = "h"
+validity_h = 24
+domain = "sleep"
+description = "Duración del último sueño"
+
+[[parameters]]
+id = "sleep_quality"
+kind = "higher_better"
+normalization = "minmax"
+lo = 0.0
+hi = 100.0
+unit = "%"
+validity_h = 24
+domain = "sleep"
+description = "Eficiencia del sueño medida durante la noche"
+
+[[parameters]]
+id = "pvt_lapses"
+kind = "lower_better"
+normalization = "baseline_z"
+unit = "fallos"
+validity_h = 24
+domain = "cognitive"
+description = "Fallos de atención en el PVT-B, respecto a la línea base propia"
+
+[[parameters]]
+id = "fatigue_self"
+kind = "lower_better"
+normalization = "minmax"
+lo = 1.0
+hi = 5.0
+unit = "1-5"
+validity_h = 24
+domain = "fatigue"
+description = "Cansancio declarado en el check-in diario"
+
+[[parameters]]
+id = "grip_strength"
+kind = "higher_better"
+normalization = "baseline_z"
+unit = "kg"
+validity_h = 24
+domain = "physical"
+description = "Fuerza de agarre, respecto a la línea base propia"
+
+[[parameters]]
+id = "spo2"
+kind = "higher_better"
+normalization = "minmax"
+lo = 85.0
+hi = 100.0
+unit = "%"
+validity_h = 24
+domain = "physical"
+description = "Saturación de oxígeno"
+
+[[parameters]]
+id = "resting_hr"
+kind = "range"
+normalization = "baseline_z"
+unit = "lpm"
+validity_h = 24
+domain = "physical"
+description = "Frecuencia cardíaca en reposo, respecto a la línea base propia"
+
+[[parameters]]
+id = "work_hours_3d"
+kind = "lower_better"
+normalization = "minmax"
+lo = 0.0
+hi = 36.0
+unit = "h"
+validity_h = 24
+domain = "fatigue"
+description = "Horas trabajadas en los tres últimos días"
+
+# --- planes alternativos -----------------------------------------------------
+# El planificador propone varios planes del día para que elija la tripulación con
+# el control de misión. Todos cumplen las mismas restricciones duras; cada uno
+# multiplica los pesos de [weights] según su enfoque y debe diferir de los
+# anteriores en al menos min_difference asignaciones (si no es posible, se reduce).
+
+[alternatives]
+count = 3
+min_difference = 2
+
+[[alternatives.profiles]]
+id = "balanced"
+label = "Equilibrado"
+description = "Los pesos de la configuración, sin cambios."
+
+[[alternatives.profiles]]
+id = "best_fit"
+label = "Mejor adecuación"
+description = "Prioriza que cada tarea la haga quien mejor encaja hoy con sus requisitos, aunque el reparto sea menos parejo."
+multipliers = { alpha_state = 2.0, alpha_uncertainty = 1.5, alpha_equity = 0.5, beta_spread = 0.5 }
+
+[[alternatives.profiles]]
+id = "rotation"
+label = "Reparto y rotación"
+description = "Prioriza repartir la carga según la capacidad de cada uno y rotar las actividades repetidas."
+multipliers = { alpha_equity = 2.0, beta_spread = 2.0, alpha_repetition = 2.5 }

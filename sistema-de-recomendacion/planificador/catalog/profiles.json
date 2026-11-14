@@ -1,0 +1,221 @@
+{
+ "_about": "Rúbrica de perfiles de actividad del modelo Orbivia. Cada tarea del catálogo parte de un perfil y solo se aparta de él con un ajuste justificado. Así dos tareas parecidas tienen valores comparables aunque pertenezcan a entornos distintos. Todos los valores son estimaciones teóricas de Orbivia (evidence_type = theoretical): NASA no publica puntuaciones de exigencia por tarea.",
+ "scale": {
+  "0.00": "requisito prácticamente inexistente",
+  "0.25": "bajo",
+  "0.50": "moderado",
+  "0.75": "alto",
+  "1.00": "extremo (no se usa sin justificación expresa)"
+ },
+ "physical_dimensions": {
+  "physical_effort": "Esfuerzo físico que exige la tarea",
+  "endurance": "Resistencia física: esfuerzo sostenido durante la tarea",
+  "mobility": "Necesidad de desplazarse o cambiar de postura",
+  "coordination": "Coordinación motora",
+  "physical_precision": "Precisión motora fina",
+  "fatigue_tolerance": "Cuánta fatiga acumula o exige soportar la tarea; alto = la tarea solo es segura con poca fatiga previa",
+  "recovery_requirement": "Recuperación que exige después; alto = conviene descanso posterior"
+ },
+ "cognitive_dimensions": {
+  "concentration": "Concentración sostenida",
+  "cognitive_load": "Carga cognitiva general",
+  "working_memory": "Memoria de trabajo",
+  "decision_making": "Toma de decisiones",
+  "attention_to_detail": "Atención al detalle",
+  "problem_solving": "Resolución de problemas",
+  "stress_tolerance": "Presión operativa de la tarea (solo descriptiva: no se compara con el astronauta)",
+  "multitasking": "Gestión simultánea de varias actividades"
+ },
+ "team_dimensions": {
+  "team_coordination": "Coordinación necesaria entre los miembros",
+  "communication_requirement": "Comunicación continua necesaria (solo descriptiva)",
+  "interdependence": "Cuánto depende el resultado de que el equipo funcione como uno; escala el peso de la compatibilidad social",
+  "leadership_requirement": "Necesidad de que alguien dirija la actividad (solo descriptiva)"
+ },
+ "profiles": {
+  "desk_monitoring": {
+   "description": "Monitorización en consola: telemetría, sistemas, comunicaciones",
+   "physical": [0.05, 0.10, 0.05, 0.15, 0.10, 0.15, 0.05],
+   "cognitive": [0.65, 0.50, 0.45, 0.45, 0.60, 0.35, 0.35, 0.50],
+   "team": [0.40, 0.55, 0.35, 0.30],
+   "confidence": 0.5,
+   "rationale": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida."
+  },
+  "data_analysis": {
+   "description": "Análisis de datos científicos o de exploración, cartografía",
+   "physical": [0.05, 0.10, 0.05, 0.15, 0.15, 0.15, 0.05],
+   "cognitive": [0.70, 0.65, 0.55, 0.45, 0.65, 0.60, 0.20, 0.30],
+   "team": [0.35, 0.50, 0.30, 0.25],
+   "confidence": 0.5,
+   "rationale": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión."
+  },
+  "anomaly_diagnosis": {
+   "description": "Diagnóstico de anomalías y averías desde consola o con instrumentos",
+   "physical": [0.10, 0.15, 0.10, 0.25, 0.25, 0.20, 0.05],
+   "cognitive": [0.80, 0.80, 0.70, 0.65, 0.80, 0.85, 0.55, 0.45],
+   "team": [0.55, 0.70, 0.50, 0.40],
+   "confidence": 0.45,
+   "rationale": "Razonamiento sobre causas con información incompleta: la resolución de problemas domina."
+  },
+  "lab_procedure": {
+   "description": "Experimentos y procesado de muestras en laboratorio o guantera",
+   "physical": [0.20, 0.25, 0.20, 0.55, 0.65, 0.25, 0.10],
+   "cognitive": [0.65, 0.55, 0.50, 0.40, 0.75, 0.40, 0.30, 0.35],
+   "team": [0.55, 0.60, 0.50, 0.35],
+   "confidence": 0.45,
+   "rationale": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión."
+  },
+  "sample_curation": {
+   "description": "Clasificación, documentación y conservación de muestras",
+   "physical": [0.15, 0.20, 0.15, 0.40, 0.50, 0.20, 0.10],
+   "cognitive": [0.55, 0.45, 0.45, 0.35, 0.75, 0.30, 0.20, 0.25],
+   "team": [0.40, 0.45, 0.35, 0.25],
+   "confidence": 0.45,
+   "rationale": "Trabajo meticuloso de registro: atención al detalle alta, poco esfuerzo."
+  },
+  "inspection_routine": {
+   "description": "Inspección rutinaria de sistemas y módulos (dentro del hábitat)",
+   "physical": [0.25, 0.30, 0.40, 0.35, 0.30, 0.30, 0.10],
+   "cognitive": [0.55, 0.45, 0.40, 0.40, 0.70, 0.40, 0.25, 0.30],
+   "team": [0.45, 0.50, 0.35, 0.30],
+   "confidence": 0.45,
+   "rationale": "Recorrido con lista de comprobación: algo de movilidad y atención al detalle."
+  },
+  "maintenance_preventive": {
+   "description": "Mantenimiento preventivo y correctivo programado dentro del hábitat",
+   "physical": [0.40, 0.40, 0.45, 0.60, 0.60, 0.40, 0.25],
+   "cognitive": [0.60, 0.55, 0.50, 0.45, 0.70, 0.55, 0.35, 0.35],
+   "team": [0.60, 0.60, 0.55, 0.40],
+   "confidence": 0.45,
+   "rationale": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión."
+  },
+  "repair_critical": {
+   "description": "Reparación de sistemas críticos o recuperación de averías",
+   "physical": [0.50, 0.50, 0.50, 0.65, 0.70, 0.60, 0.40],
+   "cognitive": [0.80, 0.80, 0.70, 0.75, 0.80, 0.80, 0.70, 0.55],
+   "team": [0.80, 0.80, 0.80, 0.65],
+   "confidence": 0.4,
+   "rationale": "Error costoso y a menudo con tiempo limitado: concentración, decisión y resolución de problemas altas."
+  },
+  "logistics_handling": {
+   "description": "Manipulación de carga: descarga, transferencia y almacenamiento",
+   "physical": [0.55, 0.50, 0.60, 0.45, 0.25, 0.45, 0.30],
+   "cognitive": [0.40, 0.35, 0.45, 0.30, 0.55, 0.25, 0.25, 0.35],
+   "team": [0.50, 0.50, 0.40, 0.30],
+   "confidence": 0.45,
+   "rationale": "Movimiento repetido de bultos y control de lo que se mueve: esfuerzo y movilidad moderados."
+  },
+  "inventory_admin": {
+   "description": "Gestión de inventario y documentación",
+   "physical": [0.15, 0.15, 0.25, 0.20, 0.15, 0.15, 0.05],
+   "cognitive": [0.45, 0.35, 0.45, 0.25, 0.60, 0.20, 0.15, 0.30],
+   "team": [0.35, 0.45, 0.30, 0.25],
+   "confidence": 0.5,
+   "rationale": "Tarea administrativa con algo de desplazamiento para localizar artículos."
+  },
+  "robotic_operation": {
+   "description": "Teleoperación de brazos robóticos o captura de vehículos",
+   "physical": [0.10, 0.25, 0.05, 0.65, 0.70, 0.35, 0.15],
+   "cognitive": [0.90, 0.80, 0.70, 0.75, 0.80, 0.60, 0.70, 0.65],
+   "team": [0.80, 0.85, 0.85, 0.50],
+   "confidence": 0.4,
+   "rationale": "Control preciso de un manipulador con vistas limitadas y riesgo de colisión: concentración máxima entre los perfiles, sin esfuerzo físico."
+  },
+  "robotic_supervision": {
+   "description": "Supervisión de operaciones robóticas autónomas o de las que controla Tierra",
+   "physical": [0.05, 0.15, 0.05, 0.20, 0.15, 0.25, 0.05],
+   "cognitive": [0.75, 0.60, 0.55, 0.60, 0.70, 0.50, 0.50, 0.55],
+   "team": [0.55, 0.70, 0.50, 0.40],
+   "confidence": 0.4,
+   "rationale": "Vigilar y decidir si se interrumpe una operación automática: atención y decisión, sin manipulación."
+  },
+  "eva_orbital": {
+   "description": "Actividad extravehicular en órbita (ISS, servicio de satélites)",
+   "physical": [0.85, 0.85, 0.70, 0.80, 0.80, 0.80, 0.80],
+   "cognitive": [0.85, 0.80, 0.70, 0.70, 0.85, 0.65, 0.75, 0.60],
+   "team": [0.90, 0.90, 0.90, 0.60],
+   "confidence": 0.4,
+   "rationale": "Trabajo de horas en traje presurizado, con las manos y anclajes como única sujeción. Es la referencia de exigencia física alta del catálogo."
+  },
+  "eva_surface": {
+   "description": "Actividad extravehicular en superficie (Luna, Marte)",
+   "physical": [0.85, 0.85, 0.85, 0.70, 0.65, 0.80, 0.80],
+   "cognitive": [0.75, 0.70, 0.60, 0.70, 0.75, 0.60, 0.70, 0.55],
+   "team": [0.85, 0.85, 0.80, 0.55],
+   "confidence": 0.35,
+   "rationale": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo."
+  },
+  "eva_preparation": {
+   "description": "Preparación y comprobación de trajes, herramientas y procedimientos de EVA",
+   "physical": [0.35, 0.35, 0.35, 0.55, 0.60, 0.35, 0.20],
+   "cognitive": [0.70, 0.60, 0.60, 0.50, 0.85, 0.45, 0.40, 0.40],
+   "team": [0.75, 0.80, 0.75, 0.50],
+   "confidence": 0.4,
+   "rationale": "Listas de comprobación largas en las que un fallo se arrastra a la EVA: atención al detalle muy alta."
+  },
+  "construction_assembly": {
+   "description": "Construcción, ensamblaje e instalación de infraestructura en el exterior",
+   "physical": [0.75, 0.75, 0.75, 0.75, 0.65, 0.70, 0.70],
+   "cognitive": [0.70, 0.70, 0.60, 0.60, 0.75, 0.65, 0.55, 0.50],
+   "team": [0.85, 0.80, 0.85, 0.60],
+   "confidence": 0.35,
+   "rationale": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios."
+  },
+  "drilling": {
+   "description": "Perforación y extracción de testigos",
+   "physical": [0.75, 0.70, 0.60, 0.70, 0.65, 0.70, 0.65],
+   "cognitive": [0.70, 0.65, 0.55, 0.60, 0.75, 0.60, 0.55, 0.45],
+   "team": [0.85, 0.80, 0.80, 0.60],
+   "confidence": 0.35,
+   "rationale": "Apolo 15-17 mostró que perforar y extraer testigos con traje es duro y propenso a atascos."
+  },
+  "rover_traverse": {
+   "description": "Desplazamiento y exploración con rover",
+   "physical": [0.35, 0.60, 0.30, 0.60, 0.50, 0.60, 0.40],
+   "cognitive": [0.80, 0.70, 0.60, 0.70, 0.70, 0.55, 0.60, 0.60],
+   "team": [0.75, 0.80, 0.75, 0.55],
+   "confidence": 0.35,
+   "rationale": "Conducción prolongada por terreno desconocido con navegación: concentración y decisión altas, esfuerzo moderado."
+  },
+  "exercise": {
+   "description": "Ejercicio físico como contramedida",
+   "physical": [0.75, 0.75, 0.40, 0.35, 0.15, 0.60, 0.60],
+   "cognitive": [0.20, 0.10, 0.10, 0.10, 0.15, 0.05, 0.15, 0.10],
+   "team": [0.10, 0.20, 0.10, 0.10],
+   "confidence": 0.5,
+   "rationale": "Ejercicio aeróbico y de resistencia diario: exigencia física alta, cognitiva mínima."
+  },
+  "training": {
+   "description": "Formación, entrenamiento y repaso de procedimientos",
+   "physical": [0.10, 0.15, 0.10, 0.15, 0.10, 0.20, 0.05],
+   "cognitive": [0.60, 0.55, 0.60, 0.35, 0.55, 0.40, 0.20, 0.25],
+   "team": [0.40, 0.60, 0.30, 0.40],
+   "confidence": 0.5,
+   "rationale": "Aprendizaje y memorización: memoria de trabajo y concentración moderadas."
+  },
+  "emergency_drill": {
+   "description": "Simulacros y procedimientos de emergencia",
+   "physical": [0.40, 0.35, 0.60, 0.50, 0.35, 0.40, 0.20],
+   "cognitive": [0.75, 0.70, 0.70, 0.75, 0.60, 0.60, 0.70, 0.65],
+   "team": [0.90, 0.90, 0.85, 0.75],
+   "confidence": 0.4,
+   "rationale": "Ejecutar de memoria una secuencia bajo presión de tiempo y en coordinación con todos."
+  },
+  "planning_coordination": {
+   "description": "Planificación, coordinación de operaciones y reuniones",
+   "physical": [0.05, 0.10, 0.05, 0.10, 0.05, 0.15, 0.05],
+   "cognitive": [0.65, 0.60, 0.60, 0.65, 0.55, 0.55, 0.40, 0.55],
+   "team": [0.60, 0.80, 0.50, 0.60],
+   "confidence": 0.45,
+   "rationale": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas."
+  },
+  "housekeeping": {
+   "description": "Limpieza y gestión de residuos",
+   "physical": [0.35, 0.30, 0.45, 0.30, 0.15, 0.30, 0.15],
+   "cognitive": [0.25, 0.15, 0.15, 0.15, 0.35, 0.10, 0.10, 0.20],
+   "team": [0.30, 0.35, 0.25, 0.20],
+   "confidence": 0.5,
+   "rationale": "Tarea manual sencilla; la atención al detalle sube un poco por la contención de partículas y residuos."
+  }
+ }
+}

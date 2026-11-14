@@ -1,0 +1,18 @@
+{
+ "_about": "Vocabulario de cualificaciones de Orbivia. Son competencias genéricas, no nombres de certificaciones de NASA: las certificaciones reales de cada programa están pendientes de validación. Las cualificaciones 'required' de una tarea son restricciones duras del optimizador.",
+ "qualifications": [
+  {"id": "eva_certified", "name": "Certificación de EVA", "description": "Formación para actividad extravehicular con el traje y los procedimientos del programa.", "validation_status": "pending"},
+  {"id": "robotic_arm_operator", "name": "Operador de brazo robótico", "description": "Operación de manipuladores robóticos (p. ej. Canadarm2) y captura de vehículos.", "validation_status": "pending"},
+  {"id": "rover_operator", "name": "Operador de rover", "description": "Conducción y operación de vehículos de superficie presurizados o no presurizados.", "validation_status": "pending"},
+  {"id": "medical_officer", "name": "Oficial médico de tripulación", "description": "Procedimientos médicos de a bordo y recogida de muestras clínicas.", "validation_status": "pending"},
+  {"id": "life_support_systems", "name": "Sistemas de soporte vital", "description": "Operación y mantenimiento de sistemas de control ambiental y soporte vital.", "validation_status": "pending"},
+  {"id": "electrical_systems", "name": "Sistemas eléctricos y de energía", "description": "Diagnóstico y mantenimiento de la distribución eléctrica y la generación de energía.", "validation_status": "pending"},
+  {"id": "payload_operations", "name": "Operaciones de carga científica", "description": "Preparación y operación de experimentos e instrumentos científicos.", "validation_status": "pending"},
+  {"id": "geology_fieldwork", "name": "Geología de campo", "description": "Descripción geológica, selección y documentación de muestras.", "validation_status": "pending"},
+  {"id": "communications_systems", "name": "Sistemas de comunicaciones", "description": "Operación y diagnóstico de enlaces de comunicaciones.", "validation_status": "pending"},
+  {"id": "propulsion_systems", "name": "Sistemas de propulsión", "description": "Revisión de sistemas de propulsión y transferencia de propulsante.", "validation_status": "pending"},
+  {"id": "satellite_servicing", "name": "Servicio de satélites", "description": "Procedimientos de servicio en órbita: sustitución de componentes, interfaces y herramientas.", "validation_status": "pending"},
+  {"id": "ascent_vehicle_systems", "name": "Sistemas del vehículo de ascenso", "description": "Preparación y comprobación del vehículo de ascenso desde la superficie.", "validation_status": "pending"},
+  {"id": "mission_operations", "name": "Operaciones de misión", "description": "Planificación, coordinación de operaciones y dirección de actividades críticas.", "validation_status": "pending"}
+ ]
+}

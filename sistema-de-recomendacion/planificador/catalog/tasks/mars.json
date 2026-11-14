@@ -1,0 +1,3623 @@
+{
+ "environment": "mars",
+ "tasks": [
+  {
+   "task_id": "MARS_IND_001",
+   "name": "Análisis de muestras geológicas",
+   "description": "Análisis de muestras en el laboratorio del hábitat.",
+   "environment": "mars",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 90,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "geology_fieldwork"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_002",
+   "name": "Clasificación y documentación de muestras",
+   "description": "Registro, clasificación y conservación de muestras.",
+   "environment": "mars",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.2,
+     "mobility": 0.15,
+     "coordination": 0.4,
+     "physical_precision": 0.5,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.45,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.3,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "sample_curation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo meticuloso de registro: atención al detalle alta, poco esfuerzo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_003",
+   "name": "Análisis de datos atmosféricos",
+   "description": "Revisión de datos meteorológicos y de composición atmosférica.",
+   "environment": "mars",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_004",
+   "name": "Análisis de datos geofísicos",
+   "description": "Revisión de datos sísmicos, de calor y de radar.",
+   "environment": "mars",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_005",
+   "name": "Monitorización de instrumentos científicos",
+   "description": "Control del estado de los instrumentos desplegados.",
+   "environment": "mars",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_006",
+   "name": "Análisis de posibles biofirmas",
+   "description": "Análisis de muestras con protocolos de búsqueda de vida y contaminación.",
+   "environment": "mars",
+   "category": "science",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 120,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.9,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [
+     {
+      "dimension": "attention_to_detail",
+      "profile_value": 0.75,
+      "value": 0.9,
+      "reason": "protocolos de control de contaminación: un falso positivo tiene gran impacto"
+     }
+    ],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_007",
+   "name": "Cartografía y análisis del terreno",
+   "description": "Mapas de detalle y análisis del terreno para travesías.",
+   "environment": "mars",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_008",
+   "name": "Procesamiento de datos de exploración",
+   "description": "Integración de imágenes, notas de campo y datos de travesías.",
+   "environment": "mars",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_009",
+   "name": "Inspección de sistemas del hábitat",
+   "description": "Inspección de estructura, juntas y sistemas del hábitat.",
+   "environment": "mars",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.25,
+     "endurance": 0.3,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.3,
+     "fatigue_tolerance": 0.3,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.4,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inspection_routine",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Recorrido con lista de comprobación: algo de movilidad y atención al detalle.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_010",
+   "name": "Mantenimiento de equipos científicos",
+   "description": "Mantenimiento preventivo de instrumentos del laboratorio.",
+   "environment": "mars",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 5
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_011",
+   "name": "Diagnóstico de sistemas eléctricos",
+   "description": "Diagnóstico de la distribución eléctrica del hábitat.",
+   "environment": "mars",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.25,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.85,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "anomaly_diagnosis",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Razonamiento sobre causas con información incompleta: la resolución de problemas domina.",
+    "adjustments": [
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.65,
+      "value": 0.75,
+      "reason": "autonomía de la tripulación: el retardo de las comunicaciones con Tierra impide la ayuda en tiempo real (arquitecturas de referencia de Marte)"
+     }
+    ],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_012",
+   "name": "Monitorización de soporte vital",
+   "description": "Supervisión de parámetros de soporte vital.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "individual",
+   "importance": 5,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "life_support_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_013",
+   "name": "Gestión de energía",
+   "description": "Planificación del consumo y de la generación de energía.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.65,
+      "value": 0.75,
+      "reason": "autonomía de la tripulación: el retardo de las comunicaciones con Tierra impide la ayuda en tiempo real (arquitecturas de referencia de Marte)"
+     }
+    ],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_014",
+   "name": "Control de inventario y suministros",
+   "description": "Control de consumibles y repuestos.",
+   "environment": "mars",
+   "category": "logistics",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.15,
+     "mobility": 0.25,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.45,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.25,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.2,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inventory_admin",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Tarea administrativa con algo de desplazamiento para localizar artículos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_015",
+   "name": "Monitorización de comunicaciones",
+   "description": "Control de los enlaces con Tierra y con los relés en órbita.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "communications_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_016",
+   "name": "Gestión de datos de la misión",
+   "description": "Organización y envío de datos a Tierra según la ventana de comunicaciones.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.15,
+     "mobility": 0.25,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.45,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.25,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.2,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inventory_admin",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Tarea administrativa con algo de desplazamiento para localizar artículos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_017",
+   "name": "Ejercicio físico",
+   "description": "Sesión de ejercicio como contramedida en gravedad reducida.",
+   "environment": "mars",
+   "category": "personal",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": true,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.6
+    },
+    "cognitive": {
+     "concentration": 0.2,
+     "cognitive_load": 0.1,
+     "working_memory": 0.1,
+     "decision_making": 0.1,
+     "attention_to_detail": 0.15,
+     "problem_solving": 0.05,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.1
+    }
+   },
+   "requirements_metadata": {
+    "profile": "exercise",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Ejercicio aeróbico y de resistencia diario: exigencia física alta, cognitiva mínima.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_exercise",
+     "csa_iss_exercise",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_iss_exercise",
+    "csa_iss_exercise",
+    "nasa_dra5_2009"
+   ],
+   "notes": "Se asume por analogía con la ISS; la duración es una estimación configurable."
+  },
+  {
+   "task_id": "MARS_IND_018",
+   "name": "Formación y entrenamiento",
+   "description": "Entrenamiento de mantenimiento de destrezas para una misión larga.",
+   "environment": "mars",
+   "category": "personal",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.6,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "training",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Aprendizaje y memorización: memoria de trabajo y concentración moderadas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_019",
+   "name": "Revisión de procedimientos de emergencia",
+   "description": "Repaso individual de los procedimientos de emergencia.",
+   "environment": "mars",
+   "category": "safety",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.6,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "training",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Aprendizaje y memorización: memoria de trabajo y concentración moderadas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_IND_020",
+   "name": "Preparación individual para EVA",
+   "description": "Comprobación del traje propio, herramientas y plan de la EVA.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 90,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "eva_suits"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.35,
+     "mobility": 0.35,
+     "coordination": 0.55,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.5,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.45,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.4
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_preparation",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Listas de comprobación largas en las que un fallo se arrastra a la EVA: atención al detalle muy alta.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ]
+  },
+  {
+   "task_id": "MARS_COL_001",
+   "name": "Recogida de muestras geológicas",
+   "description": "Recogida de muestras con documentación de contexto, en EVA.",
+   "environment": "mars",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "geology_fieldwork"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MARS_COL_002",
+   "name": "Exploración de terreno mediante rover",
+   "description": "Travesía en rover presurizado hacia regiones de interés.",
+   "environment": "mars",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "rover"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "rover_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.6,
+     "mobility": 0.3,
+     "coordination": 0.6,
+     "physical_precision": 0.5,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.4
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.6,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "rover_traverse",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Conducción prolongada por terreno desconocido con navegación: concentración y decisión altas, esfuerzo moderado.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.75,
+    "communication_requirement": 0.8,
+    "interdependence": 0.75,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MARS_COL_003",
+   "name": "Perforación y extracción de muestras del subsuelo",
+   "description": "Perforación para obtener testigos del subsuelo.",
+   "environment": "mars",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 240,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.7,
+     "mobility": 0.6,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.65
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "drilling",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Apolo 15-17 mostró que perforar y extraer testigos con traje es duro y propenso a atascos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MARS_COL_004",
+   "name": "Instalación de instrumentos científicos",
+   "description": "Despliegue de instrumentos científicos en superficie.",
+   "environment": "mars",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "payload_operations"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MARS_COL_005",
+   "name": "Despliegue de estaciones de monitorización",
+   "description": "Instalación de estaciones meteorológicas o de radiación.",
+   "environment": "mars",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MARS_COL_006",
+   "name": "Exploración geológica de campo",
+   "description": "Descripción geológica del terreno y selección de muestras.",
+   "environment": "mars",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "geology_fieldwork"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MARS_COL_007",
+   "name": "Estudios de astrobiología",
+   "description": "Estudio de entornos con potencial astrobiológico con protocolos de contaminación.",
+   "environment": "mars",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "geology_fieldwork"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [
+     {
+      "dimension": "attention_to_detail",
+      "profile_value": 0.75,
+      "value": 0.85,
+      "reason": "protección planetaria y control de contaminación de las muestras"
+     }
+    ],
+    "sources": [
+     "nasa_mars_science_objectives_2023"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MARS_COL_008",
+   "name": "Inspección de regiones de interés científico",
+   "description": "Reconocimiento de una región candidata antes de estudiarla a fondo.",
+   "environment": "mars",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 240,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_science_objectives_2023",
+     "nasa_mars_surface_activities_2022"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_science_objectives_2023",
+    "nasa_mars_surface_activities_2022"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MARS_COL_009",
+   "name": "Construcción y despliegue de infraestructura",
+   "description": "Montaje de infraestructura de superficie.",
+   "environment": "mars",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MARS_COL_010",
+   "name": "Reparación de sistemas críticos del hábitat",
+   "description": "Reparación de un sistema crítico averiado.",
+   "environment": "mars",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "contingency"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [
+     "life_support_systems",
+     "electrical_systems"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.5,
+     "endurance": 0.5,
+     "mobility": 0.5,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.4
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.85,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.8,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "repair_critical",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Error costoso y a menudo con tiempo limitado: concentración, decisión y resolución de problemas altas.",
+    "adjustments": [
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.75,
+      "value": 0.85,
+      "reason": "autonomía de la tripulación: el retardo de las comunicaciones con Tierra impide la ayuda en tiempo real (arquitecturas de referencia de Marte)"
+     }
+    ],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.8,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.65
+   }
+  },
+  {
+   "task_id": "MARS_COL_011",
+   "name": "Mantenimiento de vehículos de superficie",
+   "description": "Mantenimiento preventivo de rovers.",
+   "environment": "mars",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 5
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [
+    "rover"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "rover_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.6,
+    "interdependence": 0.55,
+    "leadership_requirement": 0.4
+   }
+  },
+  {
+   "task_id": "MARS_COL_012",
+   "name": "Preparación de vehículos de ascenso",
+   "description": "Comprobaciones y preparación del vehículo de ascenso.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "ascent_vehicle_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [
+     {
+      "dimension": "concentration",
+      "profile_value": 0.6,
+      "value": 0.8,
+      "reason": "comprobaciones de un vehículo del que depende el regreso"
+     },
+     {
+      "dimension": "attention_to_detail",
+      "profile_value": 0.7,
+      "value": 0.85,
+      "reason": "listas de comprobación de un sistema crítico"
+     },
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.45,
+      "value": 0.65,
+      "reason": "decidir si el vehículo está listo"
+     }
+    ],
+    "sources": [
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.6,
+    "interdependence": 0.55,
+    "leadership_requirement": 0.4
+   }
+  },
+  {
+   "task_id": "MARS_COL_013",
+   "name": "Instalación de sistemas energéticos",
+   "description": "Despliegue y conexión de sistemas de energía.",
+   "environment": "mars",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 240,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified",
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo en trajes y equipos al volver al hábitat (por analogía con la Luna)",
+      "evidence": "derived",
+      "sources": [
+       "nasa_dra5_2009",
+       "nasa_ochmo_lunar_dust"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MARS_COL_014",
+   "name": "Reparación de equipamiento extravehicular",
+   "description": "Reparación de trajes, herramientas o equipos de EVA.",
+   "environment": "mars",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "contingency"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "eva_suits"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.5,
+     "endurance": 0.5,
+     "mobility": 0.5,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.4
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.85,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.8,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "repair_critical",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Error costoso y a menudo con tiempo limitado: concentración, decisión y resolución de problemas altas.",
+    "adjustments": [
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.75,
+      "value": 0.85,
+      "reason": "autonomía de la tripulación: el retardo de las comunicaciones con Tierra impide la ayuda en tiempo real (arquitecturas de referencia de Marte)"
+     }
+    ],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.8,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.65
+   }
+  },
+  {
+   "task_id": "MARS_COL_015",
+   "name": "Preparación y coordinación de EVA",
+   "description": "Preparación conjunta de trajes, esclusa y plan de la EVA.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "eva_suits"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.35,
+     "mobility": 0.35,
+     "coordination": 0.55,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.5,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.45,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.4
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_preparation",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Listas de comprobación largas en las que un fallo se arrastra a la EVA: atención al detalle muy alta.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.75,
+    "communication_requirement": 0.8,
+    "interdependence": 0.75,
+    "leadership_requirement": 0.5
+   }
+  },
+  {
+   "task_id": "MARS_COL_016",
+   "name": "Simulacros de emergencia",
+   "description": "Simulacro de despresurización, incendio o tormenta de polvo.",
+   "environment": "mars",
+   "category": "safety",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 6,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 7
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.35,
+     "mobility": 0.6,
+     "coordination": 0.5,
+     "physical_precision": 0.35,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.7,
+     "decision_making": 0.85,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "emergency_drill",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Ejecutar de memoria una secuencia bajo presión de tiempo y en coordinación con todos.",
+    "adjustments": [
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.75,
+      "value": 0.85,
+      "reason": "autonomía de la tripulación: el retardo de las comunicaciones con Tierra impide la ayuda en tiempo real (arquitecturas de referencia de Marte)"
+     }
+    ],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.75
+   }
+  },
+  {
+   "task_id": "MARS_COL_017",
+   "name": "Gestión de contingencias",
+   "description": "Respuesta coordinada a una contingencia sin apoyo inmediato de Tierra.",
+   "environment": "mars",
+   "category": "safety",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 6,
+   "frequency": {
+    "kind": "contingency"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "mission_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.5,
+     "endurance": 0.5,
+     "mobility": 0.5,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.4
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.85,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.8,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "repair_critical",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Error costoso y a menudo con tiempo limitado: concentración, decisión y resolución de problemas altas.",
+    "adjustments": [
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.75,
+      "value": 0.85,
+      "reason": "autonomía de la tripulación: el retardo de las comunicaciones con Tierra impide la ayuda en tiempo real (arquitecturas de referencia de Marte)"
+     }
+    ],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.8,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.65
+   }
+  },
+  {
+   "task_id": "MARS_COL_018",
+   "name": "Transferencia de suministros",
+   "description": "Traslado de carga desde módulos de suministro al hábitat.",
+   "environment": "mars",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.55,
+     "endurance": 0.5,
+     "mobility": 0.6,
+     "coordination": 0.45,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.45,
+     "recovery_requirement": 0.3
+    },
+    "cognitive": {
+     "concentration": 0.4,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.3,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.25,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "logistics_handling",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Movimiento repetido de bultos y control de lo que se mueve: esfuerzo y movilidad moderados.",
+    "adjustments": [],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.5,
+    "communication_requirement": 0.5,
+    "interdependence": 0.4,
+    "leadership_requirement": 0.3
+   }
+  },
+  {
+   "task_id": "MARS_COL_019",
+   "name": "Planificación de exploraciones",
+   "description": "Planificación conjunta de travesías y EVA de los próximos soles.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 6,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.65,
+      "value": 0.75,
+      "reason": "autonomía de la tripulación: el retardo de las comunicaciones con Tierra impide la ayuda en tiempo real (arquitecturas de referencia de Marte)"
+     }
+    ],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.8,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MARS_COL_020",
+   "name": "Revisión conjunta de operaciones críticas",
+   "description": "Revisión previa de una operación crítica con toda la tripulación implicada.",
+   "environment": "mars",
+   "category": "operations",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 45,
+   "min_crew": 2,
+   "max_crew": 6,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [
+     {
+      "dimension": "decision_making",
+      "profile_value": 0.65,
+      "value": 0.75,
+      "reason": "autonomía de la tripulación: el retardo de las comunicaciones con Tierra impide la ayuda en tiempo real (arquitecturas de referencia de Marte)"
+     }
+    ],
+    "sources": [
+     "nasa_mars_surface_activities_2022",
+     "nasa_dra5_2009"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_mars_surface_activities_2022",
+    "nasa_dra5_2009"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.8,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.6
+   }
+  }
+ ]
+}

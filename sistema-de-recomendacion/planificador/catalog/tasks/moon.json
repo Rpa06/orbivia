@@ -1,0 +1,3805 @@
+{
+ "environment": "moon",
+ "tasks": [
+  {
+   "task_id": "MOON_IND_001",
+   "name": "Clasificación de muestras lunares",
+   "description": "Clasificación preliminar de muestras recogidas en EVA dentro del hábitat.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "geology_fieldwork"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.2,
+     "mobility": 0.15,
+     "coordination": 0.4,
+     "physical_precision": 0.5,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.45,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.3,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "sample_curation",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo meticuloso de registro: atención al detalle alta, poco esfuerzo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_alsj"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_alsj"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_002",
+   "name": "Análisis geológico",
+   "description": "Descripción y análisis geológico preliminar de muestras e imágenes.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 90,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "geology_fieldwork"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_003",
+   "name": "Procesamiento de datos sísmicos",
+   "description": "Revisión de los datos de los sismómetros desplegados.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_alsj"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_alsj"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_004",
+   "name": "Análisis de datos de radiación",
+   "description": "Revisión de dosímetros y datos del entorno de radiación.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_005",
+   "name": "Análisis de propiedades del regolito",
+   "description": "Medidas geotécnicas y de composición del regolito.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_gaier_2005"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_gaier_2005"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_006",
+   "name": "Cartografía del terreno",
+   "description": "Elaboración de mapas de detalle para planificar travesías.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_007",
+   "name": "Monitorización de instrumentos científicos",
+   "description": "Control del estado de los instrumentos desplegados en superficie.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_008",
+   "name": "Análisis de datos de exploración",
+   "description": "Integración de datos de travesías, imágenes y notas de campo.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_009",
+   "name": "Documentación de muestras",
+   "description": "Registro fotográfico y descriptivo de cada muestra y su contexto.",
+   "environment": "moon",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.2,
+     "mobility": 0.15,
+     "coordination": 0.4,
+     "physical_precision": 0.5,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.45,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.3,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "sample_curation",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo meticuloso de registro: atención al detalle alta, poco esfuerzo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_alsj"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_alsj"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_010",
+   "name": "Inspección del hábitat",
+   "description": "Inspección de la estructura, juntas y sistemas del hábitat de superficie.",
+   "environment": "moon",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.25,
+     "endurance": 0.3,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.3,
+     "fatigue_tolerance": 0.3,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.4,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inspection_routine",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Recorrido con lista de comprobación: algo de movilidad y atención al detalle.",
+    "adjustments": [],
+    "sources": [
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_xeva_conops_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_011",
+   "name": "Monitorización de sistemas energéticos",
+   "description": "Control de generación, almacenamiento y consumo de energía.",
+   "environment": "moon",
+   "category": "operations",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_xeva_conops_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_012",
+   "name": "Supervisión de soporte vital",
+   "description": "Supervisión de los parámetros de soporte vital del hábitat.",
+   "environment": "moon",
+   "category": "operations",
+   "type": "individual",
+   "importance": 5,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "life_support_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_xeva_conops_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_013",
+   "name": "Diagnóstico de equipos",
+   "description": "Diagnóstico de equipos de superficie averiados o degradados por el polvo.",
+   "environment": "moon",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.25,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.85,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "anomaly_diagnosis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Razonamiento sobre causas con información incompleta: la resolución de problemas domina.",
+    "adjustments": [],
+    "sources": [
+     "nasa_gaier_2005",
+     "nasa_ochmo_lunar_dust"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_gaier_2005",
+    "nasa_ochmo_lunar_dust"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_014",
+   "name": "Gestión de suministros",
+   "description": "Control de consumibles y planificación de su uso.",
+   "environment": "moon",
+   "category": "logistics",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.15,
+     "mobility": 0.25,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.45,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.25,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.2,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inventory_admin",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Tarea administrativa con algo de desplazamiento para localizar artículos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_xeva_conops_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_015",
+   "name": "Monitorización de comunicaciones",
+   "description": "Control de los enlaces con Tierra y entre equipos de superficie.",
+   "environment": "moon",
+   "category": "operations",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "communications_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_xeva_conops_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_016",
+   "name": "Preparación individual para EVA",
+   "description": "Comprobación del traje propio, herramientas y plan de la EVA.",
+   "environment": "moon",
+   "category": "operations",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 90,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "eva_suits"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.35,
+     "mobility": 0.35,
+     "coordination": 0.55,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.5,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.45,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.4
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_preparation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Listas de comprobación largas en las que un fallo se arrastra a la EVA: atención al detalle muy alta.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_xeva_conops_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_017",
+   "name": "Ejercicio físico",
+   "description": "Sesión de ejercicio como contramedida en baja gravedad.",
+   "environment": "moon",
+   "category": "personal",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": true,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.6
+    },
+    "cognitive": {
+     "concentration": 0.2,
+     "cognitive_load": 0.1,
+     "working_memory": 0.1,
+     "decision_making": 0.1,
+     "attention_to_detail": 0.15,
+     "problem_solving": 0.05,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.1
+    }
+   },
+   "requirements_metadata": {
+    "profile": "exercise",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Ejercicio aeróbico y de resistencia diario: exigencia física alta, cognitiva mínima.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_exercise",
+     "csa_iss_exercise"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_iss_exercise",
+    "csa_iss_exercise"
+   ],
+   "notes": "Se asume por analogía con la ISS; la duración es una estimación configurable para baja gravedad."
+  },
+  {
+   "task_id": "MOON_IND_018",
+   "name": "Formación y entrenamiento",
+   "description": "Repaso de procedimientos y entrenamiento de tareas de superficie.",
+   "environment": "moon",
+   "category": "personal",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.6,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "training",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Aprendizaje y memorización: memoria de trabajo y concentración moderadas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_xeva_conops_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_IND_019",
+   "name": "Revisión de protocolos de emergencia",
+   "description": "Repaso individual de los protocolos de emergencia del hábitat y de EVA.",
+   "environment": "moon",
+   "category": "safety",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.6,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "training",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Aprendizaje y memorización: memoria de trabajo y concentración moderadas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_xeva_conops_2020"
+   ]
+  },
+  {
+   "task_id": "MOON_COL_001",
+   "name": "Recogida de muestras lunares",
+   "description": "Recogida y embolsado de muestras con documentación de su contexto, en EVA.",
+   "environment": "moon",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "geology_fieldwork"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_alsj"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_alsj"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   },
+   "notes": "Realizada en Apolo 11-17; prevista en Artemis."
+  },
+  {
+   "task_id": "MOON_COL_002",
+   "name": "Exploración de cráteres",
+   "description": "Travesía y estudio geológico de un cráter.",
+   "environment": "moon",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "geology_fieldwork"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_alsj"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_alsj"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MOON_COL_003",
+   "name": "Exploración de regiones permanentemente sombreadas",
+   "description": "Entrada breve en una región en sombra permanente para estudiar volátiles.",
+   "environment": "moon",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 240,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "geology_fieldwork"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.85,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.85,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [
+     {
+      "dimension": "stress_tolerance",
+      "profile_value": 0.7,
+      "value": 0.85,
+      "reason": "frío extremo, oscuridad y márgenes térmicos estrechos del traje"
+     },
+     {
+      "dimension": "fatigue_tolerance",
+      "profile_value": 0.8,
+      "value": 0.85,
+      "reason": "márgenes térmicos y de consumibles del traje más estrechos"
+     }
+    ],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_xeva_conops_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MOON_COL_004",
+   "name": "Exploración de regiones volcánicas",
+   "description": "Estudio de depósitos volcánicos y toma de muestras.",
+   "environment": "moon",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "geology_fieldwork"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MOON_COL_005",
+   "name": "Exploración mediante rover",
+   "description": "Travesía en rover hacia zonas de interés con paradas de observación.",
+   "environment": "moon",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 240,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "rover"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "rover_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.6,
+     "mobility": 0.3,
+     "coordination": 0.6,
+     "physical_precision": 0.5,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.4
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.6,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "rover_traverse",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Conducción prolongada por terreno desconocido con navegación: concentración y decisión altas, esfuerzo moderado.",
+    "adjustments": [],
+    "sources": [
+     "nasa_ehp_2024",
+     "nasa_alsj"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_ehp_2024",
+    "nasa_alsj"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.75,
+    "communication_requirement": 0.8,
+    "interdependence": 0.75,
+    "leadership_requirement": 0.55
+   },
+   "notes": "Rover lunar usado en Apolo 15-17; vehículo LTV previsto en Artemis."
+  },
+  {
+   "task_id": "MOON_COL_006",
+   "name": "Perforación del regolito",
+   "description": "Extracción de testigos de regolito con taladro.",
+   "environment": "moon",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.7,
+     "mobility": 0.6,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.65
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "drilling",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Apolo 15-17 mostró que perforar y extraer testigos con traje es duro y propenso a atascos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_alsj",
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_alsj",
+    "nasa_artemis3_sdt_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MOON_COL_007",
+   "name": "Instalación de instrumentos científicos",
+   "description": "Despliegue y nivelación de instrumentos científicos en superficie.",
+   "environment": "moon",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "payload_operations"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_alsj",
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_alsj",
+    "nasa_artemis3_sdt_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MOON_COL_008",
+   "name": "Despliegue de estaciones de monitorización",
+   "description": "Instalación de estaciones ambientales o de radiación.",
+   "environment": "moon",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MOON_COL_009",
+   "name": "Instalación de instrumentos sísmicos",
+   "description": "Despliegue de sismómetros, como en los paquetes ALSEP de Apolo.",
+   "environment": "moon",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 150,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.75,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [
+     {
+      "dimension": "physical_precision",
+      "profile_value": 0.65,
+      "value": 0.75,
+      "reason": "nivelación y orientación precisa del sismómetro"
+     }
+    ],
+    "sources": [
+     "nasa_alsj"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_alsj"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MOON_COL_010",
+   "name": "Estudios geológicos de campo",
+   "description": "Descripción geológica del terreno con fotografía y toma de muestras.",
+   "environment": "moon",
+   "category": "exploration",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [
+     "geology_fieldwork"
+    ],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_alsj"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_alsj"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MOON_COL_011",
+   "name": "Construcción de infraestructura",
+   "description": "Montaje de estructuras de superficie (protecciones, plataformas).",
+   "environment": "moon",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_ehp_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_ehp_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MOON_COL_012",
+   "name": "Instalación de sistemas energéticos",
+   "description": "Despliegue y conexión de paneles, baterías o cableado de energía.",
+   "environment": "moon",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 240,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified",
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_ehp_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_ehp_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MOON_COL_013",
+   "name": "Mantenimiento de rover",
+   "description": "Inspección, limpieza de polvo y mantenimiento del rover.",
+   "environment": "moon",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 5
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [
+    "rover"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "rover_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_ehp_2024",
+     "nasa_gaier_2005"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_ehp_2024",
+    "nasa_gaier_2005"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.6,
+    "interdependence": 0.55,
+    "leadership_requirement": 0.4
+   }
+  },
+  {
+   "task_id": "MOON_COL_014",
+   "name": "Reparación de equipamiento",
+   "description": "Reparación de equipos dañados por el polvo o averiados.",
+   "environment": "moon",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "contingency"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.5,
+     "endurance": 0.5,
+     "mobility": 0.5,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.4
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.8,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "repair_critical",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Error costoso y a menudo con tiempo limitado: concentración, decisión y resolución de problemas altas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_gaier_2005"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_gaier_2005"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.8,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.65
+   }
+  },
+  {
+   "task_id": "MOON_COL_015",
+   "name": "Preparación de instalaciones de superficie",
+   "description": "Preparación del terreno y del área de trabajo antes de una instalación.",
+   "environment": "moon",
+   "category": "infrastructure",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.75,
+     "coordination": 0.75,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.7,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "construction_assembly",
+    "evidence_type": "theoretical",
+    "confidence": 0.3,
+    "justification": "Manipular elementos grandes y fijarlos con precisión, normalmente en EVA y entre varios.",
+    "adjustments": [],
+    "sources": [
+     "nasa_ehp_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_ehp_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.8,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MOON_COL_016",
+   "name": "Gestión de recursos y suministros",
+   "description": "Planificación conjunta de consumibles, energía y agua.",
+   "environment": "moon",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 2,
+   "max_crew": 4,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_xeva_conops_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.8,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "MOON_COL_017",
+   "name": "Preparación de EVA",
+   "description": "Preparación conjunta de trajes, herramientas, esclusa y plan de la EVA.",
+   "environment": "moon",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "eva_suits"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.35,
+     "mobility": 0.35,
+     "coordination": 0.55,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.5,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.45,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.4
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_preparation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Listas de comprobación largas en las que un fallo se arrastra a la EVA: atención al detalle muy alta.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_xeva_conops_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.75,
+    "communication_requirement": 0.8,
+    "interdependence": 0.75,
+    "leadership_requirement": 0.5
+   }
+  },
+  {
+   "task_id": "MOON_COL_018",
+   "name": "Realización de EVA",
+   "description": "Salida a la superficie para un objetivo genérico no cubierto por las tareas específicas.",
+   "environment": "moon",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.85,
+     "coordination": 0.7,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.6,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_surface",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Caminar, cargar y trabajar con traje sobre regolito: más movilidad y menos precisión fina que una EVA orbital. Experiencia humana limitada a Apolo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_xeva_conops_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.85,
+    "communication_requirement": 0.85,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.55
+   }
+  },
+  {
+   "task_id": "MOON_COL_019",
+   "name": "Simulacros de emergencia",
+   "description": "Simulacro de respuesta a despresurización, incendio o evento de radiación.",
+   "environment": "moon",
+   "category": "safety",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 4,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 7
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.35,
+     "mobility": 0.6,
+     "coordination": 0.5,
+     "physical_precision": 0.35,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "emergency_drill",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Ejecutar de memoria una secuencia bajo presión de tiempo y en coordinación con todos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_xeva_conops_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.75
+   }
+  },
+  {
+   "task_id": "MOON_COL_020",
+   "name": "Coordinación de operaciones extravehiculares",
+   "description": "Apoyo desde el hábitat a una EVA: seguimiento, comunicaciones y consumibles.",
+   "environment": "moon",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 300,
+   "min_crew": 1,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "mission_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.15,
+     "mobility": 0.05,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.6,
+     "working_memory": 0.55,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.5,
+     "stress_tolerance": 0.5,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "robotic_supervision",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Vigilar y decidir si se interrumpe una operación automática: atención y decisión, sin manipulación.",
+    "adjustments": [],
+    "sources": [
+     "nasa_artemis3_sdt_2020",
+     "nasa_xeva_conops_2020"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_artemis3_sdt_2020",
+    "nasa_xeva_conops_2020"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.55,
+    "communication_requirement": 0.7,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.4
+   },
+   "notes": "Tarea del miembro que se queda en el hábitat; se modela con el perfil de supervisión."
+  },
+  {
+   "task_id": "MOON_COL_021",
+   "name": "Transporte de equipamiento",
+   "description": "Traslado de equipos y carga entre el módulo de aterrizaje y las zonas de trabajo.",
+   "environment": "moon",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.6,
+     "coordination": 0.45,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.75,
+     "recovery_requirement": 0.7
+    },
+    "cognitive": {
+     "concentration": 0.4,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.3,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.25,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "logistics_handling",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Movimiento repetido de bultos y control de lo que se mueve: esfuerzo y movilidad moderados.",
+    "adjustments": [
+     {
+      "dimension": "physical_effort",
+      "profile_value": 0.55,
+      "value": 0.75,
+      "reason": "carga de equipos con traje presurizado"
+     },
+     {
+      "dimension": "endurance",
+      "profile_value": 0.5,
+      "value": 0.75,
+      "reason": "trabajo sostenido con traje"
+     },
+     {
+      "dimension": "fatigue_tolerance",
+      "profile_value": 0.45,
+      "value": 0.75,
+      "reason": "EVA con carga física continua"
+     },
+     {
+      "dimension": "recovery_requirement",
+      "profile_value": 0.3,
+      "value": 0.7,
+      "reason": "EVA de varias horas"
+     }
+    ],
+    "sources": [
+     "nasa_ehp_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "planned",
+   "nasa_reference": [
+    "nasa_ehp_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.5,
+    "communication_requirement": 0.5,
+    "interdependence": 0.4,
+    "leadership_requirement": 0.3
+   }
+  },
+  {
+   "task_id": "MOON_COL_022",
+   "name": "Inspección conjunta de infraestructura",
+   "description": "Inspección exterior de la infraestructura de superficie.",
+   "environment": "moon",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 7
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Control de polvo de regolito en trajes y equipos al volver al hábitat",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_lunar_dust",
+       "nasa_gaier_2005"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.6,
+     "endurance": 0.6,
+     "mobility": 0.7,
+     "coordination": 0.35,
+     "physical_precision": 0.3,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.55
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.4,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inspection_routine",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Recorrido con lista de comprobación: algo de movilidad y atención al detalle.",
+    "adjustments": [
+     {
+      "dimension": "physical_effort",
+      "profile_value": 0.25,
+      "value": 0.6,
+      "reason": "inspección con traje presurizado"
+     },
+     {
+      "dimension": "endurance",
+      "profile_value": 0.3,
+      "value": 0.6,
+      "reason": "EVA de varias horas"
+     },
+     {
+      "dimension": "mobility",
+      "profile_value": 0.4,
+      "value": 0.7,
+      "reason": "recorrido a pie con traje"
+     },
+     {
+      "dimension": "fatigue_tolerance",
+      "profile_value": 0.3,
+      "value": 0.6,
+      "reason": "EVA"
+     },
+     {
+      "dimension": "recovery_requirement",
+      "profile_value": 0.1,
+      "value": 0.55,
+      "reason": "EVA de duración media"
+     }
+    ],
+    "sources": [
+     "nasa_ehp_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_ehp_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.45,
+    "communication_requirement": 0.5,
+    "interdependence": 0.35,
+    "leadership_requirement": 0.3
+   }
+  }
+ ]
+}

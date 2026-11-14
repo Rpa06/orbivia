@@ -5,3 +5,7 @@ __pycache__/
 !/volumenes/postgre/.gitkeep
 /volumenes/redis/*
 !/volumenes/redis/.gitkeep
+/volumenes/social-graph/*
+!/volumenes/social-graph/.gitkeep
+/volumenes/planner/*
+!/volumenes/planner/.gitkeep

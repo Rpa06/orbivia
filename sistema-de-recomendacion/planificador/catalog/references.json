@@ -1,0 +1,288 @@
+{
+ "_about": "Registro de fuentes del catálogo de tareas. 'verified' indica qué se ha comprobado: 'existence' = el documento existe y su ficha pública describe el contenido citado; 'not_public' = documento citado por otros, cuyo contenido no se ha podido consultar. Ninguna fuente de esta lista publica las puntuaciones 0-1 de exigencia de las tareas: son estimaciones del modelo Orbivia.",
+ "evidence_kinds": {
+  "mission_flown": "Actividad realizada en una misión real",
+  "reference_architecture": "Arquitectura o misión de referencia de NASA, sin decisión de programa",
+  "planned": "Actividad de un programa aprobado y en desarrollo (Artemis)",
+  "future_concept": "Concepto o demostración no realizada en el escenario descrito",
+  "standard": "Norma o guía de diseño de NASA",
+  "research": "Informe de evidencia o estudio científico"
+ },
+ "references": [
+  {
+   "id": "nasa_mars_science_objectives_2023",
+   "title": "Science Objectives for Human Exploration of Mars Workshop Report",
+   "organization": "NASA (SMD / ESDMD)",
+   "year": 2023,
+   "identifier": "NASA/TM-20230001230",
+   "url": "https://ntrs.nasa.gov/citations/20230001230",
+   "evidence_kind": "reference_architecture",
+   "verified": "existence",
+   "supports": "Objetivos científicos de las primeras misiones humanas a Marte (geología, astrobiología, atmósfera, geofísica) y conceptos de operaciones por escenario."
+  },
+  {
+   "id": "nasa_mars_surface_activities_2022",
+   "title": "Mars Surface Activities for Crewed Mission Systems and Utilization Reference Mission (también citado como Reference Surface Activities for Crewed Mars Mission Systems and Utilization)",
+   "organization": "NASA ESDMD",
+   "year": 2022,
+   "identifier": "HEOMD-415",
+   "url": "https://ntrs.nasa.gov/citations/20220000589",
+   "evidence_kind": "reference_architecture",
+   "verified": "existence",
+   "supports": "Cronogramas día a día de una estancia de 30 soles en superficie: EVA, ciencia, mantenimiento y operaciones de hábitat. NASA indica que no hay decisiones tomadas sobre la arquitectura."
+  },
+  {
+   "id": "nasa_dra5_2009",
+   "title": "Human Exploration of Mars Design Reference Architecture 5.0",
+   "organization": "NASA Mars Architecture Steering Group",
+   "year": 2009,
+   "identifier": "NASA/SP-2009-566",
+   "url": "https://www.nasa.gov/pdf/373665main_NASA-SP-2009-566.pdf",
+   "evidence_kind": "reference_architecture",
+   "verified": "existence",
+   "supports": "Arquitectura de referencia de exploración humana de Marte: estancia larga en superficie, exploración con rovers, perforación, operaciones de hábitat. No es un plan formal."
+  },
+  {
+   "id": "nasa_xeva_conops_2020",
+   "title": "Exploration EVA System Concept of Operations, Rev B",
+   "organization": "NASA",
+   "year": 2020,
+   "identifier": "EVA-EXP-0042",
+   "url": "https://ntrs.nasa.gov/citations/20205008200",
+   "evidence_kind": "planned",
+   "verified": "existence",
+   "supports": "Concepto de operaciones de EVA de superficie lunar en Artemis: objetivos científicos, preparación, ejecución y capacidades del sistema xEVA."
+  },
+  {
+   "id": "nasa_ehp_2024",
+   "title": "EVA and Human Surface Mobility Program (EHP) Overview",
+   "organization": "NASA",
+   "year": 2024,
+   "identifier": "NTRS 20240007203",
+   "url": "https://ntrs.nasa.gov/api/citations/20240007203/downloads/EHP%20Overview%20Japan%20Space%20Symposium%20June%202024.pdf",
+   "evidence_kind": "planned",
+   "verified": "existence",
+   "supports": "Programa Artemis de trajes, herramientas de EVA y movilidad de superficie (vehículo LTV)."
+  },
+  {
+   "id": "nasa_artemis3_sdt_2020",
+   "title": "Artemis III Science Definition Team Report",
+   "organization": "NASA",
+   "year": 2020,
+   "identifier": "NASA/SP-20205009602",
+   "url": "https://science.nasa.gov/wp-content/uploads/2023/07/artemis-iii-science-definition-report-12042020c.pdf",
+   "evidence_kind": "planned",
+   "verified": "existence",
+   "supports": "Programa científico de superficie lunar: caracterización geológica in situ, recogida de muestras, instrumentos desplegados, volátiles y regiones polares."
+  },
+  {
+   "id": "nasa_alsj",
+   "title": "Apollo Lunar Surface Journal",
+   "organization": "NASA",
+   "year": null,
+   "identifier": "ALSJ",
+   "url": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a17/a17.alsepdep.html",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Actividades realizadas en Apolo 14-17: despliegue de ALSEP (instrumentos sísmicos y otros), uso del rover lunar, testigos de perforación y recogida de muestras."
+  },
+  {
+   "id": "nasa_gaier_2005",
+   "title": "The Effects of Lunar Dust on EVA Systems During the Apollo Missions",
+   "organization": "NASA Glenn (J. R. Gaier)",
+   "year": 2005,
+   "identifier": "NASA/TM-2005-213610 (REV1 2007)",
+   "url": "https://ntrs.nasa.gov/citations/20050160460",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Efectos del polvo lunar en los sistemas de EVA de Apolo: visión, atascos, abrasión, sellos y disipación de calor."
+  },
+  {
+   "id": "nasa_ochmo_lunar_dust",
+   "title": "Lunar Dust Technical Brief (OCHMO-TB-011)",
+   "organization": "NASA Office of the Chief Health and Medical Officer",
+   "year": 2023,
+   "identifier": "OCHMO-TB-011 Rev B",
+   "url": "https://www.nasa.gov/wp-content/uploads/2023/03/lunar-dust-technical-brief-ochmo.pdf",
+   "evidence_kind": "standard",
+   "verified": "existence",
+   "supports": "Riesgos del polvo lunar para la salud y los trajes; documento de referencia derivado de NASA-STD-3001."
+  },
+  {
+   "id": "nasa_std_3001_v1",
+   "title": "NASA Space Flight Human-System Standard, Volume 1: Crew Health (Rev C)",
+   "organization": "NASA OCHMO",
+   "year": 2023,
+   "identifier": "NASA-STD-3001 Vol. 1",
+   "url": "https://www.nasa.gov/ochmo/human-spaceflight-and-aviation-standards",
+   "evidence_kind": "standard",
+   "verified": "existence",
+   "supports": "Norma de salud de la tripulación. No define puntuaciones de exigencia por tarea."
+  },
+  {
+   "id": "nasa_std_3001_v2",
+   "title": "NASA Space Flight Human-System Standard, Volume 2: Human Factors, Habitability, and Environmental Health",
+   "organization": "NASA OCHMO",
+   "year": null,
+   "identifier": "NASA-STD-3001 Vol. 2 (Rev E activa según standards.nasa.gov; existe un PDF de Rev F)",
+   "url": "https://www.nasa.gov/ochmo/human-spaceflight-and-aviation-standards",
+   "evidence_kind": "standard",
+   "verified": "existence",
+   "supports": "Factores humanos y habitabilidad. No define puntuaciones de exigencia por tarea."
+  },
+  {
+   "id": "nasa_hidh_2014",
+   "title": "Human Integration Design Handbook, Revision 1",
+   "organization": "NASA",
+   "year": 2014,
+   "identifier": "NASA/SP-2010-3407/REV1",
+   "url": "https://www.nasa.gov/human-integration-design-handbook/",
+   "evidence_kind": "standard",
+   "verified": "existence",
+   "supports": "Guía de diseño complementaria de NASA-STD-3001 Vol. 2: capacidades humanas, carga de trabajo, fatiga y diseño de tareas."
+  },
+  {
+   "id": "nasa_hrp_sleep_2016",
+   "title": "Risk of Performance Decrements and Adverse Health Outcomes Resulting from Sleep Loss, Circadian Desynchronization, and Work Overload (Evidence Report)",
+   "organization": "NASA Human Research Program",
+   "year": 2016,
+   "identifier": "NTRS 20160003864",
+   "url": "https://ntrs.nasa.gov/api/citations/20160003864/downloads/20160003864.pdf",
+   "evidence_kind": "research",
+   "verified": "existence",
+   "supports": "La pérdida de sueño y la fatiga empeoran la atención, la memoria, el rendimiento psicomotor y el juicio. Fundamenta que las tareas de alta concentración o precisión exijan buen estado de sueño y atención."
+  },
+  {
+   "id": "nasa_ochmo_sleep",
+   "title": "Sleep Accommodations Technical Brief",
+   "organization": "NASA OCHMO",
+   "year": 2023,
+   "identifier": "OCHMO technical brief",
+   "url": "https://www.nasa.gov/wp-content/uploads/2023/03/sleep-accomodations-technical-brief-ochmo.pdf",
+   "evidence_kind": "standard",
+   "verified": "existence",
+   "supports": "Sueño en vuelo: duración media de 6 a 6,5 h en lanzadera e ISS."
+  },
+  {
+   "id": "nasa_ochmo_dcs",
+   "title": "Decompression Sickness Technical Brief",
+   "organization": "NASA OCHMO",
+   "year": null,
+   "identifier": "OCHMO technical brief",
+   "url": "https://www.nasa.gov/sites/default/files/atoms/files/dcs_technical_brief_ochmo.pdf",
+   "evidence_kind": "standard",
+   "verified": "existence",
+   "supports": "Protocolos de prerrespiración antes de una EVA desde la ISS (ISLE, campout, prerrespiración de 4 h en el traje)."
+  },
+  {
+   "id": "nasa_iss_exercise",
+   "title": "Astronaut Exercise",
+   "organization": "NASA",
+   "year": null,
+   "identifier": "nasa.gov",
+   "url": "https://www.nasa.gov/missions/station/iss-research/astronaut-exercise",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Ejercicio diario en la ISS con ARED, T2 y CEVIS."
+  },
+  {
+   "id": "csa_iss_exercise",
+   "title": "Physical activity in space",
+   "organization": "Canadian Space Agency",
+   "year": null,
+   "identifier": "asc-csa.gc.ca",
+   "url": "https://asc-csa.gc.ca/eng/astronauts/living-exercising.asp",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Protocolo actual de unas dos horas de ejercicio al día en la ISS."
+  },
+  {
+   "id": "nasa_iss_daily_2022_02_24",
+   "title": "ISS Daily Summary Report – 2/24/2022",
+   "organization": "NASA",
+   "year": 2022,
+   "identifier": "ISS Daily Summary Report",
+   "url": "https://www.nasa.gov/blogs/stationreport/2022/02/24/iss-daily-summary-report-2-24-2022/",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Descarga de experimentos, provisiones y equipos de un Cygnus atracado; simulacro de respuesta a emergencias programado."
+  },
+  {
+   "id": "nasa_iss_daily_2023_04_21",
+   "title": "ISS Daily Summary Report – 4/21/2023",
+   "organization": "NASA",
+   "year": 2023,
+   "identifier": "ISS Daily Summary Report",
+   "url": "https://www.nasa.gov/blogs/stationreport/2023/04/21/iss-daily-summary-report-4-21-2023",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Entrenamiento a bordo para gestionar una contingencia médica, junto a actividades científicas y de mantenimiento."
+  },
+  {
+   "id": "nasa_iss_cygnus_2024",
+   "title": "Cygnus Arrives at Station, Astronauts Unpack New Science",
+   "organization": "NASA",
+   "year": 2024,
+   "identifier": "Space Station blog",
+   "url": "https://www.nasa.gov/blogs/spacestation/2024/08/06/cygnus-arrives-at-station-astronauts-unpack-new-science",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Captura de un vehículo de carga con el Canadarm2 por un miembro de la tripulación y descarga de ciencia nueva."
+  },
+  {
+   "id": "nasa_ssp_50261_01",
+   "title": "International Space Station Program: Generic Groundrules, Requirements, and Constraints, Part 1: Strategic and Tactical Planning",
+   "organization": "NASA ISS Program",
+   "year": null,
+   "identifier": "SSP 50261-01 Rev M",
+   "url": null,
+   "evidence_kind": "standard",
+   "verified": "not_public",
+   "supports": "Reglas generales de planificación de la ISS. Su contenido no se ha podido consultar: no se le atribuye ningún valor del catálogo. Aparece citado en NTRS 20230015627."
+  },
+  {
+   "id": "nasa_hst_servicing",
+   "title": "Hubble Space Telescope Servicing Missions Fact Sheet",
+   "organization": "NASA",
+   "year": 2023,
+   "identifier": "NASA SMD",
+   "url": "https://smd-cms.nasa.gov/wp-content/uploads/2023/04/hst-servicing-missions-fact-sheet.pdf",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Las cinco misiones de servicio del Hubble (1993-2009): captura con el brazo del transbordador, EVA, sustitución de instrumentos y componentes."
+  },
+  {
+   "id": "nasa_hst_sm4",
+   "title": "Servicing Mission 4 (STS-125, 2009)",
+   "organization": "NASA",
+   "year": 2009,
+   "identifier": "science.nasa.gov",
+   "url": "https://science.nasa.gov/mission/hubble/observatory/missions-to-hubble/servicing-mission-4/servicing-mission-4-engineering-components",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Sustitución de las seis baterías y de los giróscopos, instalación de WFC3 y COS, reparación en órbita de STIS y ACS, nuevas mantas aislantes (NOBL); cinco EVA."
+  },
+  {
+   "id": "nasa_rrm",
+   "title": "Robotic Refueling Mission (RRM)",
+   "organization": "NASA / CSA",
+   "year": 2013,
+   "identifier": "nasa.gov/isam",
+   "url": "https://www.nasa.gov/isam/rrm-1-2",
+   "evidence_kind": "mission_flown",
+   "verified": "existence",
+   "supports": "Demostración robótica de repostaje de un satélite simulado en el exterior de la ISS con Dextre (2011-2013)."
+  },
+  {
+   "id": "nasa_osam1",
+   "title": "OSAM-1 (On-orbit Servicing, Assembly, and Manufacturing 1)",
+   "organization": "NASA",
+   "year": 2024,
+   "identifier": "nasa.gov/osam-1",
+   "url": "https://www.nasa.gov/osam-1/",
+   "evidence_kind": "future_concept",
+   "verified": "existence",
+   "supports": "Repostaje robótico de un satélite (Landsat 7) y ensamblaje robótico de una antena; NASA canceló el proyecto en marzo de 2024 y mantiene el programa ISAM."
+  }
+ ]
+}
