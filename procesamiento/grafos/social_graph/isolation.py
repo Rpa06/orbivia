@@ -18,6 +18,8 @@ from dataclasses import dataclass
 from statistics import median
 from typing import Any
 
+import networkx as nx
+
 Document = dict[str, Any]
 
 INDICATORS = ("intensity", "accompanied", "degree", "diversity")
@@ -52,6 +54,7 @@ class IsolationConfig:
     crew_drop_z: float = -2.0
     edge_min_w: float = 0.1
     smooth_days: int = 7
+    min_modularity: float = 0.2
     scale_floor_rel: float = 0.1
     scale_floor_abs: float = 0.02
 
@@ -96,6 +99,69 @@ def smoothed_weights(docs: Sequence[Document]) -> list[list[float | None]]:
     return out
 
 
+def network_structure(
+    crew: Sequence[str], smoothed: list[list[float | None]], config: IsolationConfig
+) -> Document:
+    """Estructura del grafo suavizado: comunidades, conexión entre ellas y puentes.
+
+    Con tripulaciones pequeñas el resultado es frágil: solo se habla de
+    comunidades si la modularidad supera `min_modularity`.
+    """
+    n = len(crew)
+    known = [a for i, a in enumerate(crew) if any(w is not None for w in smoothed[i])]
+    graph = nx.Graph()
+    graph.add_nodes_from(known)
+    for i in range(n):
+        for j in range(i + 1, n):
+            weight = smoothed[i][j]
+            if weight is not None and weight >= config.edge_min_w:
+                # La intermediación usa caminos mínimos: a más peso, menos distancia
+                graph.add_edge(crew[i], crew[j], weight=weight, distance=1.0 / weight)
+
+    isolated = sorted(a for a in known if graph.degree(a) == 0)
+    connected = graph.subgraph(a for a in known if graph.degree(a) > 0)
+    communities: list[list[str]] = []
+    modularity = None
+    if connected.number_of_edges() > 0:
+        found = nx.community.greedy_modularity_communities(connected, weight="weight")
+        communities = sorted((sorted(c) for c in found), key=lambda c: c[0])
+        modularity = float(nx.community.modularity(connected, communities, weight="weight"))
+    clear = modularity is not None and len(communities) >= 2 and modularity >= config.min_modularity
+
+    index = {a: i for i, a in enumerate(crew)}
+    between = []
+    for x in range(len(communities)):
+        for y in range(x + 1, len(communities)):
+            values = [
+                smoothed[index[a]][index[b]]
+                for a in communities[x] for b in communities[y]
+                if smoothed[index[a]][index[b]] is not None
+            ]
+            between.append({
+                "a": x, "b": y, "mean_weight": sum(values) / len(values) if values else None,
+            })
+
+    betweenness = {a: float(v) for a, v in nx.betweenness_centrality(graph, weight="distance").items()}
+    community_of = {a: k for k, members in enumerate(communities) for a in members}
+    bridges = []
+    if clear:
+        for astronaut in known:
+            reached = {community_of[b] for b in graph.neighbors(astronaut)}
+            if len(reached | {community_of.get(astronaut)}) >= 2:
+                bridges.append(astronaut)
+    return {
+        "communities": communities,
+        "modularity": modularity,
+        "clear": clear,
+        "between_communities": between,
+        "betweenness": betweenness,
+        "bridges": sorted(bridges, key=lambda a: (-betweenness[a], a)),
+        "isolated": isolated,
+        "unknown": [a for a in crew if a not in known],
+        "smoothed_weights": smoothed,
+    }
+
+
 def _robust_z(value: float, baseline: Sequence[float], config: IsolationConfig) -> float:
     center = median(baseline)
     mad = median(abs(x - center) for x in baseline)
@@ -128,6 +194,7 @@ class IsolationAnalyzer:
                 )
 
             smoothed = smoothed_weights(docs[max(0, index - config.smooth_days + 1): index + 1])
+            structure = network_structure(crew, smoothed, config)
 
             # Indicador de tripulación: si la mayoría baja a la vez, es un fenómeno
             # de grupo y no se convierte en señales individuales
@@ -174,7 +241,7 @@ class IsolationAnalyzer:
                     "low_vs_crew": bool(low_today), "flagged": False,
                 }
                 recent = past.get(astronaut, []) + [entry]
-                signals = self._signals(recent, smoothed[i], crew_drop)
+                signals = self._signals(recent, astronaut, structure, crew_drop)
                 families = len({"baseline" if s in _BASELINE_SIGNALS else s for s in signals})
                 defined = [z for z in adjusted.values() if z is not None]
                 if STRUCTURAL in signals or families >= 2:
@@ -201,6 +268,7 @@ class IsolationAnalyzer:
             out.append({
                 "day": day,
                 "crew": {"score": crew_score, "drop": crew_drop},
+                "structure": structure,
                 "astronauts": astronauts,
             })
         return out
@@ -223,7 +291,7 @@ class IsolationAnalyzer:
         return scores
 
     def _signals(
-        self, entries: list[dict[str, Any]], smoothed_row: list[float | None], crew_drop: bool
+        self, entries: list[dict[str, Any]], astronaut: str, structure: Document, crew_drop: bool
     ) -> list[str]:
         config = self.config
         signals = []
@@ -241,7 +309,16 @@ class IsolationAnalyzer:
             signals.append(TREND)
         if sum(e["low_vs_crew"] for e in entries[-config.crew_m:]) >= config.crew_k:
             signals.append(LOW_VS_CREW)
-        known = [w for w in smoothed_row if w is not None]
-        if known and all(w < config.edge_min_w for w in known) and not crew_drop:
+        # Aislamiento estructural: sin aristas, o solo en su comunidad, mientras el
+        # resto de la tripulación sí forma una red. Si nadie tiene aristas es un
+        # fenómeno de grupo, no individual.
+        others = [
+            a for c in structure["communities"] for a in c if a != astronaut
+        ]
+        alone = astronaut in structure["isolated"] or (
+            structure["clear"] and [astronaut] in structure["communities"]
+        )
+        n_known = sum(len(c) for c in structure["communities"]) + len(structure["isolated"])
+        if alone and not crew_drop and len(others) >= max(2, (n_known - 1) / 2):
             signals.append(STRUCTURAL)
         return signals

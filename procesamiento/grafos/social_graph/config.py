@@ -127,6 +127,7 @@ def load_settings(env: Mapping[str, str]) -> Settings:
         crew_ratio_min=number("SG_CREW_RATIO_MIN", iso.crew_ratio_min),
         edge_min_w=number("SG_EDGE_MIN_W", iso.edge_min_w),
         smooth_days=int(number("SG_SMOOTH_DAYS", iso.smooth_days)),
+        min_modularity=number("SG_MIN_MODULARITY", iso.min_modularity),
     )
     sim_days = env.get("SG_SIM_DAYS")
     layout = env.get("SG_LAYOUT") or "spring"
