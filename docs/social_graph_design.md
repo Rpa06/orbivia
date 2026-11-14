@@ -338,9 +338,7 @@ El texto para la tripulación no revela por qué se propone: decirle a alguien q
 **Separación entre convivencia y operaciones.**
 
 - *Integración social:* el grafo se usa para detectar patrones de convivencia y proponer actividades voluntarias que favorezcan nuevas interacciones.
-- *Organización operativa:* las tareas reales de la misión se asignan solo por competencias, cualificación, disponibilidad, fatiga y seguridad. El grafo no determina compatibilidad profesional ni quién trabaja con quién en operaciones críticas.
-
-Esta separación sustituye a la formulación anterior y resuelve su contradicción: el grafo sí alimenta recomendaciones, pero solo de actividades voluntarias en tiempo de ocio.
+- *Organización operativa:* la elegibilidad para una tarea depende solo de competencias, cualificación, disponibilidad, fatiga y seguridad. El planificador de tareas (`docs/crew_planner_design.md`) usa el grafo suavizado únicamente como objetivo blando: favorece equipos con más interacción observada en las tareas colectivas, y la inclusión de personas poco integradas solo en tareas colectivas de baja carga. El grafo nunca descarta a nadie ni sustituye una restricción de seguridad.
 
 **Qué datos se usan.** Solo posiciones y horarios. No se usa reconocimiento facial, voz, lenguaje ni ninguna inferencia de emociones, sentimientos, amistad o compatibilidad.
 

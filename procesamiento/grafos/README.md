@@ -12,7 +12,7 @@ Servicio de ORBIVIA que estima cuánto tiempo de ocio pasan juntos los astronaut
 
 - **En esta demo** el grafo y los indicadores son accesibles para cualquiera con acceso a la base de datos o a la carpeta de salida. No hay control de acceso.
 - **En el producto final** solo deben ser accesibles desde la base de mando en Tierra, por personal autorizado. La tripulación solo ve el texto neutro de las propuestas aceptadas (`crew_text`), nunca el grafo ni los motivos.
-- El grafo no se usa para asignar tareas operativas ni para juzgar compatibilidad entre personas.
+- El grafo nunca decide quién puede hacer una tarea. El planificador de tareas lo usa solo como objetivo blando al formar equipos (ver [docs/crew_planner_design.md](../../docs/crew_planner_design.md)).
 
 ## Ejecutar
 
