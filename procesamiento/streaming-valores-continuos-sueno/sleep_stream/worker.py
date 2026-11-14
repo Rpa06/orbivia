@@ -42,7 +42,8 @@ def build_processor(env=os.environ) -> SleepProcessor:
 def main() -> None:
     logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
                         format="%(asctime)s %(levelname)s %(name)s %(message)s")
-    consumer = os.environ.get("SLEEP_CONSUMER") or os.environ.get("WORKER_NAME") or socket.gethostname()
+    # Un nombre por contenedor: dos réplicas no deben compartir consumidor
+    consumer = os.environ.get("SLEEP_CONSUMER") or socket.gethostname()
     heartbeat = os.environ.get("SLEEP_HEARTBEAT_FILE")
     stopping = False
 

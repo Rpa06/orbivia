@@ -22,7 +22,9 @@ services:
   broker:
     image: redis:7-alpine
     restart: unless-stopped
-    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec"]
+    # noeviction: Redis nunca descarta claves por falta de memoria (el estado de las
+    # sesiones de sueño no se puede perder); si se llena, rechaza escrituras.
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec", "--maxmemory-policy", "noeviction"]
     ports:
       - "127.0.0.1:${REDIS_PORT:-6379}:6379"
     volumes:
@@ -39,6 +41,10 @@ services:
       dockerfile: docker/python-core/Dockerfile
     restart: unless-stopped
     command: ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    # Las variables SLEEP_* se definen en .env (ver .env.example)
+    env_file:
+      - path: .env
+        required: false
     environment:
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
@@ -61,19 +67,38 @@ services:
       retries: 3
       start_period: 10s
 
+  # Procesador incremental de los datos de sueño. Ver
+  # procesamiento/streaming-valores-continuos-sueno/README.md
   worker-stream:
     build:
       context: .
-      dockerfile: docker/python-core/Dockerfile
+      dockerfile: docker/sleep-stream/Dockerfile
     restart: unless-stopped
-    command: ["python", "workers/worker.py"]
+    command: ["python", "-m", "sleep_stream.worker"]
+    # Las variables SLEEP_* se definen en .env (ver .env.example)
+    env_file:
+      - path: .env
+        required: false
     environment:
-      WORKER_NAME: worker-stream
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-orbivia}
+      POSTGRES_USER: ${POSTGRES_USER:-orbivia}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
       REDIS_HOST: broker
       REDIS_PORT: 6379
+      SLEEP_HEARTBEAT_FILE: /tmp/sleep_stream.heartbeat
     depends_on:
+      db:
+        condition: service_healthy
       broker:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-m", "sleep_stream.healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
   worker-ml:
     build:
