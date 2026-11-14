@@ -1,7 +1,10 @@
 """Configuración: fichero TOML con sobrescritura por variables de entorno CP_*.
 
 Los pesos se cambian sin tocar el código: en el fichero, o con
-CP_<SECCIÓN>_<CLAVE> (por ejemplo CP_WEIGHTS_GAMMA=0.5).
+CP_<SECCIÓN>_<CLAVE> (por ejemplo CP_WEIGHTS_ALPHA_EQUITY=0.8).
+
+El grafo social no forma parte de la configuración: por diseño de Orbivia
+nunca es una variable del planificador (README, sección 2.D).
 """
 
 import hashlib
@@ -29,8 +32,6 @@ class Weights:
     alpha_uncertainty: float = 0.5
     alpha_equity: float = 0.5
     beta_spread: float = 0.5
-    gamma: float = 0.3
-    mu: float = 0.2
 
     def __post_init__(self) -> None:
         for f in fields(self):
@@ -40,14 +41,10 @@ class Weights:
 @dataclass(frozen=True)
 class Stages:
     mode: str = "lexicographic"
-    epsilon: float = 0.05
-    epsilon_abs: float = 0.2  # tolerancia absoluta: con una tripulación sana el óptimo es casi 0
     uncovered_penalty: float = 10.0  # solo en modo weighted: coste por tarea aplazable sin cubrir
 
     def __post_init__(self) -> None:
         _check(self.mode in ("lexicographic", "weighted"), "stages.mode debe ser lexicographic o weighted")
-        _check(0 <= self.epsilon <= 1, "stages.epsilon debe estar en [0, 1]")
-        _check(self.epsilon_abs >= 0, "stages.epsilon_abs debe ser >= 0")
         _check(self.uncovered_penalty >= 0, "stages.uncovered_penalty debe ser >= 0")
 
 
@@ -114,17 +111,6 @@ class LowLoad:
     def __post_init__(self) -> None:
         _check(0 <= self.max_intensity <= 1, "low_load.max_intensity debe estar en [0, 1]")
         _check(0 < self.max_importance <= 1, "low_load.max_importance debe estar en (0, 1]")
-
-
-@dataclass(frozen=True)
-class Social:
-    max_age_days: int = 2
-    need_review: float = 1.0
-    need_follow_up: float = 0.5
-
-    def __post_init__(self) -> None:
-        _check(self.max_age_days >= 1, "social.max_age_days debe ser >= 1")
-        _check(0 <= self.need_follow_up <= self.need_review <= 1, "social: se requiere 0 <= follow_up <= review <= 1")
 
 
 @dataclass(frozen=True)
@@ -203,7 +189,6 @@ SECTIONS: dict[str, type] = {
     "workload": Workload,
     "limits": Limits,
     "low_load": LowLoad,
-    "social": Social,
     "solver": Solver,
 }
 
@@ -218,7 +203,6 @@ class PlannerConfig:
     workload: Workload = field(default_factory=Workload)
     limits: Limits = field(default_factory=Limits)
     low_load: LowLoad = field(default_factory=LowLoad)
-    social: Social = field(default_factory=Social)
     solver: Solver = field(default_factory=Solver)
     parameters: Mapping[str, ParameterSpec] = field(default_factory=dict)
     alternatives: Alternatives = field(default_factory=Alternatives)

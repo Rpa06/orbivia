@@ -1,8 +1,10 @@
 # Configuración por defecto del planificador. Ver docs/crew_planner_design.md.
 #
 # Cualquier valor escalar se puede sobrescribir con una variable de entorno
-# CP_<SECCIÓN>_<CLAVE>, por ejemplo CP_WEIGHTS_GAMMA=0.5. Otro fichero completo
-# se indica con CP_CONFIG_FILE.
+# CP_<SECCIÓN>_<CLAVE>, por ejemplo CP_WEIGHTS_ALPHA_EQUITY=0.8.
+# Otro fichero completo se indica con CP_CONFIG_FILE.
+#
+# El grafo social no es una entrada ni un peso del planificador (prohibido por diseño).
 #
 # Todos los valores son puntos de partida razonados, no calibrados con datos reales.
 
@@ -13,14 +15,9 @@ alpha_repetition = 0.3   # monotonía
 alpha_uncertainty = 0.5  # datos ausentes o poco fiables
 alpha_equity = 0.5       # desviación de cada uno respecto a su carga objetivo
 beta_spread = 0.5        # diferencia entre el más y el menos cargado
-gamma = 0.3              # compatibilidad del equipo (todas las tareas colectivas)
-mu = 0.2                 # inclusión (solo tareas colectivas de baja carga)
 
 [stages]
-mode = "lexicographic"   # "lexicographic" (3 etapas) o "weighted" (suma única)
-epsilon = 0.05           # empeoramiento máximo relativo del coste operativo por la inclusión
-epsilon_abs = 0.2        # ... o absoluto, el mayor de los dos. Igual a mu: incluir a una persona
-                         # en revisión puede costar como mucho lo que vale su premio
+mode = "lexicographic"   # "lexicographic" (cobertura y después coste operativo) o "weighted" (suma única)
 uncovered_penalty = 10.0 # solo en modo weighted: coste de dejar sin cubrir una tarea aplazable (× importancia)
 
 [importance]
@@ -46,11 +43,6 @@ rest_after_demanding_min = 30
 [low_load]
 max_intensity = 0.4
 max_importance = 0.6     # importancia normalizada en (0, 1]
-
-[social]
-max_age_days = 2         # antigüedad máxima del grafo; si es mayor no se usa
-need_review = 1.0        # A_i para el estado "review"
-need_follow_up = 0.5     # A_i para el estado "follow_up"
 
 [solver]
 seed = 42

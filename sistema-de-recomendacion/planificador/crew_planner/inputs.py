@@ -10,8 +10,11 @@ Formato JSON:
       "crew": [...],                astronautas (model.Astronaut)
       "tasks": [...],               tareas (model.Task)
       "history": [...],             opcional; historial (history.HistoryEntry)
-      "social": {...} | null        opcional; documento diario del grafo social
     }
+
+El grafo social NO es una entrada admitida: una entrada con la clave "social"
+se rechaza. En Orbivia el grafo nunca se usa para repartir, agrupar ni separar
+a la tripulación (README, sección 2.D).
 
 Los errores de forma o de coherencia detienen la carga con un mensaje claro.
 Lo que es dudoso pero válido se devuelve como aviso.
@@ -28,10 +31,10 @@ from .history import History
 from .model import (
     BASELINE_Z, DAY_S, HIGHER_BETTER, LOWER_BETTER, Astronaut, Task, ValidationError, _finite,
 )
-from .social import SocialSnapshot, from_daily_result
 
 # "meta" es informativo (entorno, origen de las tareas): el planificador no lo usa
-_KEYS = {"day", "as_of", "crew", "tasks", "history", "social", "meta"}
+_KEYS = {"day", "as_of", "crew", "tasks", "history", "meta"}
+FORBIDDEN_KEYS = {"social"}
 
 
 @dataclass(frozen=True)
@@ -40,7 +43,6 @@ class PlanningInput:
     crew: tuple[Astronaut, ...]
     tasks: tuple[Task, ...]
     history: History = field(default_factory=History)
-    social: SocialSnapshot | None = None
     as_of_s: float | None = None
 
     @property
@@ -113,21 +115,18 @@ def validate(problem: PlanningInput, config: PlannerConfig) -> list[str]:
 
     problem.history.check_before(problem.day)
 
-    if problem.social is not None:
-        missing = sorted(set(ids) - set(problem.social.crew))
-        if missing:
-            warnings.append(f"Grafo social: sin datos de {', '.join(missing)}")
-        if not problem.social.usable_for(problem.day, config.social):
-            warnings.append(
-                f"Grafo social del día {problem.social.day}: no es de los "
-                f"{config.social.max_age_days} días anteriores y no se usará"
-            )
     return warnings
 
 
 def from_dict(raw: Mapping[str, Any]) -> PlanningInput:
     if not isinstance(raw, Mapping):
         raise ValidationError("La entrada debe ser un objeto JSON")
+    forbidden = FORBIDDEN_KEYS & set(raw)
+    if forbidden:
+        raise ValidationError(
+            "El grafo social no puede ser una entrada del planificador "
+            f"(claves rechazadas: {sorted(forbidden)})"
+        )
     unknown = set(raw) - _KEYS
     if unknown:
         raise ValidationError(f"Claves desconocidas en la entrada: {sorted(unknown)}")
@@ -140,7 +139,6 @@ def from_dict(raw: Mapping[str, Any]) -> PlanningInput:
         crew=tuple(Astronaut.from_dict(a) for a in raw["crew"]),
         tasks=tuple(Task.from_dict(t) for t in raw["tasks"]),
         history=History.from_list(raw.get("history") or ()),
-        social=from_daily_result(raw["social"]) if raw.get("social") else None,
         as_of_s=None if as_of is None else _finite(as_of, "as_of"),
     )
 

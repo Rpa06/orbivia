@@ -8,9 +8,10 @@ por día. Todo lo que es seguridad está aquí como restricción, nunca como pes
 Modo `lexicographic` (por defecto), en etapas:
 
 1. Cobertura: maximizar la importancia de las tareas aplazables cubiertas.
-2. Coste operativo: estado + repetición + incertidumbre + compatibilidad + equidad.
-3. Inclusión, sin empeorar el coste operativo más de ε ni cambiar la cobertura.
-   Después, desempate: el menor coste operativo con esa inclusión.
+2. Coste operativo: estado + repetición + incertidumbre + equidad.
+
+No hay ningún término social: el grafo social no es una variable del
+optimizador, ni directa ni indirectamente (README, sección 2.D).
 
 Modo `weighted`: una sola resolución de la suma ponderada.
 
@@ -24,7 +25,6 @@ from dataclasses import dataclass, field
 from ortools.sat.python import cp_model
 
 from .context import Option, PlanningContext
-from .teams import compatibility_scale
 
 COST_SCALE = 10**12
 LOAD_SCALE = 1000    # cargas en milésimas de hora
@@ -67,7 +67,6 @@ class Solution:
     feasible: bool
     chosen: list[Chosen] = field(default_factory=list)
     stages: list[StageResult] = field(default_factory=list)
-    included: list[str] = field(default_factory=list)  # personas con premio de inclusión
     status: str = ""
 
 
@@ -189,27 +188,6 @@ class PlanModel:
             equity = equity + round(w.beta_spread * unit) * (hi - lo)
         self.operational = individual + equity
 
-        # Inclusión: premio por persona, una sola vez aunque esté en varias tareas
-        self.included_vars: dict[str, cp_model.IntVar] = {}
-        terms = []
-        for a in crew:
-            need = ctx.need.get(a, 0.0)
-            keys = [k for k, o in self.options.items() if a in o.inclusion]
-            if need <= 0 or not keys:
-                continue
-            u = m.new_bool_var(f"u[{a}]")
-            m.add(u <= sum(self.z[k] for k in keys))
-            self.included_vars[a] = u
-            terms.append(round(w.mu * need * COST_SCALE) * u)
-        self.integration = -sum(terms) if terms else 0
-
-        # Cota inferior del coste operativo, para que la ε se aplique sobre algo >= 0:
-        # la compatibilidad puede restar como mucho γ·I·(1 − K_ref) por tarea colectiva
-        self.compat_floor = {}
-        if ctx.social_active and ctx.k_ref is not None:
-            for t in ctx.problem.tasks:
-                if t.collective:
-                    self.compat_floor[t.id] = round(compatibility_scale(t, cfg) * (1 - ctx.k_ref) * COST_SCALE)
         self.coverage_value = sum(
             round(cfg.importance.normalize(t.importance) * 1000) * self.covered[t.id]
             for t in ctx.problem.tasks if not t.mandatory
@@ -245,8 +223,7 @@ class PlanModel:
             Chosen(self.options[k], solver.value(self.start[k]) * self.slot_s)
             for k in sorted(self.z) if solver.boolean_value(self.z[k])
         ]
-        included = sorted(a for a, u in self.included_vars.items() if solver.boolean_value(u))
-        return Solution(True, chosen, stages, included, stages[-1].status)
+        return Solution(True, chosen, stages, stages[-1].status)
 
     def solve(self) -> Solution:
         if self.ctx.config.stages.mode == "weighted":
@@ -261,7 +238,7 @@ class PlanModel:
             for t in self.ctx.problem.tasks if not t.mandatory
         )
         stages: list[StageResult] = []
-        self.model.minimize(self.operational + self.integration + uncovered)
+        self.model.minimize(self.operational + uncovered)
         solver, status = self._solve("weighted", stages, COST_SCALE)
         if status not in FEASIBLE_STATUSES:
             return Solution(False, stages=stages, status=stages[-1].status)
@@ -283,32 +260,6 @@ class PlanModel:
         # Etapa 2: coste operativo
         m.minimize(self.operational)
         solver, status = self._solve("operational", stages, COST_SCALE)
-        if status not in FEASIBLE_STATUSES:
-            return Solution(False, stages=stages, status=stages[-1].status)
-        best = round(solver.objective_value)
-        covered_now = {t: sum(solver.value(self.z[k]) for k in keys) for t, keys in self.task_keys.items()}
-
-        if not self.included_vars:
-            return self._extract(solver, stages)
-
-        # Etapa 3: inclusión dentro de ε, con la cobertura fija
-        for t, value in covered_now.items():
-            m.add(self.covered[t] == value)
-        floor = sum(v for t, v in self.compat_floor.items() if covered_now.get(t))
-        # Tolerancia: la mayor entre la relativa y la absoluta. Solo con la relativa,
-        # una tripulación en buen estado (óptimo ≈ 0) nunca dejaría margen
-        slack = max(cfg.stages.epsilon * (best + floor), cfg.stages.epsilon_abs * COST_SCALE)
-        limit = math.floor(best + slack)
-        m.add(self.operational <= limit)
-        m.minimize(self.integration)
-        solver, status = self._solve("inclusion", stages, COST_SCALE)
-        if status not in FEASIBLE_STATUSES:  # no debería pasar: la solución anterior es válida
-            return Solution(False, stages=stages, status=stages[-1].status)
-
-        # Desempate: el menor coste operativo con esa inclusión
-        m.add(self.integration <= round(solver.objective_value))
-        m.minimize(self.operational)
-        solver, status = self._solve("tie_break", stages, COST_SCALE)
         if status not in FEASIBLE_STATUSES:
             return Solution(False, stages=stages, status=stages[-1].status)
         return self._extract(solver, stages)

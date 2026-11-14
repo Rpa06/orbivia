@@ -17,7 +17,6 @@ def raw(**overrides) -> dict:
         "crew": [astronaut("A1"), astronaut("A2", qualifications=[])],
         "tasks": [task("T1"), task("T2", kind="collective", min_people=2, max_people=2)],
         "history": [{"day": 9, "astronaut": "A1", "task_id": "T1", "category": "T1", "duration_min": 60}],
-        "social": social_doc(9, ["A1", "A2"], W),
     }
     data.update(overrides)
     return data
@@ -28,15 +27,14 @@ def test_load_valid_input(tmp_path, config):
     path.write_text(json.dumps(raw()))
     problem, warnings = load_input(path, config)
     assert problem.day == 10 and len(problem.crew) == 2 and len(problem.tasks) == 2
-    assert problem.social.weight("A1", "A2") == 0.4
     assert problem.reference_s == 10 * DAY
     assert problem.astronaut("A2").qualifications == frozenset()
     assert warnings == []
 
 
 def test_optional_parts(config):
-    problem = from_dict(raw(history=None, social=None))
-    assert len(problem.history) == 0 and problem.social is None
+    problem = from_dict(raw(history=None))
+    assert len(problem.history) == 0 and not hasattr(problem, "social")
     assert validate(problem, config) == []
 
 
@@ -80,14 +78,11 @@ def test_warnings(config):
             task("T1", requirements=[{"parameter": "fatigue_self", "min": 2}]),
             task("T2", kind="collective", min_people=3, max_people=3),
         ],
-        social=social_doc(5, ["A1", "X1"], W),
     )
     warnings = validate(from_dict(data), config)
     text = " | ".join(warnings)
     assert "solo tiene mínimo" in text
     assert "pide 3 personas" in text
-    assert "sin datos de A2" in text
-    assert "no se usará" in text
 
 
 def test_unknown_top_level_keys():
@@ -95,3 +90,14 @@ def test_unknown_top_level_keys():
         from_dict(raw(tareas=[]))
     with pytest.raises(ValidationError, match="Falta 'tasks'"):
         from_dict({"day": 1, "crew": []})
+
+
+@pytest.mark.parametrize("value", [None, {}, {"day": 9}])
+def test_social_key_is_forbidden_even_if_empty(value):
+    with pytest.raises(ValidationError, match="grafo social"):
+        from_dict(raw(social=value))
+
+
+def test_social_document_is_forbidden():
+    with pytest.raises(ValidationError, match="grafo social"):
+        from_dict(raw(social=social_doc(9, ["A1", "A2"], W)))

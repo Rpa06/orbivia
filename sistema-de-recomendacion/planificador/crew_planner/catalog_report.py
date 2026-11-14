@@ -77,7 +77,7 @@ def render(catalog: Catalog) -> str:
     out += ["", "⚠ = crítica para la seguridad."]
 
     out += ["", "## Tareas colectivas: coordinación del equipo", "",
-            "Ordenadas por interdependencia, que escala el peso de la compatibilidad social en el optimizador.", "",
+            "Ordenadas por interdependencia (dato descriptivo del catálogo; el optimizador no usa el grafo social).", "",
             "| Tarea | Nombre | Equipo | " + " | ".join(SHORT[d] for d in TEAM) + " |", "|---|---|---|---|---|---|---|"]
     collective = sorted((t for t in tasks if t["type"] == "collective" and t["crew_role"] != "none"),
                         key=lambda t: (-t["team_requirements"]["interdependence"], t["task_id"]))

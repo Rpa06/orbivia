@@ -3,7 +3,7 @@
 Un único fichero autocontenido, sin dependencias externas, que se abre sin
 conexión. Dos audiencias:
 
-- `ground` (Tierra): todo, incluidas justificaciones, costes e indicadores sociales.
+- `ground` (Tierra): todo, incluidas justificaciones y costes.
 - `crew` (tripulación): solo el horario y el texto neutro de cada tarea. Lo que no
   debe ver la tripulación no se escribe en el fichero, no se oculta con CSS.
 """
@@ -179,17 +179,9 @@ def _card(e: Document) -> str:
         chips.append('<span class="chip">equipo</span>')
         if e.get("low_load"):
             chips.append('<span class="chip">baja carga</span>')
-        if e.get("inclusion"):
-            chips.append(f'<span class="chip accent">inclusión: {_e(", ".join(e["inclusion"]))}</span>')
     adequacy = e.get("operational_adequacy") if e["collective"] else e.get("adequacy")
     facts = [f'<div><span class="muted">Adecuación</span> <b>{adequacy:.0%}</b></div>']
     if e["collective"]:
-        inter = e.get("interaction") or {}
-        if inter.get("used") and inter.get("score") is not None:
-            facts.append(
-                f'<div><span class="muted">Interacción observada</span> <b>{inter["score"]:.2f}</b> '
-                f'<span class="muted">(mediana {inter["crew_median"]:.2f})</span></div>'
-            )
         facts.append(f'<div><span class="muted">Coste operativo</span> <b>{e["cost"]["operational"]:.3f}</b></div>')
     else:
         facts.append(f'<div><span class="muted">Coste</span> <b>{e["cost"]["total"]:.3f}</b></div>')
@@ -221,7 +213,7 @@ def _card(e: Document) -> str:
 def _costs(plan: Document) -> str:
     names = {
         "state": "Estado frente a requisitos", "repetition": "Repetición", "uncertainty": "Incertidumbre",
-        "compatibility": "Compatibilidad", "equity": "Equidad", "integration": "Inclusión", "total": "Total",
+        "equity": "Equidad", "total": "Total",
     }
     rows = "".join(
         f'<tr{" class=total" if k == "total" else ""}><td>{names.get(k, k)}</td><td class="num">{v:+.3f}</td></tr>'
@@ -238,11 +230,7 @@ def _status(plan: Document) -> str:
         items.append(f'<div class="kpi"><b>{len(g["covered"])}</b><span>tareas cubiertas</span></div>')
         items.append(f'<div class="kpi"><b>{len(g["pending"])}</b><span>pendientes</span></div>')
         items.append(f'<div class="kpi"><b>{len(g["unassigned"])}</b><span>sin asignación</span></div>')
-        social = g["social"]
-        items.append(
-            f'<div class="kpi"><b>{"sí" if social["used"] else "no"}</b><span>grafo social'
-            + (f' (día {social["graph_day"]})' if social["used"] else "") + "</span></div>"
-        )
+        items.append('<div class="kpi"><b>no</b><span>grafo social (prohibido en el reparto)</span></div>')
     return f'<div class="kpis">{"".join(items)}</div>'
 
 
@@ -347,8 +335,6 @@ _METRIC_ROWS = (
     ("load_spread_h", "Diferencia de carga entre el más y el menos cargado", "{:.2f} h", False),
     ("max_load_vs_target", "Carga máxima frente a la carga objetivo", "{:.0%}", False),
     ("repetition", "Repetición reciente media", "{:.0%}", False),
-    ("team_interaction", "Interacción observada media de los equipos", "{:.2f}", True),
-    ("inclusion", "Oportunidades de colaboración (baja carga)", "{:.0f}", True),
 )
 
 

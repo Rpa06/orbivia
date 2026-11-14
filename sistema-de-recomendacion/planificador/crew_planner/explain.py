@@ -138,13 +138,11 @@ def _individual(ctx: PlanningContext, c: Chosen) -> Document:
     }
 
 
-def _collective(ctx: PlanningContext, c: Chosen, included: set[str]) -> Document:
+def _collective(ctx: PlanningContext, c: Chosen) -> Document:
     task = ctx.problem.task(c.option.task)
     o = c.option
     start, end = format_clock(c.start_s), format_clock(c.start_s + task.duration_s)
     members = [_member(ctx, a, task) for a in o.members]
-    compat = o.compatibility
-    inclusion = [a for a in o.inclusion if a in included]
     alternatives = _alternatives(ctx, o)
 
     parts = [f"{_names(o.members)} realizan {task.name} de {start} a {end}."]
@@ -154,21 +152,6 @@ def _collective(ctx: PlanningContext, c: Chosen, included: set[str]) -> Document
     unknown = [f"{m['astronaut']} ({_names(m['unknown_parameters'])})" for m in members if m["unknown_parameters"]]
     if unknown:
         parts.append(f"Datos desconocidos (penalizados, no supuestos): {'; '.join(unknown)}.")
-    if ctx.social_active and compat is not None:
-        if compat.score is None:
-            parts.append("No hay datos de interacción evaluables entre los miembros: la compatibilidad no influye.")
-        else:
-            parts.append(
-                f"Interacción observada media del equipo: {compat.score:.2f} "
-                f"(mediana de la tripulación: {ctx.k_ref:.2f}; {compat.evaluable_pairs} de {compat.pairs} parejas con datos)."
-            )
-    elif not ctx.social_active:
-        parts.append(f"Sin objetivos sociales: {ctx.social_reason}.")
-    if inclusion:
-        parts.append(
-            f"Tarea de baja carga: oportunidad de colaboración para {_names(inclusion)}, "
-            "sin superar el margen de coste operativo permitido."
-        )
     if alternatives:
         alt = alternatives[0]
         word = "menor" if alt["delta"] < 0 else "mayor"
@@ -185,24 +168,14 @@ def _collective(ctx: PlanningContext, c: Chosen, included: set[str]) -> Document
         "operational_adequacy": _round(sum(m["adequacy"] for m in members) / len(members)),
         "cost": {
             "individual": _round(o.individual),
-            "compatibility": _round(o.compatibility_cost),
             "operational": _round(o.operational),
         },
-        "interaction": None if compat is None else {
-            "score": _round(compat.score),
-            "crew_median": _round(ctx.k_ref),
-            "evaluable_pairs": compat.evaluable_pairs,
-            "pairs": compat.pairs,
-            "pair_weights": [[a, b, _round(w)] for a, b, w in compat.pair_weights],
-            "used": ctx.social_active,
-        },
         "low_load": ctx.low_load[task.id],
-        "inclusion": inclusion,
         "members_detail": members,
         "alternatives": alternatives,
         "not_eligible": _not_eligible(ctx, task),
         "justification": " ".join(parts),
-        # Sin indicadores sociales ni motivos: nadie queda etiquetado
+        # Sin indicadores de estado ni motivos: nadie queda etiquetado
         "crew_text": f"{task.name}: {_names(o.members)}, {start}–{end}.",
     }
 
@@ -210,7 +183,6 @@ def _collective(ctx: PlanningContext, c: Chosen, included: set[str]) -> Document
 def build_plan(ctx: PlanningContext, solution: Solution, violations: list) -> Document:
     cfg = ctx.config
     crew = [a.id for a in ctx.problem.crew]
-    included = set(solution.included)
     chosen = sorted(solution.chosen, key=lambda c: (c.start_s, c.option.task))
 
     load = defaultdict(float)
@@ -228,7 +200,7 @@ def build_plan(ctx: PlanningContext, solution: Solution, violations: list) -> Do
     total = sum(loads.values())
 
     individual = [_individual(ctx, c) for c in chosen if not ctx.problem.task(c.option.task).collective]
-    collective = [_collective(ctx, c, included) for c in chosen if ctx.problem.task(c.option.task).collective]
+    collective = [_collective(ctx, c) for c in chosen if ctx.problem.task(c.option.task).collective]
 
     terms = defaultdict(float)
     for c in chosen:
@@ -239,10 +211,8 @@ def build_plan(ctx: PlanningContext, solution: Solution, violations: list) -> Do
             terms["state"] += cost.state / len(members)
             terms["repetition"] += cost.repetition / len(members)
             terms["uncertainty"] += cost.uncertainty / len(members)
-        terms["compatibility"] += c.option.compatibility_cost
     terms["equity"] = equity_cost(loads, ctx.shares, cfg, cfg.limits.max_work_h)
-    terms["integration"] = -sum(cfg.weights.mu * ctx.need[a] for a in included)
-    terms["total"] = sum(terms[k] for k in ("state", "repetition", "uncertainty", "compatibility", "equity", "integration"))
+    terms["total"] = sum(terms[k] for k in ("state", "repetition", "uncertainty", "equity"))
 
     covered = {c.option.task for c in chosen}
     unknown = {
@@ -284,13 +254,8 @@ def build_plan(ctx: PlanningContext, solution: Solution, violations: list) -> Do
                 "mean_assigned": _round(sum(assigned_u) / len(assigned_u)) if assigned_u else None,
             },
             "costs": {k: _round(v) for k, v in terms.items()},
-            "social": {
-                "used": ctx.social_active,
-                "reason": ctx.social_reason or None,
-                "graph_day": ctx.problem.social.day if ctx.problem.social else None,
-                "crew_median": _round(ctx.k_ref),
-                "inclusion": sorted(included),
-            },
+            # El grafo social no es una entrada del planificador (prohibido por diseño)
+            "social_graph_used": False,
             "solver": [
                 {"stage": s.name, "status": s.status, "objective": _round(s.objective, 6),
                  "wall_time_s": round(s.wall_time_s, 3)}

@@ -12,12 +12,8 @@ from crew_planner.eligibility import (
 )
 from crew_planner.inputs import from_dict
 from crew_planner.model import Astronaut, Task, ValidationError
-from crew_planner.social import from_daily_result
 from crew_planner.state import astronaut_state
-from crew_planner.teams import (
-    candidate_teams, compatibility_cost, has_anchor, inclusion_members, is_low_load,
-    social_active, team_compatibility,
-)
+from crew_planner.teams import candidate_teams, is_low_load
 
 REF = 10 * DAY
 
@@ -164,39 +160,6 @@ def test_candidate_cap_raises(config):
         candidate_teams(t, crew, {a.id: free_time(a) for a in crew}, small)
 
 
-def test_compatibility_ignores_unevaluable_pairs(config):
-    snap = from_daily_result(social_doc(9, ["A1", "A2", "A3"],
-                                        [[None, 0.8, None], [0.8, None, 0.2], [None, 0.2, None]]))
-    full = team_compatibility(["A1", "A2", "A3"], snap)
-    assert full.score == pytest.approx(0.5) and full.evaluable_pairs == 2 and full.pairs == 3
-    assert team_compatibility(["A1", "A3"], snap).score is None
-    t = Task.from_dict(task(kind="collective", min_people=2, max_people=3, importance=5))
-    good = compatibility_cost(t, team_compatibility(["A1", "A2"], snap), 0.5, True, config)
-    bad = compatibility_cost(t, team_compatibility(["A2", "A3"], snap), 0.5, True, config)
-    assert good < 0 < bad
-    assert compatibility_cost(t, team_compatibility(["A1", "A3"], snap), 0.5, True, config) == 0.0
-    assert compatibility_cost(t, full, 0.5, False, config) == 0.0
-
-
-def test_inclusion_only_low_load_and_with_anchor(config):
-    need = {"A1": 0.0, "A2": 1.0, "A3": 0.5}
-    easy = Task.from_dict(task(kind="collective", min_people=2, max_people=3, intensity=0.2, importance=2))
-    hard = Task.from_dict(task(kind="collective", min_people=2, max_people=3, intensity=0.9, importance=2))
-    assert inclusion_members(easy, ["A1", "A2"], need, True, config) == ["A2"]
-    assert inclusion_members(hard, ["A1", "A2"], need, True, config) == []
-    assert inclusion_members(easy, ["A2", "A3"], need, True, config) == []  # sin nadie sin señales
-    assert inclusion_members(easy, ["A1", "A2"], need, False, config) == []
-    assert has_anchor(["A1", "A2"], need) and not has_anchor(["A2", "A3"], need)
-
-
-def test_social_active_rules(config):
-    w = [[None, 0.4], [0.4, None]]
-    assert social_active(None, 10, config)[0] is False
-    assert social_active(from_daily_result(social_doc(9, ["A1", "A2"], w)), 10, config)[0] is True
-    assert social_active(from_daily_result(social_doc(5, ["A1", "A2"], w)), 10, config)[0] is False
-    assert social_active(from_daily_result(social_doc(9, ["A1", "A2"], w, drop=True)), 10, config)[0] is False
-
-
 # --- contexto --------------------------------------------------------------------------
 
 
@@ -208,16 +171,27 @@ def test_context_builds_options(config):
             task("T1", qualifications=["eva"]),
             task("T2", kind="collective", min_people=2, max_people=2, intensity=0.2, importance=2),
         ],
-        "social": social_doc(9, ["A1", "A2", "A3"], [[None, 0.8, 0.1], [0.8, None, 0.1], [0.1, 0.1, None]],
-                             {"A3": "review"}),
     }
     ctx = build_context(from_dict(raw), config)
     assert ctx.eligible("T1") == ["A1", "A2"]
     assert [o.members for o in ctx.options["T1"]] == [("A1",), ("A2",)]
     teams = {o.members: o for o in ctx.options["T2"]}
     assert set(teams) == {("A1", "A2"), ("A1", "A3"), ("A2", "A3")}
-    assert teams[("A1", "A2")].compatibility_cost < teams[("A1", "A3")].compatibility_cost
-    assert teams[("A1", "A3")].inclusion == ("A3",)
+    # Sin término social: el coste operativo es solo el individual medio de los miembros
+    for option in teams.values():
+        assert option.operational == pytest.approx(option.individual)
     assert ctx.low_load == {"T1": False, "T2": True}
-    assert ctx.social_active and ctx.k_ref == pytest.approx(0.1)
+    assert not hasattr(ctx, "social_active") and not hasattr(ctx, "need")
     assert sum(ctx.shares.values()) == pytest.approx(1.0)
+
+
+def test_social_graph_is_rejected_as_input(config):
+    """Prohibición de Orbivia: el grafo social no puede entrar en el planificador."""
+    raw = {
+        "day": 10,
+        "crew": [astronaut("A1"), astronaut("A2")],
+        "tasks": [task("T1")],
+        "social": social_doc(9, ["A1", "A2"], [[None, 0.4], [0.4, None]]),
+    }
+    with pytest.raises(ValidationError, match="grafo social"):
+        from_dict(raw)

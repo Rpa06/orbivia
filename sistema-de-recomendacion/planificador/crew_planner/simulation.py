@@ -45,13 +45,6 @@ BASELINES = {
     "resting_hr": (60.0, 4.0),
 }
 
-# W̄ sintético: dos parejas muy relacionadas, el resto moderado
-_W = {
-    ("A1", "A2"): 0.75, ("A3", "A4"): 0.7, ("A1", "A3"): 0.35, ("A2", "A4"): 0.3,
-    ("A1", "A4"): 0.3, ("A2", "A3"): 0.35, ("A1", "A5"): 0.3, ("A2", "A5"): 0.25,
-    ("A3", "A5"): 0.3, ("A4", "A5"): 0.35,
-}
-_W_LOW = 0.3  # A6 con el resto, en el caso normal
 
 
 def _clock(hours: float) -> str:
@@ -159,32 +152,6 @@ def task_catalog() -> list[Document]:
     ]
 
 
-def social_document(day: int, statuses: dict[str, str] | None = None, low: float = _W_LOW,
-                    crew: tuple[str, ...] = CREW) -> Document:
-    """Documento diario sintético con la forma que produce el servicio social-graph."""
-    n = len(crew)
-    weights: list[list[float | None]] = [[None] * n for _ in range(n)]
-    for i, a in enumerate(crew):
-        for j, b in enumerate(crew):
-            if i < j:
-                w = _W.get((a, b), low if "A6" in (a, b) else 0.3)
-                weights[i][j] = weights[j][i] = w
-    statuses = statuses or {}
-    return {
-        "day": day,
-        "crew": list(crew),
-        "params_version": "synthetic",
-        "isolation": {
-            "day": day,
-            "crew": {"score": None, "drop": False},
-            "structure": {"smoothed_weights": weights},
-            "astronauts": {
-                a: {"status": statuses.get(a, "normal"), "signals": [], "score": None, "indicators": {}}
-                for a in crew
-            },
-        },
-    }
-
 
 def base_input(day: int = 10, seed: int = 42) -> Document:
     rng = random.Random(f"{seed}|{day}")
@@ -193,7 +160,6 @@ def base_input(day: int = 10, seed: int = 42) -> Document:
         "crew": [_astronaut(a, day, rng) for a in CREW],
         "tasks": task_catalog(),
         "history": [],
-        "social": social_document(day - 1),
     }
 
 
@@ -268,13 +234,6 @@ def repetition(day: int, seed: int) -> Document:
     return raw
 
 
-def isolation(day: int, seed: int) -> Document:
-    """A6 pasa poco tiempo con los demás y el grafo lo marca para revisión."""
-    raw = base_input(day, seed)
-    raw["social"] = social_document(day - 1, {"A6": "review"}, low=0.05)
-    return raw
-
-
 def workload_imbalance(day: int, seed: int) -> Document:
     """A1 es la persona más adecuada para casi todo, pero acumula horas y cansancio."""
     raw = base_input(day, seed)
@@ -303,7 +262,6 @@ SCENARIOS: dict[str, Callable[[int, int], Document]] = {
     "critical_task": critical_task,
     "unqualified": unqualified,
     "repetition": repetition,
-    "isolation": isolation,
     "workload_imbalance": workload_imbalance,
     "infeasible": infeasible,
 }
@@ -338,7 +296,6 @@ def environment_input(environment: str, day: int = 10, seed: int = 42,
         ],
         "tasks": [t.to_dict() for t in tasks],
         "history": [],
-        "social": social_document(day - 1, crew=crew_ids),
         "meta": {
             "environment": environment,
             "environment_name": env["name"],
@@ -481,8 +438,6 @@ def summary(plan: Document) -> str:
         lines.append("  carga: " + ", ".join(f"{a} {w['load']:.2f}/{w['target_load']:.2f}" for a, w in g["workload"].items()))
         if g["pending"]:
             lines.append("  pendientes: " + ", ".join(p["task"] for p in g["pending"]))
-        if g["social"]["inclusion"]:
-            lines.append("  inclusión: " + ", ".join(g["social"]["inclusion"]))
         lines.append(f"  coste total: {g['costs']['total']:.3f}")
     if meta.get("automated"):
         lines.append("  sin tripulación (robótica o Tierra): " + ", ".join(a["task_id"] for a in meta["automated"]))

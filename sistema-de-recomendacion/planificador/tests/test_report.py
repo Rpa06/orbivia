@@ -13,7 +13,7 @@ from crew_planner.inputs import from_dict
 
 @pytest.fixture(scope="module")
 def isolation(config):
-    raw = SCENARIOS["isolation"](10, 42)
+    raw = SCENARIOS["nominal"](10, 42)
     return plan_day(from_dict(raw), config), raw
 
 
@@ -24,7 +24,7 @@ def test_ground_report_has_everything(isolation):
     assert "<svg" in page and "Carga de trabajo" in page and "Coste de la solución" in page
     for entry in plan["individual"] + plan["collective"]:
         assert entry["name"] in page
-    assert "inclusión: A6" in page
+    assert "inclusión" not in page and "Interacción observada" not in page
     assert "http://" not in page and "https://" not in page  # autocontenido, sin conexión
 
 

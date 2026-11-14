@@ -9,7 +9,7 @@ Cada plan:
   se devuelven menos planes y se dice por qué.
 
 La comparación entre planes usa métricas que no dependen de los pesos
-(adecuación, incertidumbre, repetición, reparto, interacción), para que sea
+(adecuación, incertidumbre, repetición, reparto), para que sea
 justa con todos los enfoques.
 """
 
@@ -62,16 +62,12 @@ def _metrics(plan: Document) -> Document:
     workload = plan["global"]["workload"]
     loads = [w["load"] for w in workload.values()]
     relative = [w["load"] / w["target_load"] for w in workload.values() if w["target_load"] > 0]
-    teams = [e["interaction"]["score"] for e in plan["collective"]
-             if e.get("interaction") and e["interaction"]["score"] is not None]
     return {
         "adequacy": round(mean(m["adequacy"] for m in members), 4) if members else None,
         "uncertainty": round(mean(m["uncertainty"] for m in members), 4) if members else None,
         "repetition": round(mean(m["repetition_recent"] for m in members), 4) if members else None,
         "load_spread_h": round(max(loads) - min(loads), 3) if loads else None,
         "max_load_vs_target": round(max(relative), 3) if relative else None,
-        "team_interaction": round(mean(teams), 4) if teams else None,
-        "inclusion": len(plan["global"]["social"]["inclusion"]),
         "covered": len(plan["global"]["covered"]),
     }
 
@@ -84,8 +80,6 @@ _HIGHLIGHTS = (
     ("load_spread_h", False, 0.1, "Carga más repartida entre la tripulación", "{:.2f} h de diferencia"),
     ("max_load_vs_target", False, 0.02, "Nadie queda tan por encima de su carga objetivo", "{:.0%} del objetivo como máximo"),
     ("repetition", False, 0.02, "Más rotación de actividades", "{:.0%} de repetición reciente"),
-    ("team_interaction", True, 0.03, "Equipos con más interacción observada", "{:.2f}"),
-    ("inclusion", True, 1, "Más oportunidades de colaboración en tareas de baja carga", "{:.0f}"),
 )
 
 

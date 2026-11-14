@@ -86,7 +86,7 @@ def test_critical_task_goes_to_whoever_meets_all_thresholds(config):
 
 @pytest.mark.parametrize("w", [
     {}, {"alpha_state": 5.0}, {"alpha_state": 0.0, "alpha_equity": 0.0, "beta_spread": 0.0},
-    {"gamma": 3.0}, {"alpha_repetition": 5.0, "alpha_uncertainty": 0.0},
+    {"beta_spread": 3.0}, {"alpha_repetition": 5.0, "alpha_uncertainty": 0.0},
 ])
 def test_unqualified_never_assigned(config, w):
     plan = run("unqualified", weights(config, **w))
@@ -110,27 +110,11 @@ def test_repetition_rotates_unless_only_one_qualified(config):
     assert a5 is None or a5["delta"] > 0
 
 
-def test_isolation_inclusion_only_in_low_load_tasks(config):
-    plan = run("isolation", config)
-    assert plan["global"]["social"]["inclusion"] == ["A6"]
-    for e in plan["collective"]:
-        if "A6" in e["inclusion"]:
-            assert e["low_load"]
-        assert "A6" not in e["crew_text"] or "inclus" not in e["crew_text"].lower()
-    demanding = {t.id for t in scenario_input("isolation").tasks if not t.collective or t.intensity > 0.4}
-    included_in = [e["task"] for e in plan["collective"] if "A6" in e["inclusion"]]
-    assert included_in and not set(included_in) & demanding
-
-
-def test_isolation_without_graph_is_neutral(config):
-    raw = SCENARIOS["isolation"](10, 42)
-    raw["social"] = None
-    from crew_planner.inputs import from_dict
-
-    plan = plan_day(from_dict(raw), config)
-    assert plan["global"]["social"]["used"] is False
-    assert plan["global"]["social"]["inclusion"] == []
-    assert all(e["cost"]["compatibility"] == 0 for e in plan["collective"])
+def test_no_scenario_carries_a_social_graph(config):
+    """Ningún escenario de simulación alimenta el planificador con el grafo social."""
+    assert "isolation" not in SCENARIOS
+    for name, build in SCENARIOS.items():
+        assert "social" not in build(10, 42), name
 
 
 def test_workload_imbalance_is_reduced_by_equity(config):

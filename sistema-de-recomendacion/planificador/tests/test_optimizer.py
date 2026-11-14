@@ -5,7 +5,7 @@ from dataclasses import replace
 
 import pytest
 
-from conftest import DAY, H, astronaut, social_doc, task
+from conftest import DAY, H, astronaut, task
 from crew_planner.__main__ import main
 from crew_planner.inputs import from_dict
 from crew_planner.model import parse_clock
@@ -18,8 +18,8 @@ def sleep(value, age_h=2.0):
     return {"parameter": "sleep_duration_h", "value": value, "measured_at": REF - age_h * H, "source": "watch"}
 
 
-def problem(crew, tasks, social=None, history=None):
-    return from_dict({"day": 10, "crew": crew, "tasks": tasks, "social": social, "history": history or []})
+def problem(crew, tasks, history=None):
+    return from_dict({"day": 10, "crew": crew, "tasks": tasks, "history": history or []})
 
 
 def with_weights(config, **weights):
@@ -121,69 +121,32 @@ def test_weighted_mode(config):
     assert set(assigned(plan)) == {"T1", "T2"}
 
 
-# --- compatibilidad e inclusión ----------------------------------------------------------
+# --- equipos sin grafo social ------------------------------------------------------------
 
 
-def team_world(statuses=None, intensity=0.2, importance=2):
+def team_world(intensity=0.2, importance=2):
     crew = [astronaut("A1"), astronaut("A2"), astronaut("A3")]
-    # A1–A2 se relacionan mucho, A3 poco con ambos
-    w = [[None, 0.8, 0.1], [0.8, None, 0.1], [0.1, 0.1, None]]
-    social = social_doc(9, ["A1", "A2", "A3"], w, statuses)
     team = task("TEAM", kind="collective", min_people=2, max_people=2, intensity=intensity, importance=importance)
-    return crew, [team], social
+    return crew, [team]
 
 
-def test_compatibility_prefers_teams_that_interact(config):
-    crew, tasks, social = team_world()
-    plan = plan_day(problem(crew, tasks, social), config)
-    assert assigned(plan) == {"TEAM": ("A1", "A2")}
-    interaction = plan["collective"][0]["interaction"]
-    assert interaction["score"] == 0.8 and interaction["used"]
-
-
-def test_compatibility_can_be_switched_off(config):
-    crew, tasks, social = team_world()
-    # Sin γ, A3 es algo más adecuado y forma parte del equipo
+def test_team_choice_depends_only_on_operational_state(config):
+    crew, tasks = team_world()
+    # A1 ha dormido poco: el equipo lo forman A2 y A3 por adecuación, no por interacción
     crew[0] = astronaut("A1", measurements=[sleep(5)])
     tasks[0]["requirements"] = [{"parameter": "sleep_duration_h", "min": 7}]
-    on = plan_day(problem(crew, tasks, social), with_weights(config, gamma=2.0))
-    off = plan_day(problem(crew, tasks, social), with_weights(config, gamma=0.0))
-    assert assigned(on) == {"TEAM": ("A1", "A2")}
-    assert assigned(off) == {"TEAM": ("A2", "A3")}
-
-
-def test_inclusion_in_low_load_task_within_epsilon(config):
-    crew, tasks, social = team_world({"A3": "review"})
-    cfg = with_weights(config, gamma=0.02)  # la compatibilidad apenas pesa: cabe en ε
-    plan = plan_day(problem(crew, tasks, social), cfg)
-    members = assigned(plan)["TEAM"]
-    assert "A3" in members and plan["collective"][0]["inclusion"] == ["A3"]
-    assert plan["global"]["social"]["inclusion"] == ["A3"]
-    # La garantía de ε: frente al mismo caso sin inclusión
-    base = plan_day(problem(crew, tasks, social), with_weights(cfg, mu=0.0))
-    op = lambda p: p["global"]["costs"]["total"] - p["global"]["costs"]["integration"]
-    floor = cfg.weights.gamma * cfg.importance.normalize(2) * (1 - 0.1)
-    slack = max(cfg.stages.epsilon * (op(base) + floor), cfg.stages.epsilon_abs)
-    assert op(plan) <= op(base) + slack + 1e-6
-
-
-def test_no_inclusion_when_it_costs_too_much(config):
-    crew, tasks, social = team_world({"A3": "review"})
-    plan = plan_day(problem(crew, tasks, social), with_weights(config, gamma=2.0))
-    assert assigned(plan) == {"TEAM": ("A1", "A2")}
-    assert plan["global"]["social"]["inclusion"] == []
-
-
-def test_no_inclusion_in_demanding_tasks(config):
-    crew, tasks, social = team_world({"A3": "review"}, intensity=0.9)
-    plan = plan_day(problem(crew, tasks, social), with_weights(config, gamma=0.02))
-    assert plan["collective"][0]["low_load"] is False
-    assert plan["global"]["social"]["inclusion"] == []
+    plan = plan_day(problem(crew, tasks), config)
+    assert assigned(plan) == {"TEAM": ("A2", "A3")}
+    entry = plan["collective"][0]
+    assert "interaction" not in entry and "inclusion" not in entry
+    assert "compatibility" not in entry["cost"]
+    assert plan["global"]["social_graph_used"] is False
+    assert set(plan["global"]["costs"]) == {"state", "repetition", "uncertainty", "equity", "total"}
 
 
 def test_crew_text_never_mentions_social_indicators(config):
-    crew, tasks, social = team_world({"A3": "review"})
-    plan = plan_day(problem(crew, tasks, social), with_weights(config, gamma=0.02))
+    crew, tasks = team_world()
+    plan = plan_day(problem(crew, tasks), config)
     for entry in plan["collective"] + plan["individual"]:
         text = entry["crew_text"].lower()
         for word in ("interacci", "inclusi", "aisla", "integraci", "review", "grafo"):

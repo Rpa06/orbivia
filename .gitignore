@@ -10,3 +10,5 @@ __pycache__/
 /volumenes/planner/*
 !/volumenes/planner/.gitkeep
 /procesamiento/test-cerrado/respuestas.jsonl
+.DS_Store
+.vscode/

@@ -13,7 +13,6 @@ from crew_planner.catalog import (
 from crew_planner.inputs import from_dict
 from crew_planner.planner import plan_day
 from crew_planner.simulation import environment_input, simulate
-from crew_planner.teams import compatibility_cost, team_compatibility
 
 EXPECTED = {
     "iss": [f"ISS_IND_{k:03d}" for k in range(1, 25)] + [f"ISS_COL_{k:03d}" for k in range(1, 25)],
@@ -190,19 +189,13 @@ def test_per_astronaut_tasks_are_restricted(catalog, mapping):
     assert tasks[0].only_for == frozenset({"A1"}) and tasks[0].category == "ISS_IND_019"
 
 
-def test_interdependence_scales_compatibility(catalog, mapping, config):
-    from crew_planner.social import from_daily_result
-    from conftest import social_doc
-
-    snap = from_daily_result(social_doc(9, ["A1", "A2", "A3"], [[None, 0.8, 0.1], [0.8, None, 0.1], [0.1, 0.1, None]]))
-    compat = team_compatibility(["A1", "A2"], snap)
+def test_interdependence_is_descriptive_only(catalog, mapping, config):
+    """La interdependencia sigue en el catálogo como dato, pero no hay coste social."""
     window = (0.0, 86400.0)
     eva = to_planner_tasks(catalog.task("ISS_COL_018"), mapping, window, [])[0]
     unload = to_planner_tasks(catalog.task("ISS_COL_012"), mapping, window, [])[0]
     assert eva.interdependence > unload.interdependence
-    per_importance = lambda t: compatibility_cost(t, compat, 0.3, True, config) / config.importance.normalize(t.importance)
-    assert per_importance(eva) < per_importance(unload) < 0
-
+    assert not hasattr(config.weights, "gamma") and not hasattr(config.weights, "mu")
 
 # --- selección del día ------------------------------------------------------------------------
 

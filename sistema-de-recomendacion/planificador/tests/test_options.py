@@ -18,7 +18,7 @@ from crew_planner.simulation import SCENARIOS, environment_input, simulate
 
 @pytest.fixture(scope="module")
 def isolation(config):
-    raw = SCENARIOS["isolation"](10, 42)
+    raw = SCENARIOS["nominal"](10, 42)
     return plan_options(from_dict(raw), config), raw
 
 
@@ -48,13 +48,14 @@ def test_each_plan_explains_itself(isolation):
     for plan in doc["plans"]:
         o = plan["option"]
         assert o["label"] and o["description"] and o["advantages"]
-        assert set(o["metrics"]) >= {"adequacy", "uncertainty", "load_spread_h", "repetition", "team_interaction"}
+        assert set(o["metrics"]) >= {"adequacy", "uncertainty", "load_spread_h", "repetition"}
     for plan in doc["plans"][1:]:
         assert plan["option"]["differences_vs_A"]
     assert doc["decision"]["status"] == "pending"
-    # La opción de reparto es la que mejor reparte la carga en este escenario
-    rotation = doc["plans"][2]
-    assert any("Carga más repartida" in a for a in rotation["option"]["advantages"])
+    # Ningún plan alternativo se justifica con indicadores sociales
+    for plan in doc["plans"]:
+        for text in plan["option"]["advantages"]:
+            assert "interacción" not in text.lower() and "colaboración" not in text.lower()
 
 
 def test_profiles_change_the_weights(isolation, config):
@@ -142,8 +143,9 @@ def test_simulation_executes_the_chosen_plan(config):
     days = simulate(2, config, "nominal", options=3, choose=2)
     assert days[0]["executed"] == "C"
     did = {(task, people[0]) for task, people in _assignments(days[0]["plans"][2]).items() if len(people) == 1}
-    # El día 2 se planifica con el historial del plan C: quien repite su tarea lo arrastra
+    # El día 2 se planifica con el historial del plan C: quien repite su tarea lo arrastra.
+    # Sin términos sociales, la rotación evita aquí todas las repeticiones.
     repeats = [e for p in days[1]["plans"] for e in p["individual"] if (e["task"], e["astronaut"]) in did]
-    assert repeats and all(e["repetition_recent"] > 0 for e in repeats)
+    assert all(e["repetition_recent"] > 0 for e in repeats)
     fresh = [e for p in days[1]["plans"] for e in p["individual"] if (e["task"], e["astronaut"]) not in did]
     assert all(e["repetition_recent"] == 0 for e in fresh)
