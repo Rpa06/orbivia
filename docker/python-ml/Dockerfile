@@ -5,9 +5,18 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-COPY docker/python-core/requirements.txt ./requirements-core.txt
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir \
+    --index-url https://download.pytorch.org/whl/cpu \
+    --extra-index-url https://pypi.org/simple \
+    "torch==2.7.1+cpu"
+
 COPY docker/python-ml/requirements.txt ./requirements-ml.txt
-RUN pip install --no-cache-dir -r requirements-core.txt -r requirements-ml.txt
+RUN pip install --no-cache-dir -r requirements-ml.txt
 
 COPY docker/workers ./workers
+COPY procesamiento/texto/ ./texto/
 

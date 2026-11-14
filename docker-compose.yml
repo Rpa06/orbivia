@@ -53,12 +53,17 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
       REDIS_HOST: broker
       REDIS_PORT: 6379
+      WORKER_ML_URL: http://worker-ml:8001
+      AUDIO_INGEST_TOKEN: ${AUDIO_INGEST_TOKEN:-}
+      AUDIO_WORKER_TOKEN: ${AUDIO_WORKER_TOKEN:-}
     ports:
       - "${API_PORT:-8000}:8000"
     depends_on:
       db:
         condition: service_healthy
       broker:
+        condition: service_healthy
+      worker-ml:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:8000/health/ready', timeout=3)"]
@@ -105,16 +110,27 @@ services:
       context: .
       dockerfile: docker/python-ml/Dockerfile
     restart: unless-stopped
-    command: ["python", "workers/worker.py"]
+    command: ["uvicorn", "texto.worker:app", "--host", "0.0.0.0", "--port", "8001"]
     environment:
-      WORKER_NAME: worker-ml
-      REDIS_HOST: broker
-      REDIS_PORT: 6379
-    depends_on:
-      broker:
-        condition: service_healthy
+      AUDIO_WORKER_TOKEN: ${AUDIO_WORKER_TOKEN:-}
+      WHISPER_MODEL: ${WHISPER_MODEL:-small}
+      WHISPER_LANGUAGE: ${WHISPER_LANGUAGE:-en}
+      WHISPER_COMPUTE_TYPE: ${WHISPER_COMPUTE_TYPE:-int8}
+      WHISPER_CPU_THREADS: ${WHISPER_CPU_THREADS:-2}
+      WHISPER_MODEL_PATH: /models
+      MENTAL_HEALTH_MODEL: Hrishikesh4/mental-health-classifier-longformer
+      MENTAL_HEALTH_MODEL_REVISION: 54edff7f513b60314a4171c848ebe33c2850039a
+      MENTAL_HEALTH_MODEL_PATH: /models/longformer
+    volumes:
+      - whisper-model-cache:/models
     mem_limit: 4g
     cpus: 2.0
+    healthcheck:
+      test: ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:8001/health/live', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 300s
 
   social-graph:
     build:
@@ -187,4 +203,7 @@ services:
       interval: 15s
       timeout: 5s
       retries: 3
+
+volumes:
+  whisper-model-cache:
 
