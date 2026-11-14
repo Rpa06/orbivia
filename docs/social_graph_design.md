@@ -198,10 +198,18 @@ Alternativa configurable: layout circular fijo, donde solo cambia el grosor. Es 
 
 - **Producto final:** el grafo solo es accesible desde la base de mando en Tierra, por personal autorizado. Los astronautas no acceden a él.
 - **Demo de la hackathon:** el grafo es accesible para cualquiera, sin control de acceso. Es una decisión consciente para la demo y se indicará en el README del módulo.
-- No se usa para repartir tareas ni para juzgar afinidades.
 - No se guardan posiciones ni trayectorias, solo agregados diarios.
 
-**Punto abierto.** Se ha comentado que las recomendaciones del módulo pasarán al modelo de toma de decisiones que sí ven los astronautas. Hay que definir qué sale exactamente de aquí hacia ese modelo: si son pesos por pareja o alertas individuales, entra en conflicto con la restricción anterior. Propuesta: que este módulo no exponga nada al sistema de recomendación hasta acordarlo.
+**Uso por el sistema de recomendación.** La matriz diaria se pasará al sistema de recomendación, que la entrega a otro modelo para proponer tareas grupales y evitar el aislamiento. Los astronautas ven las recomendaciones, nunca la matriz ni el grafo.
+
+Esto modifica la restricción inicial ("no sirve para repartir tareas ni para juzgar afinidades"), que queda así:
+
+- La matriz se usa solo para favorecer la integración: acercar a quien está quedando aislado. No para penalizar, separar ni puntuar a nadie.
+- No es una medida de afinidad ni de correlación: mide tiempo de ocio en proximidad. Un valor bajo puede deberse a horarios o a falta de datos.
+- El consumidor debe respetar la máscara de estados: una pareja "sin datos" o "no evaluable" no es una pareja con poca relación.
+- Riesgo a vigilar: si las recomendaciones cambian con quién se junta cada uno, cambian también la matriz del día siguiente. El histórico deja de reflejar solo el comportamiento espontáneo.
+
+Este módulo se limita a dejar la matriz y su máscara en el histórico; cómo se consumen es responsabilidad del sistema de recomendación.
 
 **Pendiente para el producto final.** La API actual no tiene autenticación. Restringir el grafo a la base de mando exigirá añadir control de acceso; no afecta al núcleo del módulo, solo a cómo se publica el resultado.
 
