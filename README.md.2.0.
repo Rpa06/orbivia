@@ -1,0 +1,144 @@
+# Orbivia
+
+Sistema de monitorización biométrica, psicológica y social y de apoyo a la decisión para tripulaciones en misiones de larga duración. Detecta de forma temprana desviaciones respecto a la línea base de cada astronauta, mediante la consolidación diaria de señales multimodales en un Vector de Estado Colapsado, y propone repartos de tareas que la tripulación elige.
+
+Orbivia no diagnostica ni trata enfermedades. Su finalidad es operativa, ayudar a decidir quién está en condiciones de hacer cada tarea. Toda decisión final la toma una persona.
+
+## 1. Contexto y lógica operativa
+
+El sistema compara a cada astronauta consigo mismo, nunca con una media de población. Para ello trabaja con dos líneas base.
+
+**Línea base terrestre (6 meses previos a la misión).** Seguimiento continuo asumiendo un estado saludable. Al terminar, el sistema calcula y congela los parámetros estadísticos individuales (media, desviación estándar y percentiles) de cada variable. Este perfil fijo evita que un deterioro lento y progresivo desplace los umbrales de normalidad (concept drift).
+
+**Línea base de adaptación (primeros días de misión).** En microgravedad varias variables cambian de forma esperable. Para no disparar alertas en todos los astronautas nada más despegar, las variables diarias afectadas se comparan contra una segunda línea base calculada con los primeros días de misión (parámetro configurable, por defecto 10 días). La línea base terrestre se mantiene como referencia de largo plazo.
+
+**Fase operativa.** En cada ciclo diario, todas las fuentes se normalizan contra la línea base que corresponda (Z-scores) y se evalúan junto con tendencias móviles (7 y 30 días) y acumuladores incrementales (algoritmo de Welford) sobre el histórico. Ante desviaciones relevantes, el motor genera avisos y propone acciones y repartos de tareas.
+
+### Privacidad y protección de datos
+
+**Base jurídica.** Artículo 9.2.h del RGPD (medicina preventiva o laboral y evaluación de la capacidad para trabajar). No se usa el consentimiento como base, porque en el contexto laboral existe un desequilibrio claro entre el astronauta y la agencia (considerando 43 del RGPD).
+
+**Seudonimización, no anonimización.** Los datos fisiológicos y psicológicos se almacenan separados de la identidad real (esquemas aislados vault_identity y biometrics). Esto es seudonimización. Según el considerando 26 del RGPD, los datos seudonimizados siguen siendo datos personales, y en una tripulación pequeña cualquier persona es fácilmente identificable por singularización. Por eso la protección real se basa en el acceso por rol, no en el anonimato.
+
+**Minimización y acceso por rol (artículo 5.1.c del RGPD).** Cada rol ve solo lo que necesita para su función (ver sección 2.F).
+
+**Privacidad desde el diseño (artículo 25 del RGPD).** Los archivos de audio y vídeo nunca se almacenan en disco ni en base de datos. Se procesan al vuelo en memoria y solo se conserva el vector numérico resultante.
+
+**Inferencia de estados psicológicos.** El análisis de texto y voz solo se usa con fines médicos y su resultado solo lo ve el médico de a bordo, dentro de la excepción médica del artículo 5.1.f del Reglamento Europeo de Inteligencia Artificial. El vídeo no se usa para inferir emociones, solo para detectar signos físicos de fatiga.
+
+**Supervisión humana (artículo 22 del RGPD).** Orbivia propone varias opciones y la tripulación decide. Ninguna decisión con efectos sobre un astronauta se toma de forma exclusivamente automatizada.
+
+## 2. Lógica de negocio y reglas de operación
+
+### A. Sincronización de granularidad (forward-fill controlado)
+
+Las variables tienen distintas frecuencias de captura (línea base, semanales, diarias y continuas nocturnas). El motor de colapso diario aplica una ventana de vigencia para construir el vector de estado.
+
+- **Variables semanales.** Se arrastran hacia adelante (forward-fill) durante un máximo de 7 días hasta la siguiente medición. Si se superan los 7 días sin registro, se marca un aviso de incumplimiento de protocolo.
+- **Variables diarias y de sueño.** Deben registrarse en el ciclo de 24 horas correspondiente.
+- **Variables de línea base.** Se miden una vez y no se arrastran, solo sirven de referencia.
+
+### B. Evaluación multicriterio de avisos
+
+Un aviso nunca se dispara por un único dato aislado. Hay tres mecanismos activos y uno futuro.
+
+- **Desviación aguda.** Una variable relevante supera ±2σ respecto a la línea base del astronauta durante 3 días seguidos.
+- **Deterioro progresivo.** La pendiente móvil (rolling_slope a 14 o 30 días) muestra una tendencia negativa sostenida, aunque el valor diario aún no cruce el umbral.
+- **Combinación de señales.** Varias señales empeoran a la vez, aunque ninguna por separado cruce el umbral (por ejemplo, sueño, ánimo y aislamiento).
+- **Similitud con estados anteriores (función futura).** Comparación del vector del día contra el histórico por distancia coseno (pgvector) para detectar patrones que en el pasado precedieron a un problema. Requiere historial de varias misiones, por lo que no está activa en una misión nueva.
+
+### C. Capa conductual
+
+- **Check-in diario.** Cinco preguntas de 1 a 5 (sueño, cansancio, carga de trabajo, ánimo y convivencia), siempre a la misma hora.
+- **PVT-B diario.** Test de atención de 3 minutos, justo después del check-in, para que el astronauta no conozca su resultado al responder.
+- **Brecha de autopercepción.** Diferencia entre el cansancio que declara el astronauta en el check-in y el que mide el PVT-B, ambos expresados como desviación respecto a su línea base. Si el astronauta dice estar bien y su rendimiento empeora, se genera un aviso. Se basa en la evidencia de que las personas con falta de sueño apenas perciben su propio deterioro (Van Dongen et al., 2003).
+- **Pregunta doble semanal.** La pregunta de convivencia se acompaña de una segunda, "¿qué nota crees que pondrá de media el resto del equipo?". La diferencia entre lo que cada uno cree y lo que el grupo responde es una señal de desconexión. Método inspirado en el Bayesian Truth Serum (Prelec, 2004), sin incentivo económico. Las respuestas individuales nunca se muestran al resto de la tripulación.
+- **Entrevista de audio cada 3 días.** Preguntas abiertas que rotan y no preguntan directamente por emociones.
+- **Ejercicio.** Se registra cada día. Si un astronauta lo omite dos días seguidos, se le propone formular un plan del tipo "si pasa X, haré Y" (intención de implementación, Gollwitzer y Sheeran, 2006). El texto del plan solo lo ve el astronauta.
+- **Personalidad y deseabilidad social.** Se miden una vez en la línea base. No entran en la nota de disponibilidad ni en el reparto de tareas. La deseabilidad social se usa para dar más peso a los datos objetivos frente al autoinforme cuando la puntuación es alta.
+
+### D. Dinámica social y aviso de aislamiento
+
+- **Desincronización circadiana.** Se compara la ventana de sueño del astronauta con la mediana del grupo. Si desplaza repetidamente su descanso (no duerme cuando los demás), aumenta su índice de desincronización.
+- **Aislamiento en tiempo de ocio.** En las franjas de tiempo libre se mide la proximidad con el resto de la tripulación. Una caída sostenida de la centralidad en el grafo o un aumento del tiempo aislado genera un aviso al médico.
+- **Uso del grafo.** El grafo social se almacena y solo se muestra a misión ante una incidencia. No se usa para repartir tareas ni para separar a miembros de la tripulación.
+
+### E. Motor de recomendación
+
+Tiene dos partes.
+
+**1. Acciones recomendadas.** Cada combinación de avisos activos se asocia a un catálogo de acciones (ajustes de carga, pautas de exposición a la luz, ejercicios de recuperación o seguimiento con el médico). Si una acción ya está activa para un aviso, no se repite la notificación en días consecutivos mientras la tendencia se estabilice o mejore (cooldown).
+
+**2. Reparto de tareas.** Solo se reparten tareas comunes y de mantenimiento, no la investigación propia de cada especialista.
+- **Restricciones fijas.** Capacidad de cada astronauta para cada categoría, nota mínima por tarea, ejercicio diario fijo, horas máximas de trabajo, respeto del descanso y número de personas por tarea.
+- **Objetivos.** Seguridad en las tareas de riesgo, encaje con el tipo de cansancio, equilibrio de carga (evitando tanto la sobrecarga como la falta de trabajo), rotación y mínimo cambio respecto al plan original.
+- **Salida.** Dos o tres planes distintos, cada uno con sus ventajas y con una explicación en lenguaje natural de cada cambio. La tripulación elige uno o los rechaza indicando el motivo.
+- **Registro de decisiones.** Se guarda qué plan se eligió o si se rechazaron todos, para medir si la tripulación confía demasiado o demasiado poco en el sistema.
+- **Método.** Optimización con reglas explicables, sin modelo entrenado, porque no existen datos reales de astronautas en vuelo para entrenarlo. Inspirado en Playbook, la herramienta de autoplanificación de tripulaciones de NASA Ames.
+
+### F. Visibilidad por rol
+
+| Rol | Qué ve |
+|---|---|
+| Astronauta | Sus propios datos, sus tareas, los planes propuestos y su plan de ejercicio. No ve datos de otros astronautas. |
+| Médico de a bordo | El detalle de todos los astronautas, incluidos check-in, voz, texto y avisos. |
+| Comandante | La nota de disponibilidad de cada astronauta y el motivo general (fatiga, aislamiento, carga). Nunca las respuestas del check-in ni los datos psicológicos. |
+| Misión | El estado agregado de avisos y, solo ante una incidencia, el grafo de cohesión del grupo. |
+
+## 3. Flujo de datos y variables monitorizadas
+
+**Línea base (una vez, antes de la misión).**
+- Densidad ósea por DXA en tierra, solo como referencia (no se mide a bordo).
+- Personalidad, cuestionario BFI-2-XS.
+- Deseabilidad social, Social Desirability Scale.
+- Rendimiento cognitivo, batería Cognition de NASA.
+
+**Mediciones semanales.**
+- Capacidad pulmonar.
+- Estado de ánimo, PANAS o POMS.
+- Pregunta doble de convivencia.
+- Otras variables pendientes de confirmar que se pueden medir a bordo.
+
+**Mediciones mensuales.**
+- Calidad del sueño, PSQI.
+- Clima de equipo, Team Climate Inventory.
+
+**PING diario.**
+- Fuerza de agarre (grip).
+- Peso, si se puede medir a bordo.
+- Latencia en el PVT-B.
+- Oxigenación.
+- Check-in de 5 preguntas.
+- Horas de trabajo reales frente a planificadas.
+- Ejercicio realizado.
+- Dosis de radiación acumulada.
+- Glóbulos rojos, pendiente de confirmar que se puede medir a bordo.
+
+**Streaming continuo durante el sueño.**
+- Ritmo circadiano, calidad del sueño, ritmo cardíaco, exposición a la luz, temperatura corporal y tensión arterial.
+- EEG por bandas, pendiente de confirmar que se puede medir a bordo.
+
+**Evaluación psicológica (cada 3 días).**
+- Audio de las respuestas abiertas, con extracción acústica mediante openSMILE.
+- Texto transcrito, con análisis de lenguaje que devuelve cuatro puntuaciones (neutral, estrés, ansiedad y ánimo bajo).
+- Vídeo, solo para signos físicos de fatiga (ojos cerrados, parpadeo lento). No se infieren emociones.
+
+**Dinámica social.**
+- Eventos de proximidad seudonimizados en tiempo de ocio, métricas diarias de centralidad, aislamiento y desincronización circadiana.
+
+---
+
+## Cambios en las secciones 4 y 5
+
+**Sección 4, servicio worker-ml.** Sustituir por:
+> worker-ml (python-ml): Contenedor aislado con límite estricto de memoria encargado de ejecutar openSMILE, el modelo de detección de fatiga en vídeo y los modelos de NLP al vuelo sobre las sesiones multimedia.
+
+**Sección 5, estructura del repositorio.**
+- Quitar todos los `[cite: 1]`.
+- `procesamiento/video/` → `# Detección de signos físicos de fatiga (ojos cerrados, parpadeo lento)`
+- `procesamiento/texto/` → `# Análisis NLP de estrés, ansiedad y ánimo bajo`
+- `sistema-de-recomendacion/` → `# Reglas de aviso, acciones recomendadas y optimizador de reparto de tareas`
+- Añadir `procesamiento/conductual/` → `# Check-in, PVT-B, brecha de autopercepción, pregunta doble y ejercicio`
+- Añadir `frontend/eleccion-de-planes/` → `# Vista de los 2-3 planes propuestos, elección y registro de rechazos`
+- Añadir `frontend/check-in/` → `# Check-in diario, pregunta doble semanal y plan de ejercicio`
+- `frontend/muestra-de-recomendaciones/` → `# Vista de acciones recomendadas y tareas asignadas al astronauta`
