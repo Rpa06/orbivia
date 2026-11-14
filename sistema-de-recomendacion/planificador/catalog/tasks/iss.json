@@ -1,0 +1,3931 @@
+{
+ "environment": "iss",
+ "tasks": [
+  {
+   "task_id": "ISS_IND_001",
+   "name": "Experimentos de biología",
+   "description": "Ejecución de experimentos de biología (cultivos celulares, plantas, microorganismos) siguiendo el procedimiento de la carga útil.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 90,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_002",
+   "name": "Experimentos de física",
+   "description": "Operación de experimentos de física de fluidos, combustión o materiales en sus racks.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 90,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_003",
+   "name": "Experimentos de medicina espacial",
+   "description": "Sesiones de investigación humana: ecografías, mediciones y cuestionarios del experimento.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_004",
+   "name": "Recogida de muestras biológicas",
+   "description": "Recogida de muestras de sangre, saliva u orina para investigación, con su etiquetado.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "medical_officer"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.75,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [
+     {
+      "dimension": "physical_precision",
+      "profile_value": 0.65,
+      "value": 0.75,
+      "reason": "punción y manipulación de fluidos biológicos en microgravedad"
+     }
+    ],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_005",
+   "name": "Procesamiento de muestras",
+   "description": "Centrifugado, división y congelación de muestras en el congelador de la estación.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_006",
+   "name": "Monitorización de experimentos",
+   "description": "Comprobación del estado de los experimentos en curso y registro de parámetros.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_007",
+   "name": "Análisis de datos científicos",
+   "description": "Revisión preliminar de datos de experimentos y descarga para los equipos en Tierra.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_008",
+   "name": "Observación de la Tierra",
+   "description": "Fotografía de la Tierra según los objetivos solicitados desde Tierra.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 1,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.4,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [
+     {
+      "dimension": "physical_precision",
+      "profile_value": 0.15,
+      "value": 0.4,
+      "reason": "encuadre y enfoque de cámara con objetivos largos"
+     }
+    ],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_009",
+   "name": "Documentación de resultados",
+   "description": "Registro de resultados, notas de procedimiento y fotografías de los experimentos.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 1,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.15,
+     "mobility": 0.25,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.45,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.25,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.2,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inventory_admin",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Tarea administrativa con algo de desplazamiento para localizar artículos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_010",
+   "name": "Inspección de equipos",
+   "description": "Inspección visual y funcional de equipos y racks según la lista de mantenimiento.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.25,
+     "endurance": 0.3,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.3,
+     "fatigue_tolerance": 0.3,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.4,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inspection_routine",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Recorrido con lista de comprobación: algo de movilidad y atención al detalle.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_011",
+   "name": "Mantenimiento eléctrico",
+   "description": "Sustitución de componentes eléctricos y comprobaciones de distribución de energía.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 90,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 5
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_012",
+   "name": "Diagnóstico de componentes",
+   "description": "Diagnóstico de un componente averiado con instrumentos y apoyo de Tierra.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.25,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.85,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "anomaly_diagnosis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Razonamiento sobre causas con información incompleta: la resolución de problemas domina.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_013",
+   "name": "Mantenimiento de sistemas de soporte vital",
+   "description": "Mantenimiento programado de equipos de control ambiental y soporte vital (filtros, bombas, sensores).",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 5,
+   "duration_minutes": 90,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "life_support_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_014",
+   "name": "Monitorización ambiental",
+   "description": "Lecturas de calidad del aire, agua y acústica, y toma de muestras ambientales.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_015",
+   "name": "Inspección de sistemas de comunicaciones",
+   "description": "Comprobación de equipos de audio, vídeo y enlaces de comunicaciones.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "communications_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.25,
+     "endurance": 0.3,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.3,
+     "fatigue_tolerance": 0.3,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.4,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inspection_routine",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Recorrido con lista de comprobación: algo de movilidad y atención al detalle.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_016",
+   "name": "Limpieza de módulos",
+   "description": "Limpieza semanal de superficies, rejillas y filtros de los módulos.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 5
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.3,
+     "mobility": 0.45,
+     "coordination": 0.3,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.3,
+     "recovery_requirement": 0.15
+    },
+    "cognitive": {
+     "concentration": 0.25,
+     "cognitive_load": 0.15,
+     "working_memory": 0.15,
+     "decision_making": 0.15,
+     "attention_to_detail": 0.35,
+     "problem_solving": 0.1,
+     "stress_tolerance": 0.1,
+     "multitasking": 0.2
+    }
+   },
+   "requirements_metadata": {
+    "profile": "housekeeping",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Tarea manual sencilla; la atención al detalle sube un poco por la contención de partículas y residuos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_017",
+   "name": "Gestión de residuos",
+   "description": "Recogida, compactado y almacenamiento de residuos para su retirada en vehículos de carga.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.3,
+     "mobility": 0.45,
+     "coordination": 0.3,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.3,
+     "recovery_requirement": 0.15
+    },
+    "cognitive": {
+     "concentration": 0.25,
+     "cognitive_load": 0.15,
+     "working_memory": 0.15,
+     "decision_making": 0.15,
+     "attention_to_detail": 0.35,
+     "problem_solving": 0.1,
+     "stress_tolerance": 0.1,
+     "multitasking": 0.2
+    }
+   },
+   "requirements_metadata": {
+    "profile": "housekeeping",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Tarea manual sencilla; la atención al detalle sube un poco por la contención de partículas y residuos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_018",
+   "name": "Control de inventario",
+   "description": "Actualización del sistema de inventario y localización de artículos.",
+   "environment": "iss",
+   "category": "logistics",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.15,
+     "mobility": 0.25,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.45,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.25,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.2,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inventory_admin",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Tarea administrativa con algo de desplazamiento para localizar artículos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_019",
+   "name": "Ejercicio físico",
+   "description": "Sesión diaria de ejercicio con ARED, T2 o CEVIS como contramedida a la pérdida ósea y muscular.",
+   "environment": "iss",
+   "category": "personal",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 120,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": true,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.75,
+     "endurance": 0.75,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.6
+    },
+    "cognitive": {
+     "concentration": 0.2,
+     "cognitive_load": 0.1,
+     "working_memory": 0.1,
+     "decision_making": 0.1,
+     "attention_to_detail": 0.15,
+     "problem_solving": 0.05,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.1
+    }
+   },
+   "requirements_metadata": {
+    "profile": "exercise",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Ejercicio aeróbico y de resistencia diario: exigencia física alta, cognitiva mínima.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_exercise",
+     "csa_iss_exercise"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "derived",
+    "sources": [
+     "csa_iss_exercise"
+    ]
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_exercise",
+    "csa_iss_exercise"
+   ],
+   "notes": "Una sesión por astronauta y día. La duración sigue el protocolo de unas dos horas diarias que describe la CSA; es configurable."
+  },
+  {
+   "task_id": "ISS_IND_020",
+   "name": "Formación y entrenamiento",
+   "description": "Entrenamiento a bordo (OBT) de procedimientos, equipos o experimentos nuevos.",
+   "environment": "iss",
+   "category": "personal",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 1
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.6,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "training",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Aprendizaje y memorización: memoria de trabajo y concentración moderadas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_021",
+   "name": "Preparación individual para EVA",
+   "description": "Comprobación del traje propio, repaso de procedimientos y herramientas antes de una EVA.",
+   "environment": "iss",
+   "category": "operations",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 120,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "eva_suits"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.35,
+     "mobility": 0.35,
+     "coordination": 0.55,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.5,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.45,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.4
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_preparation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Listas de comprobación largas en las que un fallo se arrastra a la EVA: atención al detalle muy alta.",
+    "adjustments": [],
+    "sources": [
+     "nasa_ochmo_dcs"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_ochmo_dcs"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_022",
+   "name": "Revisión de procedimientos",
+   "description": "Lectura y repaso de procedimientos de actividades próximas.",
+   "environment": "iss",
+   "category": "personal",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.6,
+     "decision_making": 0.35,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.25
+    }
+   },
+   "requirements_metadata": {
+    "profile": "training",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Aprendizaje y memorización: memoria de trabajo y concentración moderadas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_023",
+   "name": "Preparación de experimentos",
+   "description": "Montaje de material y configuración de un experimento antes de su ejecución.",
+   "environment": "iss",
+   "category": "science",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.55,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [
+     {
+      "dimension": "physical_precision",
+      "profile_value": 0.65,
+      "value": 0.55,
+      "reason": "montaje de material, menos manipulación fina que el experimento"
+     }
+    ],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_IND_024",
+   "name": "Gestión individual de documentación",
+   "description": "Correo, informes y actualización de registros personales de la misión.",
+   "environment": "iss",
+   "category": "personal",
+   "type": "individual",
+   "importance": 1,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.15,
+     "mobility": 0.25,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.45,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.25,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.2,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inventory_admin",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Tarea administrativa con algo de desplazamiento para localizar artículos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ]
+  },
+  {
+   "task_id": "ISS_COL_001",
+   "name": "Preparación conjunta de experimentos",
+   "description": "Montaje entre dos de un experimento que necesita manos y comprobación cruzada.",
+   "environment": "iss",
+   "category": "science",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.55,
+    "communication_requirement": 0.6,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.35
+   }
+  },
+  {
+   "task_id": "ISS_COL_002",
+   "name": "Instalación de equipamiento científico",
+   "description": "Instalación de un rack o instrumento nuevo, con conexiones de energía, datos y refrigeración.",
+   "environment": "iss",
+   "category": "science",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_cygnus_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_cygnus_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.6,
+    "interdependence": 0.55,
+    "leadership_requirement": 0.4
+   }
+  },
+  {
+   "task_id": "ISS_COL_003",
+   "name": "Calibración de instrumentos",
+   "description": "Calibración de un instrumento con una persona operando y otra verificando.",
+   "environment": "iss",
+   "category": "science",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.55,
+    "communication_requirement": 0.6,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.35
+   }
+  },
+  {
+   "task_id": "ISS_COL_004",
+   "name": "Procesamiento conjunto de muestras",
+   "description": "Procesado de muestras que exige trabajar en la guantera y registrar a la vez.",
+   "environment": "iss",
+   "category": "science",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 4
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.55,
+     "physical_precision": 0.65,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.55,
+    "communication_requirement": 0.6,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.35
+   }
+  },
+  {
+   "task_id": "ISS_COL_005",
+   "name": "Revisión de resultados experimentales",
+   "description": "Revisión conjunta de resultados con los investigadores en Tierra.",
+   "environment": "iss",
+   "category": "science",
+   "type": "collective",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 2,
+   "max_crew": 4,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 4
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2023_04_21"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2023_04_21"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.8,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "ISS_COL_006",
+   "name": "Reparación de componentes",
+   "description": "Reparación de un componente averiado que requiere dos personas.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "contingency"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.5,
+     "endurance": 0.5,
+     "mobility": 0.5,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.4
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.8,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "repair_critical",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Error costoso y a menudo con tiempo limitado: concentración, decisión y resolución de problemas altas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.8,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.65
+   }
+  },
+  {
+   "task_id": "ISS_COL_007",
+   "name": "Mantenimiento de sistemas críticos",
+   "description": "Mantenimiento programado de un sistema crítico (soporte vital, energía, control térmico).",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 7
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "life_support_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.6,
+    "interdependence": 0.55,
+    "leadership_requirement": 0.4
+   }
+  },
+  {
+   "task_id": "ISS_COL_008",
+   "name": "Inspección conjunta de módulos",
+   "description": "Recorrido de inspección de módulos con registro de incidencias.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 0
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.25,
+     "endurance": 0.3,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.3,
+     "fatigue_tolerance": 0.3,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.4,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inspection_routine",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Recorrido con lista de comprobación: algo de movilidad y atención al detalle.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.45,
+    "communication_requirement": 0.5,
+    "interdependence": 0.35,
+    "leadership_requirement": 0.3
+   }
+  },
+  {
+   "task_id": "ISS_COL_009",
+   "name": "Mantenimiento de brazos robóticos",
+   "description": "Mantenimiento y comprobación de las estaciones de trabajo y herramientas robóticas.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 90,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 14
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "robotic_arm_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_cygnus_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_cygnus_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.6,
+    "interdependence": 0.55,
+    "leadership_requirement": 0.4
+   }
+  },
+  {
+   "task_id": "ISS_COL_010",
+   "name": "Preparación de sistemas de soporte vital",
+   "description": "Configuración de equipos de soporte vital para una operación o un cambio de tripulación.",
+   "environment": "iss",
+   "category": "maintenance",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 90,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "life_support_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.4,
+     "mobility": 0.45,
+     "coordination": 0.6,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.25
+    },
+    "cognitive": {
+     "concentration": 0.6,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "maintenance_preventive",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo manual con herramientas y procedimientos; esfuerzo moderado y precisión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.6,
+    "interdependence": 0.55,
+    "leadership_requirement": 0.4
+   }
+  },
+  {
+   "task_id": "ISS_COL_011",
+   "name": "Recepción de vehículos de carga",
+   "description": "Captura con el Canadarm2 o vigilancia del atraque automático, y apertura de escotillas.",
+   "environment": "iss",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "robotic_arm"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "robotic_arm_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.25,
+     "mobility": 0.05,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.15
+    },
+    "cognitive": {
+     "concentration": 0.9,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "robotic_operation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Control preciso de un manipulador con vistas limitadas y riesgo de colisión: concentración máxima entre los perfiles, sin esfuerzo físico.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_cygnus_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_cygnus_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.85,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.5
+   }
+  },
+  {
+   "task_id": "ISS_COL_012",
+   "name": "Descarga de suministros",
+   "description": "Descarga de provisiones, experimentos y equipos del vehículo de carga.",
+   "environment": "iss",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 4,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.55,
+     "endurance": 0.5,
+     "mobility": 0.6,
+     "coordination": 0.45,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.45,
+     "recovery_requirement": 0.3
+    },
+    "cognitive": {
+     "concentration": 0.4,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.3,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.25,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "logistics_handling",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Movimiento repetido de bultos y control de lo que se mueve: esfuerzo y movilidad moderados.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24",
+     "nasa_iss_cygnus_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24",
+    "nasa_iss_cygnus_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.5,
+    "communication_requirement": 0.5,
+    "interdependence": 0.4,
+    "leadership_requirement": 0.3
+   }
+  },
+  {
+   "task_id": "ISS_COL_013",
+   "name": "Almacenamiento de materiales",
+   "description": "Colocación de material en su ubicación y actualización del inventario.",
+   "environment": "iss",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.55,
+     "endurance": 0.5,
+     "mobility": 0.6,
+     "coordination": 0.45,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.45,
+     "recovery_requirement": 0.3
+    },
+    "cognitive": {
+     "concentration": 0.4,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.3,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.25,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "logistics_handling",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Movimiento repetido de bultos y control de lo que se mueve: esfuerzo y movilidad moderados.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.5,
+    "communication_requirement": 0.5,
+    "interdependence": 0.4,
+    "leadership_requirement": 0.3
+   }
+  },
+  {
+   "task_id": "ISS_COL_014",
+   "name": "Preparación de vehículos de retorno",
+   "description": "Carga de muestras y material que vuelve a Tierra, con su documentación.",
+   "environment": "iss",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.55,
+     "endurance": 0.5,
+     "mobility": 0.6,
+     "coordination": 0.45,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.45,
+     "recovery_requirement": 0.3
+    },
+    "cognitive": {
+     "concentration": 0.4,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.3,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.25,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "logistics_handling",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Movimiento repetido de bultos y control de lo que se mueve: esfuerzo y movilidad moderados.",
+    "adjustments": [
+     {
+      "dimension": "attention_to_detail",
+      "profile_value": 0.55,
+      "value": 0.7,
+      "reason": "muestras con requisitos de temperatura y registro de cada bulto"
+     }
+    ],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.5,
+    "communication_requirement": 0.5,
+    "interdependence": 0.4,
+    "leadership_requirement": 0.3
+   }
+  },
+  {
+   "task_id": "ISS_COL_015",
+   "name": "Transferencia de suministros",
+   "description": "Traslado de suministros entre módulos o vehículos atracados.",
+   "environment": "iss",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.55,
+     "endurance": 0.5,
+     "mobility": 0.6,
+     "coordination": 0.45,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.45,
+     "recovery_requirement": 0.3
+    },
+    "cognitive": {
+     "concentration": 0.4,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.3,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.25,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "logistics_handling",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Movimiento repetido de bultos y control de lo que se mueve: esfuerzo y movilidad moderados.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.5,
+    "communication_requirement": 0.5,
+    "interdependence": 0.4,
+    "leadership_requirement": 0.3
+   }
+  },
+  {
+   "task_id": "ISS_COL_016",
+   "name": "Gestión conjunta del inventario",
+   "description": "Auditoría de inventario de un módulo entre dos personas.",
+   "environment": "iss",
+   "category": "logistics",
+   "type": "collective",
+   "importance": 2,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 4
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.15,
+     "endurance": 0.15,
+     "mobility": 0.25,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.45,
+     "cognitive_load": 0.35,
+     "working_memory": 0.45,
+     "decision_making": 0.25,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.2,
+     "stress_tolerance": 0.15,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inventory_admin",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Tarea administrativa con algo de desplazamiento para localizar artículos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.35,
+    "communication_requirement": 0.45,
+    "interdependence": 0.3,
+    "leadership_requirement": 0.25
+   }
+  },
+  {
+   "task_id": "ISS_COL_017",
+   "name": "Preparación de actividades EVA",
+   "description": "Preparación conjunta de trajes, herramientas y esclusa; repaso de la EVA con Tierra.",
+   "environment": "iss",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.35,
+     "mobility": 0.35,
+     "coordination": 0.55,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.5,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.45,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.4
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_preparation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Listas de comprobación largas en las que un fallo se arrastra a la EVA: atención al detalle muy alta.",
+    "adjustments": [],
+    "sources": [
+     "nasa_ochmo_dcs"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_ochmo_dcs"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.75,
+    "communication_requirement": 0.8,
+    "interdependence": 0.75,
+    "leadership_requirement": 0.5
+   }
+  },
+  {
+   "task_id": "ISS_COL_018",
+   "name": "Realización de actividades EVA",
+   "description": "Salida al exterior para mantenimiento, instalación o reparación.",
+   "environment": "iss",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 360,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     },
+     {
+      "type": "procedure",
+      "detail": "Protocolo de prerrespiración antes de salir (ISLE, campout o 4 h en el traje)",
+      "evidence": "official",
+      "sources": [
+       "nasa_ochmo_dcs"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.7,
+     "coordination": 0.8,
+     "physical_precision": 0.8,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.85,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.75,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_orbital",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo de horas en traje presurizado, con las manos y anclajes como única sujeción. Es la referencia de exigencia física alta del catálogo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_ochmo_dcs"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_ochmo_dcs"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.9,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "ISS_COL_019",
+   "name": "Simulacros de emergencia",
+   "description": "Simulacro de respuesta a incendio, despresurización o atmósfera tóxica con toda la tripulación.",
+   "environment": "iss",
+   "category": "safety",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 60,
+   "min_crew": 3,
+   "max_crew": 6,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 14
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.35,
+     "mobility": 0.6,
+     "coordination": 0.5,
+     "physical_precision": 0.35,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "emergency_drill",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Ejecutar de memoria una secuencia bajo presión de tiempo y en coordinación con todos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.75
+   }
+  },
+  {
+   "task_id": "ISS_COL_020",
+   "name": "Coordinación de evacuación",
+   "description": "Repaso de los procedimientos de evacuación a los vehículos de la tripulación.",
+   "environment": "iss",
+   "category": "safety",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 6,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.4,
+     "endurance": 0.35,
+     "mobility": 0.6,
+     "coordination": 0.5,
+     "physical_precision": 0.35,
+     "fatigue_tolerance": 0.4,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.7,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "emergency_drill",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Ejecutar de memoria una secuencia bajo presión de tiempo y en coordinación con todos.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.75
+   }
+  },
+  {
+   "task_id": "ISS_COL_021",
+   "name": "Revisión de sistemas de seguridad",
+   "description": "Comprobación de extintores, equipos de respiración, detectores y kits de emergencia.",
+   "environment": "iss",
+   "category": "safety",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 60,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "weekly",
+    "weekday": 6
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.25,
+     "endurance": 0.3,
+     "mobility": 0.4,
+     "coordination": 0.35,
+     "physical_precision": 0.3,
+     "fatigue_tolerance": 0.3,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.55,
+     "cognitive_load": 0.45,
+     "working_memory": 0.4,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.25,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "inspection_routine",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Recorrido con lista de comprobación: algo de movilidad y atención al detalle.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.45,
+    "communication_requirement": 0.5,
+    "interdependence": 0.35,
+    "leadership_requirement": 0.3
+   }
+  },
+  {
+   "task_id": "ISS_COL_022",
+   "name": "Reuniones de planificación",
+   "description": "Conferencia diaria de planificación con el control de misión.",
+   "environment": "iss",
+   "category": "operations",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 15,
+   "min_crew": 2,
+   "max_crew": 6,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.8,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "ISS_COL_023",
+   "name": "Transferencia de conocimiento entre tripulaciones",
+   "description": "Traspaso de tareas y conocimientos durante el relevo de tripulación.",
+   "environment": "iss",
+   "category": "operations",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 90,
+   "min_crew": 2,
+   "max_crew": 6,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_daily_2022_02_24"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_daily_2022_02_24"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.8,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "ISS_COL_024",
+   "name": "Coordinación de operaciones robóticas",
+   "description": "Coordinación entre operadores a bordo y en Tierra para una operación con el brazo robótico.",
+   "environment": "iss",
+   "category": "operations",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 90,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "robotic_arm"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "robotic_arm_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.25,
+     "mobility": 0.05,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.15
+    },
+    "cognitive": {
+     "concentration": 0.9,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "robotic_operation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Control preciso de un manipulador con vistas limitadas y riesgo de colisión: concentración máxima entre los perfiles, sin esfuerzo físico.",
+    "adjustments": [],
+    "sources": [
+     "nasa_iss_cygnus_2024"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_iss_cygnus_2024"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.85,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.5
+   }
+  }
+ ]
+}

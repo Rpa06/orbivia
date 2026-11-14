@@ -1,0 +1,2634 @@
+{
+ "environment": "satellite",
+ "tasks": [
+  {
+   "task_id": "SAT_IND_001",
+   "name": "Monitorización de telemetría",
+   "description": "Seguimiento de la telemetría del satélite cliente durante la misión de servicio.",
+   "environment": "satellite",
+   "category": "monitoring",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "notes": "En las misiones reales esta función la cubre sobre todo el control en Tierra; aquí se modela desde el vehículo de servicio."
+  },
+  {
+   "task_id": "SAT_IND_002",
+   "name": "Supervisión de orientación",
+   "description": "Supervisión del control de actitud del satélite y del vehículo.",
+   "environment": "satellite",
+   "category": "monitoring",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_003",
+   "name": "Monitorización de órbita",
+   "description": "Seguimiento de la órbita y de las maniobras de aproximación.",
+   "environment": "satellite",
+   "category": "monitoring",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "mission_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_004",
+   "name": "Análisis de anomalías",
+   "description": "Análisis de una anomalía del satélite cliente.",
+   "environment": "satellite",
+   "category": "monitoring",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.25,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.85,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "anomaly_diagnosis",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Razonamiento sobre causas con información incompleta: la resolución de problemas domina.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_005",
+   "name": "Diagnóstico de sistemas eléctricos",
+   "description": "Diagnóstico eléctrico del satélite antes o después de un servicio.",
+   "environment": "satellite",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.25,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.85,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "anomaly_diagnosis",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Razonamiento sobre causas con información incompleta: la resolución de problemas domina.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_006",
+   "name": "Análisis de consumo energético",
+   "description": "Análisis del balance de energía del satélite.",
+   "environment": "satellite",
+   "category": "monitoring",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_007",
+   "name": "Monitorización térmica",
+   "description": "Seguimiento térmico, especialmente en zonas con aislamiento dañado.",
+   "environment": "satellite",
+   "category": "monitoring",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_008",
+   "name": "Análisis de comunicaciones",
+   "description": "Revisión de enlaces del satélite y del vehículo de servicio.",
+   "environment": "satellite",
+   "category": "monitoring",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "communications_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_009",
+   "name": "Supervisión de instrumentos científicos",
+   "description": "Comprobación funcional de instrumentos tras su instalación o reparación.",
+   "environment": "satellite",
+   "category": "monitoring",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.1,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.5,
+     "working_memory": 0.45,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.6,
+     "problem_solving": 0.35,
+     "stress_tolerance": 0.35,
+     "multitasking": 0.5
+    }
+   },
+   "requirements_metadata": {
+    "profile": "desk_monitoring",
+    "evidence_type": "theoretical",
+    "confidence": 0.5,
+    "justification": "Trabajo sedentario de vigilancia: la exigencia es casi solo atencional. La HRP asocia la pérdida de sueño a peor atención sostenida.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "notes": "Tras SM4, los instrumentos instalados se verificaron antes de liberar el telescopio."
+  },
+  {
+   "task_id": "SAT_IND_010",
+   "name": "Diagnóstico de componentes electrónicos",
+   "description": "Diagnóstico de una tarjeta o unidad electrónica averiada.",
+   "environment": "satellite",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "event_based"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.25,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.85,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "anomaly_diagnosis",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Razonamiento sobre causas con información incompleta: la resolución de problemas domina.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_011",
+   "name": "Análisis de degradación de baterías",
+   "description": "Análisis del estado de las baterías del satélite.",
+   "environment": "satellite",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 30,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "electrical_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_012",
+   "name": "Revisión de sistemas de propulsión",
+   "description": "Revisión del estado del sistema de propulsión del cliente.",
+   "environment": "satellite",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 3
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "propulsion_systems"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.15,
+     "mobility": 0.1,
+     "coordination": 0.25,
+     "physical_precision": 0.25,
+     "fatigue_tolerance": 0.2,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.85,
+     "stress_tolerance": 0.55,
+     "multitasking": 0.45
+    }
+   },
+   "requirements_metadata": {
+    "profile": "anomaly_diagnosis",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Razonamiento sobre causas con información incompleta: la resolución de problemas domina.",
+    "adjustments": [],
+    "sources": [
+     "nasa_rrm",
+     "nasa_osam1"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_rrm",
+    "nasa_osam1"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_013",
+   "name": "Calibración de instrumentos",
+   "description": "Calibración de un instrumento tras su instalación.",
+   "environment": "satellite",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 60,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "payload_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.2,
+     "endurance": 0.25,
+     "mobility": 0.2,
+     "coordination": 0.25,
+     "physical_precision": 0.3,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.1
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.55,
+     "working_memory": 0.5,
+     "decision_making": 0.4,
+     "attention_to_detail": 0.75,
+     "problem_solving": 0.4,
+     "stress_tolerance": 0.3,
+     "multitasking": 0.35
+    }
+   },
+   "requirements_metadata": {
+    "profile": "lab_procedure",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Manipulación fina siguiendo un procedimiento; en microgravedad la manipulación de objetos sueltos exige más precisión.",
+    "adjustments": [
+     {
+      "dimension": "physical_precision",
+      "profile_value": 0.65,
+      "value": 0.3,
+      "reason": "calibración por mando desde consola, sin manipulación"
+     },
+     {
+      "dimension": "coordination",
+      "profile_value": 0.55,
+      "value": 0.25,
+      "reason": "trabajo en consola"
+     }
+    ],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_014",
+   "name": "Análisis de datos de inspección",
+   "description": "Revisión de imágenes y datos de una inspección exterior.",
+   "environment": "satellite",
+   "category": "maintenance",
+   "type": "individual",
+   "importance": 2,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "periodic",
+    "every_days": 2
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.15,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.65,
+     "working_memory": 0.55,
+     "decision_making": 0.45,
+     "attention_to_detail": 0.65,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.2,
+     "multitasking": 0.3
+    }
+   },
+   "requirements_metadata": {
+    "profile": "data_analysis",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Trabajo intelectual sin plazos inmediatos: concentración y resolución de problemas, poca presión.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_IND_015",
+   "name": "Supervisión de operaciones robóticas",
+   "description": "Vigilancia de una operación robótica autónoma o controlada desde Tierra, con autoridad para detenerla.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 120,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "robotic_arm_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.15,
+     "mobility": 0.05,
+     "coordination": 0.2,
+     "physical_precision": 0.15,
+     "fatigue_tolerance": 0.25,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.75,
+     "cognitive_load": 0.6,
+     "working_memory": 0.55,
+     "decision_making": 0.6,
+     "attention_to_detail": 0.7,
+     "problem_solving": 0.5,
+     "stress_tolerance": 0.5,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "robotic_supervision",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Vigilar y decidir si se interrumpe una operación automática: atención y decisión, sin manipulación.",
+    "adjustments": [],
+    "sources": [
+     "nasa_rrm",
+     "nasa_osam1"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_rrm",
+    "nasa_osam1"
+   ],
+   "notes": "Es la tarea humana asociada a las operaciones robóticas (SAT_COL_002, 006 y 009)."
+  },
+  {
+   "task_id": "SAT_IND_016",
+   "name": "Planificación de mantenimiento",
+   "description": "Planificación de las tareas de servicio de los próximos días.",
+   "environment": "satellite",
+   "category": "operations",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 45,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "daily"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.65,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ]
+  },
+  {
+   "task_id": "SAT_COL_001",
+   "name": "Captura y acoplamiento de satélites",
+   "description": "Captura del satélite con el brazo robótico del vehículo, operado por la tripulación, y fijación en su soporte.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "remote_controlled",
+   "crew_role": "operator",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "robotic_arm"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "robotic_arm_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.25,
+     "mobility": 0.05,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.15
+    },
+    "cognitive": {
+     "concentration": 0.9,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "robotic_operation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Control preciso de un manipulador con vistas limitadas y riesgo de colisión: concentración máxima entre los perfiles, sin esfuerzo físico.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.85,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.5
+   },
+   "notes": "En las misiones al Hubble la captura se hizo con el brazo del transbordador operado por la tripulación."
+  },
+  {
+   "task_id": "SAT_COL_002",
+   "name": "Repostaje de combustible",
+   "description": "Transferencia robótica de propulsante al satélite cliente.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "individual",
+   "importance": 4,
+   "duration_minutes": 240,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "robotic",
+   "crew_role": "none",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": null,
+   "requirements_metadata": {
+    "profile": "robotic_supervision",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Ejecución robótica o controlada desde Tierra: no se modelan exigencias físicas de la tripulación. La supervisión humana es una tarea aparte.",
+    "adjustments": [],
+    "sources": [
+     "nasa_rrm",
+     "nasa_osam1"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_rrm",
+    "nasa_osam1"
+   ],
+   "notes": "Demostrado de forma robótica con RRM en la ISS (2013); OSAM-1 se canceló en 2024. La supervisión humana es SAT_IND_015."
+  },
+  {
+   "task_id": "SAT_COL_003",
+   "name": "Sustitución de baterías",
+   "description": "Sustitución de baterías en EVA, como en la cuarta misión de servicio del Hubble.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 360,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified",
+     "satellite_servicing"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.7,
+     "coordination": 0.8,
+     "physical_precision": 0.8,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.85,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.75,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_orbital",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo de horas en traje presurizado, con las manos y anclajes como única sujeción. Es la referencia de exigencia física alta del catálogo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.9,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "SAT_COL_004",
+   "name": "Reparación de componentes",
+   "description": "Reparación en órbita de un componente, como las de STIS y ACS en 2009.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 360,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified",
+     "satellite_servicing"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.7,
+     "coordination": 0.8,
+     "physical_precision": 0.9,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.85,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.8,
+     "stress_tolerance": 0.75,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_orbital",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo de horas en traje presurizado, con las manos y anclajes como única sujeción. Es la referencia de exigencia física alta del catálogo.",
+    "adjustments": [
+     {
+      "dimension": "problem_solving",
+      "profile_value": 0.65,
+      "value": 0.8,
+      "reason": "reparación no prevista en el diseño del satélite"
+     },
+     {
+      "dimension": "physical_precision",
+      "profile_value": 0.8,
+      "value": 0.9,
+      "reason": "retirada de decenas de tornillos pequeños con guantes presurizados"
+     }
+    ],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.9,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "SAT_COL_005",
+   "name": "Sustitución de instrumentos científicos",
+   "description": "Retirada de un instrumento e instalación del nuevo en EVA.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 360,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified",
+     "satellite_servicing"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.7,
+     "coordination": 0.8,
+     "physical_precision": 0.8,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.85,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.75,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_orbital",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo de horas en traje presurizado, con las manos y anclajes como única sujeción. Es la referencia de exigencia física alta del catálogo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.9,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "SAT_COL_006",
+   "name": "Instalación de módulos",
+   "description": "Instalación robótica de un módulo en el satélite.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 240,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "robotic",
+   "crew_role": "none",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": null,
+   "requirements_metadata": {
+    "profile": "robotic_supervision",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Ejecución robótica o controlada desde Tierra: no se modelan exigencias físicas de la tripulación. La supervisión humana es una tarea aparte.",
+    "adjustments": [],
+    "sources": [
+     "nasa_osam1"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_osam1"
+   ],
+   "notes": "Concepto ISAM; la supervisión humana es SAT_IND_015."
+  },
+  {
+   "task_id": "SAT_COL_007",
+   "name": "Inspección exterior de satélites",
+   "description": "Inspección visual del exterior del satélite en EVA.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 240,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.7,
+     "endurance": 0.85,
+     "mobility": 0.7,
+     "coordination": 0.8,
+     "physical_precision": 0.55,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.85,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.75,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_orbital",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo de horas en traje presurizado, con las manos y anclajes como única sujeción. Es la referencia de exigencia física alta del catálogo.",
+    "adjustments": [
+     {
+      "dimension": "physical_precision",
+      "profile_value": 0.8,
+      "value": 0.55,
+      "reason": "inspección y fotografía, sin manipulación de componentes"
+     },
+     {
+      "dimension": "physical_effort",
+      "profile_value": 0.85,
+      "value": 0.7,
+      "reason": "EVA con poca manipulación de cargas"
+     }
+    ],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.9,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "SAT_COL_008",
+   "name": "Reparación de aislamiento térmico",
+   "description": "Instalación de nuevas mantas aislantes sobre zonas dañadas.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 300,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified",
+     "satellite_servicing"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.7,
+     "coordination": 0.8,
+     "physical_precision": 0.8,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.85,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.75,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_orbital",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo de horas en traje presurizado, con las manos y anclajes como única sujeción. Es la referencia de exigencia física alta del catálogo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.9,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "SAT_COL_009",
+   "name": "Ensamblaje de estructuras orbitales",
+   "description": "Ensamblaje robótico de estructuras en órbita.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "individual",
+   "importance": 3,
+   "duration_minutes": 300,
+   "min_crew": 1,
+   "max_crew": 1,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "robotic",
+   "crew_role": "none",
+   "per_astronaut": false,
+   "safety_critical": false,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": null,
+   "requirements_metadata": {
+    "profile": "robotic_supervision",
+    "evidence_type": "theoretical",
+    "confidence": 0.35,
+    "justification": "Ejecución robótica o controlada desde Tierra: no se modelan exigencias físicas de la tripulación. La supervisión humana es una tarea aparte.",
+    "adjustments": [],
+    "sources": [
+     "nasa_osam1"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "conceptual",
+   "nasa_reference": [
+    "nasa_osam1"
+   ],
+   "notes": "Concepto ISAM (antena SPIDER de OSAM-1); la supervisión humana es SAT_IND_015."
+  },
+  {
+   "task_id": "SAT_COL_010",
+   "name": "Sustitución de componentes mecánicos",
+   "description": "Sustitución de unidades mecánicas como giróscopos.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 360,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": true,
+   "resources": [
+    "airlock"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified",
+     "satellite_servicing"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Entrenamiento de EVA del programa",
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [
+     {
+      "type": "min_team",
+      "value": 2,
+      "detail": "Las EVA se realizan en pareja como mínimo",
+      "evidence": "derived",
+      "sources": [
+       "nasa_xeva_conops_2020",
+       "nasa_alsj"
+      ]
+     }
+    ],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.85,
+     "endurance": 0.85,
+     "mobility": 0.7,
+     "coordination": 0.8,
+     "physical_precision": 0.8,
+     "fatigue_tolerance": 0.8,
+     "recovery_requirement": 0.8
+    },
+    "cognitive": {
+     "concentration": 0.85,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.7,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.65,
+     "stress_tolerance": 0.75,
+     "multitasking": 0.6
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_orbital",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Trabajo de horas en traje presurizado, con las manos y anclajes como única sujeción. Es la referencia de exigencia física alta del catálogo.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.9,
+    "communication_requirement": 0.9,
+    "interdependence": 0.9,
+    "leadership_requirement": 0.6
+   }
+  },
+  {
+   "task_id": "SAT_COL_011",
+   "name": "Recuperación de sistemas averiados",
+   "description": "Respuesta a una avería imprevista durante el servicio.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 240,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "contingency"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "satellite_servicing"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.5,
+     "endurance": 0.5,
+     "mobility": 0.5,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.6,
+     "recovery_requirement": 0.4
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.8,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.55
+    }
+   },
+   "requirements_metadata": {
+    "profile": "repair_critical",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Error costoso y a menudo con tiempo limitado: concentración, decisión y resolución de problemas altas.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.8,
+    "interdependence": 0.8,
+    "leadership_requirement": 0.65
+   }
+  },
+  {
+   "task_id": "SAT_COL_012",
+   "name": "Operaciones de brazos robóticos",
+   "description": "Movimiento de cargas y apoyo a la EVA con el brazo robótico, operado por la tripulación.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 4,
+   "duration_minutes": 180,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "remote_controlled",
+   "crew_role": "operator",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "robotic_arm"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "robotic_arm_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.25,
+     "mobility": 0.05,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.15
+    },
+    "cognitive": {
+     "concentration": 0.9,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "robotic_operation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Control preciso de un manipulador con vistas limitadas y riesgo de colisión: concentración máxima entre los perfiles, sin esfuerzo físico.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.85,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.5
+   }
+  },
+  {
+   "task_id": "SAT_COL_013",
+   "name": "Transferencia de componentes entre vehículos",
+   "description": "Traslado de unidades entre la bodega del vehículo y el satélite con el brazo.",
+   "environment": "satellite",
+   "category": "servicing",
+   "type": "collective",
+   "importance": 3,
+   "duration_minutes": 120,
+   "min_crew": 2,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "remote_controlled",
+   "crew_role": "operator",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "robotic_arm"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "robotic_arm_operator"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.1,
+     "endurance": 0.25,
+     "mobility": 0.05,
+     "coordination": 0.65,
+     "physical_precision": 0.7,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.15
+    },
+    "cognitive": {
+     "concentration": 0.9,
+     "cognitive_load": 0.8,
+     "working_memory": 0.7,
+     "decision_making": 0.75,
+     "attention_to_detail": 0.8,
+     "problem_solving": 0.6,
+     "stress_tolerance": 0.7,
+     "multitasking": 0.65
+    }
+   },
+   "requirements_metadata": {
+    "profile": "robotic_operation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Control preciso de un manipulador con vistas limitadas y riesgo de colisión: concentración máxima entre los perfiles, sin esfuerzo físico.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.8,
+    "communication_requirement": 0.85,
+    "interdependence": 0.85,
+    "leadership_requirement": 0.5
+   }
+  },
+  {
+   "task_id": "SAT_COL_014",
+   "name": "Preparación de operaciones extravehiculares",
+   "description": "Preparación de trajes, herramientas y procedimientos de la EVA del día.",
+   "environment": "satellite",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 150,
+   "min_crew": 2,
+   "max_crew": 3,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [
+    "eva_suits"
+   ],
+   "technical_requirements": {
+    "required_qualifications": [
+     "eva_certified"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.35,
+     "endurance": 0.35,
+     "mobility": 0.35,
+     "coordination": 0.55,
+     "physical_precision": 0.6,
+     "fatigue_tolerance": 0.35,
+     "recovery_requirement": 0.2
+    },
+    "cognitive": {
+     "concentration": 0.7,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.5,
+     "attention_to_detail": 0.85,
+     "problem_solving": 0.45,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.4
+    }
+   },
+   "requirements_metadata": {
+    "profile": "eva_preparation",
+    "evidence_type": "theoretical",
+    "confidence": 0.4,
+    "justification": "Listas de comprobación largas en las que un fallo se arrastra a la EVA: atención al detalle muy alta.",
+    "adjustments": [],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.75,
+    "communication_requirement": 0.8,
+    "interdependence": 0.75,
+    "leadership_requirement": 0.5
+   }
+  },
+  {
+   "task_id": "SAT_COL_015",
+   "name": "Coordinación de operaciones de servicio orbital",
+   "description": "Coordinación desde el interior de la EVA y del brazo robótico (tripulante IV).",
+   "environment": "satellite",
+   "category": "operations",
+   "type": "collective",
+   "importance": 5,
+   "duration_minutes": 360,
+   "min_crew": 1,
+   "max_crew": 2,
+   "frequency": {
+    "kind": "mission_specific"
+   },
+   "execution_mode": "human",
+   "crew_role": "performer",
+   "per_astronaut": false,
+   "safety_critical": true,
+   "requires_eva": false,
+   "resources": [],
+   "technical_requirements": {
+    "required_qualifications": [
+     "mission_operations"
+    ],
+    "recommended_competencies": [],
+    "specific_experience": [],
+    "required_training": [
+     "Procedimientos específicos de la tarea"
+    ],
+    "validation_status": "pending"
+   },
+   "constraints": {
+    "hard_constraints": [],
+    "medical_constraints": [],
+    "minimum_rest_requirement": null,
+    "note": "Sin restricciones médicas ni descansos mínimos documentados públicamente para esta tarea: pendientes de validación por el equipo médico."
+   },
+   "requirements": {
+    "physical": {
+     "physical_effort": 0.05,
+     "endurance": 0.1,
+     "mobility": 0.05,
+     "coordination": 0.1,
+     "physical_precision": 0.05,
+     "fatigue_tolerance": 0.15,
+     "recovery_requirement": 0.05
+    },
+    "cognitive": {
+     "concentration": 0.8,
+     "cognitive_load": 0.6,
+     "working_memory": 0.6,
+     "decision_making": 0.65,
+     "attention_to_detail": 0.55,
+     "problem_solving": 0.55,
+     "stress_tolerance": 0.4,
+     "multitasking": 0.75
+    }
+   },
+   "requirements_metadata": {
+    "profile": "planning_coordination",
+    "evidence_type": "theoretical",
+    "confidence": 0.45,
+    "justification": "Integrar información de varios sistemas y decidir: carga cognitiva y decisión moderadas a altas.",
+    "adjustments": [
+     {
+      "dimension": "concentration",
+      "profile_value": 0.65,
+      "value": 0.8,
+      "reason": "seguimiento continuo de una EVA de horas"
+     },
+     {
+      "dimension": "multitasking",
+      "profile_value": 0.55,
+      "value": 0.75,
+      "reason": "coordina EVA, brazo y comunicaciones a la vez"
+     }
+    ],
+    "sources": [
+     "nasa_hst_servicing",
+     "nasa_hst_sm4"
+    ],
+    "validation_status": "unvalidated"
+   },
+   "duration_metadata": {
+    "evidence_type": "theoretical",
+    "sources": []
+   },
+   "source_type": "real",
+   "nasa_reference": [
+    "nasa_hst_servicing",
+    "nasa_hst_sm4"
+   ],
+   "team_requirements": {
+    "team_coordination": 0.6,
+    "communication_requirement": 0.8,
+    "interdependence": 0.5,
+    "leadership_requirement": 0.6
+   }
+  }
+ ]
+}
