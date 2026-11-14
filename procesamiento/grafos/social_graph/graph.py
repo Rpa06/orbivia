@@ -145,6 +145,9 @@ def export_graph(doc: Document, positions: Positions) -> Document:
     n = len(crew)
     isolation = doc.get("isolation") or {}
     assessments = isolation.get("astronauts", {})
+    structure = isolation.get("structure") or {}
+    communities = structure.get("communities", []) if structure.get("clear") else []
+    community_of = {a: k for k, members in enumerate(communities) for a in members}
 
     nodes = []
     for i, astronaut in enumerate(crew):
@@ -162,6 +165,10 @@ def export_graph(doc: Document, positions: Positions) -> Document:
             "status": assessment.get("status"),
             "signals": assessment.get("signals", []),
             "score": assessment.get("score"),
+            # Sobre el grafo suavizado de varios días; None si no hay grupos claros
+            "community": community_of.get(astronaut),
+            "betweenness": structure.get("betweenness", {}).get(astronaut),
+            "bridge": astronaut in structure.get("bridges", []),
             # Desajuste de horarios: indicador aparte, no entra en W
             "schedule_mismatch": None if alignment is None else 1 - alignment,
         })
@@ -194,6 +201,8 @@ def export_graph(doc: Document, positions: Positions) -> Document:
         "crew": {
             "drop": isolation.get("crew", {}).get("drop"),
             "score": isolation.get("crew", {}).get("score"),
+            "communities": communities,
+            "modularity": structure.get("modularity"),
             "schedule_mismatch": None if crew_alignment is None else 1 - crew_alignment,
         },
     }
