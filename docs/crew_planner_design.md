@@ -1,6 +1,6 @@
 # Planificador diario de tareas — documento de diseño
 
-Estado: implementado (fases 2 a 6) en `sistema-de-recomendacion/planificador/`. Uso, entrada, salida y configuración en su [README](../sistema-de-recomendacion/planificador/README.md). Este documento recoge el modelo y las decisiones de diseño, con los cambios hechos durante la implementación.
+Estado: implementado (fases 2 a 6) en `sistema-de-recomendacion/planificador/`. El catálogo de tareas por entorno (ISS, Luna, Marte, satélites) y su traducción a requisitos están en [task_catalog_methodology.md](task_catalog_methodology.md); añadió al modelo de tarea `only_for` (tareas de una persona concreta) e `interdependence`, que multiplica el término de compatibilidad: `C_comp = γ · I_j · d_j · (K_ref − K(G))`. Uso, entrada, salida y configuración en su [README](../sistema-de-recomendacion/planificador/README.md). Este documento recoge el modelo y las decisiones de diseño, con los cambios hechos durante la implementación.
 
 Módulo de ORBIVIA que genera una planificación diaria de tareas individuales y colectivas a partir del estado de cada astronauta, los requisitos de las tareas, el historial y, de forma acotada, las salidas del grafo social. Es una **herramienta de apoyo: propone, no decide**. Toda planificación la valida una persona.
 

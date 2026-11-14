@@ -98,6 +98,27 @@ Códigos de salida:
 | `2` | Sin solución factible, o el optimizador agotó el tiempo |
 | `1` | Entrada inválida |
 
+## Entornos de misión
+
+Hay un catálogo de 160 tareas de cuatro entornos (`catalog/`): ISS, superficie lunar, superficie marciana y servicio de satélites. Cada tarea lleva:
+
+- un vector físico y otro cognitivo de exigencia (0-1);
+- sus cualificaciones obligatorias;
+- frecuencia, modo de ejecución y referencias NASA.
+
+El optimizador es el mismo en los cuatro: al elegir un entorno solo cambian las tareas del día.
+
+```bash
+docker compose run --rm --no-deps planner python -m crew_planner.simulation --environment moon --days 7
+```
+
+Con `--event ISS_COL_006` se dispara una tarea de evento o contingencia, y con `--out /data` se guardan los planes y sus informes visuales.
+
+**Las puntuaciones son estimaciones teóricas del modelo Orbivia, no datos de NASA.** Antes de llegar al optimizador se traducen a requisitos sobre las mediciones del astronauta con `config/requirement_mapping.toml`; en las tareas críticas, una exigencia alta se convierte en restricción dura.
+
+- Metodología: [docs/task_catalog_methodology.md](../../docs/task_catalog_methodology.md).
+- Tabla comparativa e informe de calibración: [docs/task_requirements_table.md](../../docs/task_requirements_table.md), que se regenera con `python -m crew_planner.catalog_report --out ../../docs/task_requirements_table.md`.
+
 ## Escenarios de simulación
 
 La tripulación, las tareas y las mediciones son **sintéticas**: cada medición lleva `source = "synthetic:..."`.
@@ -215,6 +236,7 @@ El catálogo de parámetros del vector de estado también está en el TOML (`[[p
 | `crew_planner/context.py`, `optimizer.py` | Preparación del problema y modelo CP-SAT |
 | `crew_planner/diagnosis.py`, `explain.py`, `planner.py` | Sin solución, salida explicable y orquestación |
 | `crew_planner/report.py` | Informe visual en HTML, para Tierra y para la tripulación |
+| `crew_planner/catalog.py`, `catalog_report.py`, `catalog/`, `config/requirement_mapping.toml` | Catálogo de tareas por entorno, su validación, su traducción a requisitos y la tabla comparativa |
 | `crew_planner/simulation.py` | Tripulación sintética y escenarios |
 
 El grafo social no se modifica: se lee su salida y se reutiliza su módulo de intervalos.
