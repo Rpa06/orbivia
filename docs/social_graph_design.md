@@ -292,7 +292,7 @@ Con tripulaciones pequeñas se enumeran todas las parejas y tríos; no hace falt
 
 ```
 puntuación(grupo) = ganancia − penalización
-ganancia      = Σ_parejas (1 − W_ij)            conexiones nuevas o débiles que se reforzarían
+ganancia      = media_parejas (1 − W_ij)        conexiones nuevas o débiles que se reforzarían
               + prima si incluye a alguien en seguimiento o revisión
               + prima si une dos comunidades poco conectadas
 penalización  = propuestas recientes de cada miembro       evita cargar siempre a los mismos
@@ -300,7 +300,8 @@ penalización  = propuestas recientes de cada miembro       evita cargar siempre
 
 Filtros, que descartan el grupo antes de puntuar:
 
-- Ventana de ocio común de al menos 45 min, fuera de sueño y trabajo.
+- Ventana de ocio común de al menos 45 min, fuera de sueño y trabajo. Se propone dentro del tramo común más largo.
+- Todas las parejas del grupo deben tener datos, y debe haber algún motivo (pareja débil, persona poco integrada o grupos poco conectados). Una tripulación bien relacionada no recibe propuestas.
 - Nadie con más de 2 propuestas en los últimos 7 días.
 - La actividad no ocupa más de un tercio del ocio de nadie ese día.
 - Nadie con ocio por debajo del mínimo evaluable (día de mucha carga).
@@ -397,8 +398,8 @@ Esquema propio `social_graph` en el PostgreSQL existente. El servicio crea las t
 
 - `daily_result`: una fila por día con W, `R_solape`, `R_ocio`, `A`, `I`, `O_obs`, `T_ocio`, coberturas, máscara de estados, métricas, posiciones del layout, parámetros y su versión.
 - `checkpoint`: una fila con el estado del acumulador y el último mensaje procesado.
-- `isolation_daily`: una fila por astronauta y día con los indicadores, sus `z`, el estado y los motivos.
-- `recommendation`: una fila por propuesta con participantes, ventana, tipo de actividad, justificación, métricas usadas y estado de revisión (`propuesta`, `aceptada`, `descartada`).
+- Las propuestas se guardan dentro del documento del día (`recommendations`), con participantes, ventana, tipo de actividad, justificación, métricas usadas y estado `proposed`. Registrar la aceptación o el descarte por parte de un responsable queda fuera de la demo.
+- La valoración de aislamiento (`isolation`) y el grafo exportado (`graph`) van también dentro del documento del día.
 
 ## 11. Configuración (variables de entorno)
 
