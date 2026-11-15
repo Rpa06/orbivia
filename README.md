@@ -1,6 +1,8 @@
 # Orbivia
 
-Sistema de monitorización biométrica, psicológica y social y de apoyo a la decisión para tripulaciones en misiones espaciales, cortas y largas. Detecta de forma temprana desviaciones respecto a la línea base de cada astronauta, mediante la consolidación diaria de señales multimodales en un Vector de Estado Colapsado, y propone repartos de tareas que la tripulación elige.
+Sistema de monitorización biométrica, psicológica y social y de apoyo a la decisión para tripulaciones en misiones espaciales, cortas y largas. Detecta de forma temprana desviaciones respecto a la línea base de cada astronauta, mediante la consolidación diaria de señales multimodales en un Vector de Estado Colapsado, y propone repartos de tareas entre los que el comandante elige, tras consultar a la tripulación.
+
+> **¿Primera vez?** Sigue la [guía de activación](GUIA_ACTIVACION.md) para instalarlo y arrancarlo en tu ordenador.
 
 Orbivia no diagnostica ni trata enfermedades. Su finalidad es operativa, ayudar a decidir quién está en condiciones de hacer cada tarea. Toda decisión final la toma una persona.
 
@@ -73,7 +75,7 @@ El sistema compara a cada astronauta consigo mismo, nunca con una media de pobla
 
 **Producto sanitario.** *(Referencia pendiente de verificación.)* Según la sentencia del TJUE de 2 de julio de 2026 (C-427/24, Diagramm Halbach), un software es producto sanitario cuando procesa datos del paciente y genera recomendaciones con finalidad médica. Orbivia genera repartos de tareas con finalidad operativa y no da recomendaciones clínicas. Lo clínico lo deciden el médico de a bordo y el equipo médico en Tierra.
 
-**Supervisión humana (artículo 22 del RGPD).** Orbivia propone varias opciones y la tripulación decide. Ninguna decisión con efectos sobre un astronauta se toma de forma exclusivamente automatizada.
+**Supervisión humana (artículo 22 del RGPD).** Orbivia propone varias opciones y decide una persona: el comandante, tras consultar a la tripulación. Ninguna decisión con efectos sobre un astronauta se toma de forma exclusivamente automatizada.
 
 ## 2. Lógica de negocio y reglas de operación
 
@@ -98,7 +100,7 @@ Un aviso nunca se dispara por un único dato aislado. Hay tres mecanismos activo
 
 - **Check-in diario.** Cinco preguntas de 1 a 5 (sueño, cansancio, carga de trabajo, ánimo y convivencia), siempre a la misma hora.
 - **PVT-B diario.** Test de atención de 3 minutos, justo después del check-in, para que el astronauta no conozca su resultado al responder.
-- **Brecha de autopercepción.** Diferencia entre el cansancio que declara el astronauta en el check-in y el que mide el PVT-B, ambos expresados como desviación respecto a su línea base. Si el astronauta dice estar bien y su rendimiento empeora, se genera un aviso. Se basa en la evidencia de que las personas con falta de sueño apenas perciben su propio deterioro (Van Dongen et al., 2003).
+- **Brecha de autopercepción.** Diferencia entre el cansancio que declara el astronauta en el check-in y el que mide el PVT-B, ambos expresados como desviación respecto a su línea base. Si el astronauta dice estar bien y su rendimiento empeora, se genera un aviso para el médico de a bordo. Se basa en la evidencia de que las personas con falta de sueño apenas perciben su propio deterioro (Van Dongen et al., 2003).
 - **Pregunta doble semanal.** La pregunta de convivencia se acompaña de una segunda, "¿qué nota crees que pondrá de media el resto del equipo?". La diferencia entre lo que cada uno cree y lo que el grupo responde es una señal de desconexión. Método inspirado en el Bayesian Truth Serum (Prelec, 2004), sin incentivo económico. Las respuestas individuales nunca se muestran al resto de la tripulación.
 - **Entrevista de audio cada 3 días.** Preguntas abiertas y neutras que rotan. No preguntan por emociones ni usan palabras negativas, para no inducir respuestas negativas. Cada pregunta tiene su propia línea base. Las preguntas son las siguientes.
     1. ¿Cómo describirías tu día de ayer?
@@ -133,7 +135,7 @@ Tiene dos partes.
 
 - **Restricciones fijas.** Capacidad de cada astronauta para cada categoría, nota mínima por tarea, ejercicio diario fijo, horas máximas de trabajo según NASA-STD-3001, respeto del descanso y número de personas por tarea.
 - **Objetivos.** Seguridad en las tareas de riesgo, encaje con el tipo de cansancio, equilibrio de carga (evitando tanto la sobrecarga como la falta de trabajo), rotación y mínimo cambio respecto al plan original.
-- **Salida.** Cada mañana, tres planes distintos, cada uno con sus ventajas y con una explicación en lenguaje natural de cada cambio. La tripulación elige uno o los rechaza indicando el motivo. Si un astronauta pide otro plan por un motivo propio, en el registro solo consta "motivo personal".
+- **Salida.** Cada mañana, tres planes distintos, cada uno con sus ventajas y con una explicación en lenguaje natural de cada cambio. El comandante, tras consultar a la tripulación, elige uno o los rechaza indicando el motivo. Es el único rol que puede registrar esa decisión. Si el rechazo se debe a un motivo propio de algún tripulante, en el registro solo consta "motivo personal".
 - **Registro de decisiones.** Se guarda qué plan se eligió o si se rechazaron todos, para medir si la tripulación confía demasiado o demasiado poco en el sistema.
 - **Método.** Optimización con reglas explicables, sin modelo entrenado, porque no existen datos reales de astronautas en vuelo para entrenarlo. Inspirado en Playbook, la herramienta de autoplanificación de tripulaciones de NASA Ames.
 
@@ -147,10 +149,10 @@ Tiene dos partes.
 
 | Rol | Qué ve |
 |---|---|
-| Astronauta | Sus propios datos, sus tareas, los planes propuestos, su plan de ejercicio y, si lo activa, su registro del ciclo y sus avisos. No ve datos de otros astronautas. |
+| Astronauta | Sus propias mediciones y su check-in, sus tareas y recomendaciones, los planes propuestos (sin poder elegirlos), su plan de ejercicio y, si lo activa, su registro del ciclo con sus avisos individuales. **No ve su nota de disponibilidad ni los avisos C1-C3** (por ejemplo, "deterioro progresivo"), porque pueden afectar a su bienestar psicológico: los gestiona el médico de a bordo. No ve datos de otros astronautas. |
 | Médico de a bordo | El estado actual y los avisos de todos los astronautas, incluidas las puntuaciones de check-in, voz y texto. El registro del ciclo solo si la astronauta lo comparte. |
-| Comandante | La nota de disponibilidad de cada astronauta y el motivo general (fatiga, aislamiento, carga). Nunca las respuestas del check-in, los datos psicológicos ni el ciclo. Si alguien cambia de plan por un motivo propio, solo ve "motivo personal". |
-| Equipo médico en Tierra | El historial completo de valores de cada astronauta, para seguir su evolución semana a semana. Nunca audio, vídeo ni el registro del ciclo. |
+| Comandante | La nota de disponibilidad de cada astronauta y el motivo general (fatiga, aislamiento, carga). Nunca las respuestas del check-in, los datos psicológicos ni el ciclo de los demás. Es el único que elige o rechaza el plan del día; si se rechaza por un motivo propio de alguien, solo consta "motivo personal". Como también es tripulante, tiene las mismas funciones personales que un astronauta (check-in, PVT-B, entrevista, ejercicio, registro privado), con las mismas reglas. |
+| Equipo médico en Tierra | El historial completo de valores de cada astronauta (vectores diarios, mediciones, check-in, avisos y puntuaciones acústicas y de texto), para seguir su evolución semana a semana. Nunca audio, vídeo, transcripciones ni el registro del ciclo. |
 | Resto de la misión en Tierra | El estado agregado de avisos y, solo ante una incidencia, el grafo de cohesión del grupo. Nunca el registro del ciclo. |
 
 ### G. Registro privado del ciclo menstrual
@@ -292,6 +294,8 @@ orbivia/
 
 ## 6. Despliegue y demo
 
+La guía paso a paso, con requisitos y solución de problemas, está en [GUIA_ACTIVACION.md](GUIA_ACTIVACION.md). Resumen:
+
 1. `cp .env.example .env` y cambia todas las claves. Los secretos necesitan al menos 32 caracteres. Si `volumenes/postgre` ya tiene una base inicializada sin estos esquemas, usa otro `POSTGRES_DATA_DIR`: los scripts de init solo corren sobre un directorio vacío.
 2. Arranca:
 
@@ -311,7 +315,7 @@ Guion de demo:
 
 - **Médico** (`surgeon`): avisos con su referencia, auditoría de la nota, acústica (NLP desactivado), historial y ciclo compartido.
 - **Comandante** (`commander`): disponibilidad de la tripulación (anillos con el motivo general, sin datos psicológicos de otros), **único rol que elige o rechaza el plan** y botón «Ejecutar colapso diario» (`POST /api/v1/ops/trigger-daily-collapse`). Como tripulante A1 tiene también sus funciones personales: estado propio, check-in y PVT-B, entrevista, ejercicio, recomendaciones y registro privado.
-- **Astronauta** `astro3`: hacer el check-in y el PVT-B (con `?pvt30` en la URL dura 30 s). Volver a ejecutar el colapso y ver la brecha de autopercepción (C1). Los astronautas consultan los planes, pero no los eligen.
+- **Astronauta** `astro3`: hacer el check-in y el PVT-B (con `?pvt30` en la URL dura 30 s). Después, como `surgeon` o `commander`, ejecutar el colapso: el médico verá el aviso de brecha de autopercepción (C1). El astronauta no ve sus avisos ni su nota, y consulta los planes sin poder elegirlos.
 - **Astronauta** `astro4`: registro privado del ciclo, aviso individual, compartir 24 h con el médico.
 - **Comandante como tripulante A1**: dos omisiones de ejercicio, asistente «si pasa X, haré Y», entrevista de audio.
 - **Tierra**: `earth.medical` ve el historial de vectores; `earth.mission`, solo agregados.
@@ -331,10 +335,11 @@ Cada módulo tiene además su propia suite (`pytest` dentro de su carpeta: plani
 
 ## 7. Estado real y limitaciones
 
-- **Datos simulados.** No hay mediciones de astronautas ni datos de NASA. Umbrales y pesos sin calibrar.
+- **Datos simulados.** No hay mediciones de astronautas ni datos de NASA. Umbrales y pesos sin calibrar. La misión se siembra relativa a la fecha de hoy: al cambiar de día hay que volver a sembrar (o fijar `ORBIVIA_TODAY`).
+- **Avisos y nota fuera de la vista del tripulante.** Decisión de diseño: los avisos C1-C3 y la nota de disponibilidad solo los ven el médico de a bordo y el equipo médico en Tierra (y la nota, el comandante como mando). La API no se los envía al tripulante.
 - **NLP desactivado por defecto** (`ENABLE_NLP=false`). Ver la tensión con el Reglamento de IA en [docs/privacidad_y_alcance.md](docs/privacidad_y_alcance.md). Activarlo descarga los modelos de Hugging Face, así que necesita red.
 - **C4** (similitud histórica) está preparado y desactivado: no hay histórico etiquetado.
-- **Planificador.** Se eliminaron los objetivos que usaban el grafo social. La mínima perturbación se mide (cambios frente al plan de referencia), pero no es un término del optimizador. Si nadie puede hacer una actividad planificada no recurrente, se proponen los planes con esa actividad aplazada y la tripulación decide. El mantenimiento y la seguridad recurrentes nunca se aplazan solos. Franja óptima, parejas de EVA y proyección a 7 días son interfaces sin implementar (`motor/planning.py`).
+- **Planificador.** Se eliminaron los objetivos que usaban el grafo social. La mínima perturbación se mide (cambios frente al plan de referencia), pero no es un término del optimizador. Si nadie puede hacer una actividad planificada no recurrente, se proponen los planes con esa actividad aplazada y el comandante decide. El mantenimiento y la seguridad recurrentes nunca se aplazan solos. Franja óptima, parejas de EVA y proyección a 7 días son interfaces sin implementar (`motor/planning.py`).
 - **Investigación especializada.** El catálogo no trae el responsable de cada experimento. Se asigna uno fijo y estable entre los cualificados, que nunca se reasigna.
 - **`procesamiento/audio/raw-audio/codigo_voces.py`** se conserva como prototipo, pero no se despliega: graba en disco, guarda transcripciones y usa etiquetas clínicas (PHQ-9, GAD-7). De él se reutiliza el enfoque openSMILE eGeMAPS en memoria.
 - **Grafo social en vivo** opcional (perfil `social`). En la demo, la centralidad sale del simulador.

@@ -1,3 +1,5 @@
+> **Nota (rama de integración):** el `.env` de esta guía está desactualizado y con él el proyecto ya no arranca, porque faltan claves obligatorias. Para instalar y arrancar Orbivia usa [GUIA_ACTIVACION.md](GUIA_ACTIVACION.md). Las explicaciones sobre cómo se comunican los contenedores siguen siendo válidas.
+
 Aquí tienes la guía adaptada exactamente a la arquitectura de **Orbivia**, pensada para alguien que nunca ha tocado Docker o lo usa lo mínimo posible.
 
 ---
