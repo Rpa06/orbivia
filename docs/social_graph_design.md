@@ -1,7 +1,5 @@
 # Grafo social de la tripulación — documento de diseño
 
-Estado: propuesta de la Fase 1, pendiente de aprobación. Nada de esto está implementado todavía.
-
 Módulo de ORBIVIA que estima, a partir de las posiciones de los astronautas, cuánto tiempo de ocio pasan juntos, y produce una matriz y un grafo diarios. Sobre ese grafo trabajan dos módulos independientes: `IsolationAnalyzer` (indicadores de integración social) y `CollaborationRecommender` (propuestas de actividades conjuntas voluntarias). Es un **indicador para personal autorizado en Tierra, no un diagnóstico**.
 
 ## 1. Resumen de decisiones
