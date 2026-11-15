@@ -55,6 +55,8 @@ cp .env.example .env
 
 En Windows PowerShell: `Copy-Item .env.example .env`
 
+En caso de que crearlo por comando no funcione copia y pega el archivo directamente y cambia su nombre a `.env`
+
 Abre `.env` con un editor y **cambia todos los valores que empiezan por `cambia-`**:
 
 | Variable | Qué es |
