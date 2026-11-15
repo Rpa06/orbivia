@@ -1,7 +1,7 @@
 // Orbivia: acceso, navegación lateral por rol y vistas de cada rol.
 import {
-  AREA_ICON, COLOR, REFERENCES, STATE_LABEL, alertCard, api, avatar, barRow, card, clearSession, crewName, crewRole,
-  fieldLabel, guarded, h, legend, lineChart, ring, saveSession, scoreState, session, toast,
+  AREA_ICON, COLOR, DEMO, REFERENCES, STATE_LABEL, alertCard, api, avatar, barRow, card, clearSession, crewName, crewRole,
+  demoModule, fieldLabel, guarded, h, legend, lineChart, ring, saveSession, scoreState, session, toast,
 } from "./core.js";
 import { renderCheckin } from "../check-in/checkin.js";
 import { renderExercise } from "../check-in/ejercicio.js";
@@ -57,6 +57,7 @@ function loginView() {
   document.body.className = "login";
   document.getElementById("sidebar").hidden = true;
   document.getElementById("top").hidden = true;
+  if (DEMO) return demoLoginView();
   const user = h("input", { autocomplete: "username", placeholder: "usuario" });
   const pass = h("input", { type: "password", autocomplete: "current-password", placeholder: "contraseña" });
   const msg = h("p", { class: "error" });
@@ -75,6 +76,25 @@ function loginView() {
       h("button", { class: "btn block", type: "submit" }, "Entrar"), msg,
       h("p", { class: "hint" }, "Demo: commander (comandante, tripulante A1), astro2…astro4, surgeon, earth.medical, earth.mission. ",
         "Contraseñas en volumenes/demo/credenciales.txt."))));
+}
+
+// Demo estática: se entra eligiendo un rol, sin contraseñas (frontend/demo/mock.js).
+async function demoLoginView() {
+  const { DEMO_USERS, demoLogin, resetDemo } = await demoModule();
+  const msg = h("p", { class: "error" });
+  const enter = async (user) => {
+    try { saveSession(await demoLogin(user)); start(); } catch (err) { msg.textContent = err.message; }
+  };
+  view.replaceChildren(h("div", { class: "login-box" },
+    h("div", { class: "logo" }, h("div", { class: "logo-mark" }), "Orbivia"),
+    h("div", { class: "card stack" },
+      h("h2", {}, "Demo", h("small", {}, "Elige con qué rol entrar")),
+      h("div", { class: "notice" }, "Versión estática con datos simulados grabados de una misión lunar. ",
+        "Lo que hagas se guarda solo en esta pestaña del navegador; no hay servidor."),
+      ...DEMO_USERS.map(([user, role, who]) => h("button", { class: "btn block btn-sec", onclick: () => enter(user) },
+        who ? `${role} · ${who}` : role)),
+      h("button", { class: "btn block", onclick: () => { resetDemo(); toast("Demo reiniciada"); } }, "Reiniciar los datos de la demo"),
+      msg)));
 }
 
 let mission = null;
@@ -96,7 +116,8 @@ async function start() {
     mission ? h("span", { class: "pill" }, "Día de misión ", h("b", {}, mission.mission_day), ` / ${mission.duration_days}`) : null,
     h("span", { class: "pill" }, "Tripulantes ", h("b", {}, "4")),
     h("span", { class: "pill" }, "Contacto con Tierra ", h("b", {}, "Activo")),
-    ["flight_surgeon", "commander"].includes(s.role)
+    DEMO ? h("span", { class: "pill warn" }, "Demo estática") : null,
+    !DEMO && ["flight_surgeon", "commander"].includes(s.role)
       ? h("button", { class: "pill", title: "POST /api/v1/ops/trigger-daily-collapse", onclick: collapse }, "↻ Ejecutar colapso diario") : null,
     h("button", { class: "pill", onclick: () => { clearSession(); loginView(); } }, "Salir")].filter(Boolean));
   document.getElementById("orbit").replaceChildren(...[

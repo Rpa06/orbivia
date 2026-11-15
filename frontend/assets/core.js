@@ -9,8 +9,14 @@ export function session() {
 export function saveSession(s) { try { sessionStorage.setItem(TOKEN_KEY, JSON.stringify(s)); } catch { /* sin almacenamiento */ } }
 export function clearSession() { try { sessionStorage.removeItem(TOKEN_KEY); } catch { /* sin almacenamiento */ } }
 
+// Demo estática (sin backend): en GitHub Pages o con ?demo en la URL; ?demo=0 la desactiva.
+const params = new URLSearchParams(location.search);
+export const DEMO = params.get("demo") !== "0" && (params.has("demo") || location.hostname.endsWith(".github.io"));
+export const demoModule = () => import("../demo/mock.js");
+
 export async function api(path, { method = "GET", body, headers = {}, raw } = {}) {
   const s = session();
+  if (DEMO) return (await demoModule()).demoApi(s, path, { method, body });
   const hd = { ...headers };
   if (s?.token) hd.Authorization = `Bearer ${s.token}`;
   let payload = body;
