@@ -54,30 +54,27 @@ def mission_info(p: Principal = Depends(current_principal)) -> dict:
 
 @router.get("/astronaut/dashboard")
 def astronaut_dashboard(p: Principal = Depends(require(*CREW_ROLES))) -> dict:
+    """Panel personal del tripulante.
+
+    No incluye su nota de disponibilidad ni sus avisos (C1-C3): un aviso como
+    "deterioro progresivo" puede afectar al bienestar psicológico de quien lo
+    recibe. Esos datos los ven el médico de a bordo y el equipo médico en Tierra,
+    que deciden cómo y cuándo comunicarlos. El tripulante sí recibe sus
+    recomendaciones, formuladas como acciones."""
     astronaut = own_astronaut(p)
     day = parse_day(None)
     with transaction("api") as conn:
-        avail = conn.execute("SELECT cycle_date, score, reason_category FROM biometrics.availability "
-                             "WHERE astronaut_id = %s ORDER BY cycle_date DESC LIMIT 14", (astronaut,)).fetchall()
         actions = conn.execute("SELECT action_code, first_date, last_notified FROM biometrics.actions "
                                "WHERE astronaut_id = %s AND active ORDER BY last_notified DESC", (astronaut,)).fetchall()
         checkin = conn.execute("SELECT 1 FROM biometrics.checkins WHERE astronaut_id = %s AND cycle_date = %s",
                                (astronaut, day)).fetchone()
         vec = conn.execute("SELECT vector, simulated_mask FROM biometrics.daily_vector WHERE astronaut_id = %s "
                            "ORDER BY cycle_date DESC LIMIT 1", (astronaut,)).fetchone()
-        own_alerts = conn.execute(
-            "SELECT cycle_date, criterion, area, variables, reference FROM biometrics.alerts WHERE astronaut_id = %s "
-            "AND cycle_date = (SELECT max(cycle_date) FROM biometrics.alerts WHERE astronaut_id = %s) "
-            "ORDER BY criterion", (astronaut, astronaut)).fetchall()
     from motor.actions import CATALOG
     return clean({
         "astronaut_id": astronaut,
-        "availability": [{"date": d, "score": s, "reason": REASON_LABELS.get(r, r)} for d, s, r in avail],
         "recommendations": [{"code": c, **CATALOG.get(c, {}), "since": f, "last_notified": l} for c, f, l in actions],
         "checkin_done_today": checkin is not None,
-        # Sus propios avisos (nunca los de otros tripulantes)
-        "alerts": [{"date": d, "criterion": c, "area": AREA_LABELS[a], "area_key": a, "variables": v, "reference": r}
-                   for d, c, a, v, r in own_alerts],
         # Sus propios datos objetivos; las puntuaciones de texto y voz las interpreta el equipo médico
         "latest_vector": _named(vec[0], set(NLP_FIELDS) | set(ACOUSTIC_FIELDS)) if vec else None,
         "simulated": bool(vec and vec[1]),
@@ -231,7 +228,7 @@ SERIES_VARIABLES = ("sleep_duration_h", "grip_strength_kg", "spo2_pct", "resting
                     "sleep_heart_rate_bpm", "radiation_mSv_cumulative", "social_centrality", "weight_kg")
 
 
-def _series(conn, astronaut: str, days: int, include_psych: bool) -> dict:
+def _series(conn, astronaut: str, days: int, include_psych: bool, include_availability: bool = True) -> dict:
     since = today() - timedelta(days=days - 1)
     out: dict = {"astronaut_id": astronaut, "days": days, "measurements": {}, "pvt": [], "availability": []}
     for d, var, v, src in conn.execute(
@@ -241,9 +238,12 @@ def _series(conn, astronaut: str, days: int, include_psych: bool) -> dict:
     out["pvt"] = [{"date": d, "mean_rt_ms": rt, "lapses": l} for d, rt, l in conn.execute(
         "SELECT cycle_date, mean_rt_ms, lapses FROM biometrics.pvt_results WHERE astronaut_id = %s AND cycle_date >= %s "
         "ORDER BY cycle_date", (astronaut, since))]
-    out["availability"] = [{"date": d, "score": s} for d, s in conn.execute(
-        "SELECT cycle_date, score FROM biometrics.availability WHERE astronaut_id = %s AND cycle_date >= %s "
-        "ORDER BY cycle_date", (astronaut, since))]
+    if include_availability:
+        out["availability"] = [{"date": d, "score": s} for d, s in conn.execute(
+            "SELECT cycle_date, score FROM biometrics.availability WHERE astronaut_id = %s AND cycle_date >= %s "
+            "ORDER BY cycle_date", (astronaut, since))]
+    else:
+        del out["availability"]
     # Referencia individual (línea base terrestre): p05-p95 para dibujar la banda de normalidad
     out["baselines"] = {var: {"p05": p05, "p50": p50, "p95": p95} for var, p05, p50, p95 in conn.execute(
         "SELECT variable, p05, p50, p95 FROM biometrics.baselines WHERE astronaut_id = %s AND kind = 'terrestrial' "
@@ -267,9 +267,9 @@ def crew_series(astronaut_id: str, days: int = Query(30, ge=7, le=120),
 
 @router.get("/me/series")
 def my_series(days: int = Query(30, ge=7, le=120), p: Principal = Depends(require(*CREW_ROLES))) -> dict:
-    """Las series propias de cada tripulante, también del comandante."""
+    """Las series propias de cada tripulante, también del comandante, sin su nota de disponibilidad."""
     with transaction("api") as conn:
-        return _series(conn, own_astronaut(p), days, include_psych=True)
+        return _series(conn, own_astronaut(p), days, include_psych=True, include_availability=False)
 
 
 @router.get("/crew/radiation")

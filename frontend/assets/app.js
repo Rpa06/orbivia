@@ -169,13 +169,13 @@ function bandState(v, b, higherBetter = true) {
   return ["Dentro de su rango", "ok"];
 }
 
-function kpiRow(series) {
+function kpiRow(series, { showAvailability = true } = {}) {
   const b = series.baselines || {};
   const sl = lastVal(series, "sleep_duration_h"), grip = lastVal(series, "grip_strength_kg");
   const spo2 = lastVal(series, "spo2_pct"), hr = lastVal(series, "resting_hr_bpm");
-  const pvt = last(series.pvt), av = last(series.availability);
-  return h("section", { class: "grid kpis" },
-    kpi("Disponibilidad", av ? Math.round(av.score) : null, "/100", STATE_LABEL[scoreState(av?.score)], scoreState(av?.score)),
+  const pvt = last(series.pvt), av = last(series.availability || []);
+  return h("section", { class: "grid kpis", style: showAvailability ? null : "grid-template-columns:repeat(5,1fr)" },
+    showAvailability ? kpi("Disponibilidad", av ? Math.round(av.score) : null, "/100", STATE_LABEL[scoreState(av?.score)], scoreState(av?.score)) : null,
     kpi("Sueño anoche", r1(sl), "h", ...bandState(sl, b.sleep_duration_h)),
     kpi("PVT-B", pvt ? Math.round(pvt.mean_rt_ms) : null, "ms", pvt ? `${pvt.lapses} lapsos` : "Pendiente", pvt && pvt.lapses > 3 ? "warn" : "ok"),
     kpi("Fuerza de agarre", r1(grip), "kg", ...bandState(grip, b.grip_strength_kg)),
@@ -250,16 +250,16 @@ function areaBars(areas) {
 
 async function myDay(root) {
   const [d, series] = await Promise.all([api("/astronaut/dashboard"), api("/me/series")]);
-  const me = d.astronaut_id;
   if (!d.checkin_done_today) {
     root.append(h("div", { class: "notice warn", style: "margin-bottom:18px" }, "Te falta el check-in de hoy. ",
       h("a", { href: "#checkin", onclick: (e) => { e.preventDefault(); show("checkin"); }, style: "color:var(--primary)" }, "Hacerlo ahora →")));
   }
-  root.append(alertsSection(d.alerts.map((a) => ({ ...a, astronaut_id: me })), "Tus avisos activos",
-    "Tus datos se comparan solo contigo mismo. Solo tú y el equipo médico veis estos avisos."));
-  root.append(kpiRow(series));
+  // Sin nota de disponibilidad ni avisos: los gestiona el equipo médico (bienestar psicológico)
+  root.append(kpiRow(series, { showAvailability: false }));
   root.append(h("section", { class: "grid two" }, physicalCard(series), checkinCard(series)));
-  root.append(h("section", { class: "grid two" }, availabilityCard(series),
+  root.append(h("section", { class: "grid two" },
+    card(["Tu seguimiento", "con el equipo médico"], h("p", {}, "Tus datos se comparan solo contigo mismo. El médico de a bordo revisa tu evolución cada día y te comentará lo que haga falta."),
+      h("p", { class: "hint" }, "Si notas algo, puedes hablar con el médico en cualquier momento.")),
     card("Recomendaciones activas", d.recommendations.length
       ? h("ul", { class: "list" }, d.recommendations.map((r) => h("li", {}, h("span", { class: "t" }, "★"), h("div", {}, h("strong", {}, r.label), h("small", {}, r.text)))))
       : h("p", { class: "muted" }, "No tienes recomendaciones activas."))));

@@ -181,10 +181,20 @@ def test_astronaut_only_sees_own_data():
     assert get("astro2", "/crew/status").status_code == 403
     assert get("astro2", "/earth/history", params={"astronaut_id": "A3"}).status_code == 403
     assert get("astro2", "/crew/A3/series").status_code == 403
-    assert get("astro2", "/me/series").json()["astronaut_id"] == "A2"
+    mine = get("astro2", "/me/series").json()
+    assert mine["astronaut_id"] == "A2"
     d = get("astro2", "/astronaut/dashboard").json()
     assert d["astronaut_id"] == "A2"
-    assert all("A3" not in str(a) for a in d["alerts"])
+
+
+def test_crew_does_not_receive_alerts_or_availability():
+    """Ni astronautas ni el comandante, en su vista personal, reciben su nota ni sus avisos."""
+    for user in ("astro2", "astro3", "commander"):
+        d = get(user, "/astronaut/dashboard").json()
+        assert "alerts" not in d and "availability" not in d
+        assert "availability" not in get(user, "/me/series").json()
+    # El médico sí los sigue viendo
+    assert "availability" in get("surgeon", "/crew/A3/series").json()
     assert all(k not in (d["latest_vector"] or {}) for k in ("nlp_low_mood_z", "acoustic_pause_z"))
 
 
