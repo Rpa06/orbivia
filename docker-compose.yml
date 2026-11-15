@@ -1,0 +1,344 @@
+# Orbivia: despliegue completo de la demo.
+#   docker compose up -d --build
+#   docker compose run --rm seed            # misión simulada y credenciales de demo
+#
+# Redes: `nave` (todo lo que corre a bordo) y `enlace-tierra` (solo sync-tierra y el
+# receptor simulado en Tierra). El receptor no puede ver la base de datos de a bordo.
+# Cada servicio usa su propio rol de base de datos; la contraseña de administrador solo
+# la tienen `db` y `seed`.
+
+x-db-common: &db-common
+  POSTGRES_HOST: db
+  POSTGRES_PORT: 5432
+  POSTGRES_DB: ${POSTGRES_DB:-orbivia}
+
+x-core-build: &core-build
+  context: .
+  dockerfile: docker/python-core/Dockerfile
+
+x-flags: &flags
+  ENABLE_NLP: ${ENABLE_NLP:-false}
+  ENABLE_VIDEO: ${ENABLE_VIDEO:-true}
+  ENABLE_HISTORICAL_VECTOR_MATCH: ${ENABLE_HISTORICAL_VECTOR_MATCH:-false}
+  ORBIVIA_TODAY: ${ORBIVIA_TODAY:-}
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-orbivia}
+      POSTGRES_USER: ${POSTGRES_USER:-orbivia}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      # Contraseñas de los roles de privilegio mínimo (base-de-datos/init/03_roles.sh)
+      ORBIVIA_DB_API_PASSWORD: ${ORBIVIA_DB_API_PASSWORD:?Define ORBIVIA_DB_API_PASSWORD en .env}
+      ORBIVIA_DB_ENGINE_PASSWORD: ${ORBIVIA_DB_ENGINE_PASSWORD:?Define ORBIVIA_DB_ENGINE_PASSWORD en .env}
+      ORBIVIA_DB_CYCLE_PASSWORD: ${ORBIVIA_DB_CYCLE_PASSWORD:?Define ORBIVIA_DB_CYCLE_PASSWORD en .env}
+      ORBIVIA_DB_SYNC_PASSWORD: ${ORBIVIA_DB_SYNC_PASSWORD:?Define ORBIVIA_DB_SYNC_PASSWORD en .env}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      # Directorio de datos configurable para no reutilizar una base inicializada sin estos esquemas
+      - ${POSTGRES_DATA_DIR:-./volumenes/postgre}:/var/lib/postgresql/data
+      - ./base-de-datos/init:/docker-entrypoint-initdb.d:ro
+    networks: [nave]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  broker:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # noeviction: Redis nunca descarta claves por falta de memoria (el estado de las
+    # sesiones de sueño no se puede perder); si se llena, rechaza escrituras.
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec", "--maxmemory-policy", "noeviction"]
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
+    volumes:
+      - ./volumenes/redis:/data
+    networks: [nave]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Redis solo en RAM para el audio y el vídeo: sin AOF, sin RDB y sin volumen.
+  # El stream orbivia:media tiene MAXLEN 10 y cada mensaje se borra al procesarse.
+  media-broker:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "256mb",
+              "--maxmemory-policy", "noeviction"]
+    tmpfs:
+      - /data
+    networks: [nave]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build: *core-build
+    image: orbivia-python-core
+    restart: unless-stopped
+    command: ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    # Las variables SLEEP_* y CP_* se definen en .env (ver .env.example)
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      <<: [*db-common, *flags]
+      ORBIVIA_DB_API_PASSWORD: ${ORBIVIA_DB_API_PASSWORD:?Define ORBIVIA_DB_API_PASSWORD en .env}
+      ORBIVIA_DB_ENGINE_PASSWORD: ${ORBIVIA_DB_ENGINE_PASSWORD:?Define ORBIVIA_DB_ENGINE_PASSWORD en .env}
+      ORBIVIA_DB_CYCLE_PASSWORD: ${ORBIVIA_DB_CYCLE_PASSWORD:?Define ORBIVIA_DB_CYCLE_PASSWORD en .env}
+      # El router de sueño usa POSTGRES_USER: aquí, el rol del motor, no el administrador
+      POSTGRES_USER: orbivia_engine
+      POSTGRES_PASSWORD: ${ORBIVIA_DB_ENGINE_PASSWORD}
+      AUTH_SECRET: ${AUTH_SECRET:?Define AUTH_SECRET en .env}
+      CYCLE_ENCRYPTION_KEY: ${CYCLE_ENCRYPTION_KEY:?Define CYCLE_ENCRYPTION_KEY en .env}
+      INGEST_SENSOR_TOKEN: ${INGEST_SENSOR_TOKEN:-}
+      REDIS_HOST: broker
+      REDIS_PORT: 6379
+      MEDIA_REDIS_HOST: media-broker
+      MEDIA_REDIS_PORT: 6379
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    networks: [nave]
+    depends_on:
+      db:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
+      media-broker:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:8000/health/ready', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # Sueño (Redis Streams) y colapso diario programado. Ver workers/stream_worker.py
+  worker-stream:
+    build: *core-build
+    image: orbivia-python-core
+    restart: unless-stopped
+    command: ["python", "-m", "workers.stream_worker"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      <<: [*db-common, *flags]
+      POSTGRES_USER: orbivia_engine
+      POSTGRES_PASSWORD: ${ORBIVIA_DB_ENGINE_PASSWORD}
+      ORBIVIA_DB_ENGINE_PASSWORD: ${ORBIVIA_DB_ENGINE_PASSWORD}
+      REDIS_HOST: broker
+      REDIS_PORT: 6379
+      SLEEP_HEARTBEAT_FILE: /tmp/sleep_stream.heartbeat
+      DAILY_COLLAPSE_HOUR: ${DAILY_COLLAPSE_HOUR:-6}
+    networks: [nave]
+    depends_on:
+      api:
+        condition: service_started
+      db:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-m", "sleep_stream.healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # Audio y vídeo en memoria. Límite estricto: 4 GB de RAM y 2 CPU.
+  worker-ml:
+    build:
+      context: .
+      dockerfile: docker/python-ml/Dockerfile
+      args:
+        INSTALL_NLP: ${INSTALL_NLP:-true}
+    restart: unless-stopped
+    command: ["python", "-m", "workers.media_worker"]
+    environment:
+      <<: [*db-common, *flags]
+      ORBIVIA_DB_ENGINE_PASSWORD: ${ORBIVIA_DB_ENGINE_PASSWORD}
+      MEDIA_REDIS_HOST: media-broker
+      MEDIA_REDIS_PORT: 6379
+      WHISPER_MODEL: ${WHISPER_MODEL:-small}
+      WHISPER_LANGUAGE: ${WHISPER_LANGUAGE:-es}
+      WHISPER_COMPUTE_TYPE: ${WHISPER_COMPUTE_TYPE:-int8}
+      WHISPER_CPU_THREADS: ${WHISPER_CPU_THREADS:-2}
+      WHISPER_MODEL_PATH: /models
+      MENTAL_HEALTH_MODEL: Hrishikesh4/mental-health-classifier-longformer
+      MENTAL_HEALTH_MODEL_REVISION: 54edff7f513b60314a4171c848ebe33c2850039a
+      MENTAL_HEALTH_MODEL_PATH: /models/longformer
+    volumes:
+      # Solo pesos de modelos descargados; nunca audio, vídeo ni texto
+      - model-cache:/models
+    networks: [nave]
+    depends_on:
+      db:
+        condition: service_healthy
+      media-broker:
+        condition: service_healthy
+    mem_limit: 4g
+    cpus: 2.0
+    healthcheck:
+      test: ["CMD", "python", "-m", "workers.media_worker", "healthcheck"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+
+  # Envío de vectores a Tierra cuando hay enlace (lista blanca, sin duplicados)
+  sync-tierra:
+    build: *core-build
+    image: orbivia-python-core
+    restart: unless-stopped
+    command: ["python", "-m", "sync_tierra.service"]
+    environment:
+      <<: *db-common
+      ORBIVIA_DB_SYNC_PASSWORD: ${ORBIVIA_DB_SYNC_PASSWORD}
+      EARTH_ENDPOINT_URL: ${EARTH_ENDPOINT_URL:-http://earth-receiver:8090/ingest}
+      EARTH_SYNC_TOKEN: ${EARTH_SYNC_TOKEN:?Define EARTH_SYNC_TOKEN en .env}
+      SYNC_WINDOW: ${SYNC_WINDOW:-always}
+      SYNC_INTERVAL_S: ${SYNC_INTERVAL_S:-60}
+      SYNC_HEARTBEAT_FILE: /tmp/sync_tierra.heartbeat
+    networks: [nave, enlace-tierra]
+    depends_on:
+      api:
+        condition: service_started
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import time,sys; sys.exit(0 if time.time()-float(open('/tmp/sync_tierra.heartbeat').read())<900 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # Receptor simulado del equipo médico en Tierra (solo para la demo)
+  earth-receiver:
+    build: *core-build
+    image: orbivia-python-core
+    restart: unless-stopped
+    command: ["python", "-m", "sync_tierra.receiver"]
+    environment:
+      EARTH_SYNC_TOKEN: ${EARTH_SYNC_TOKEN:?Define EARTH_SYNC_TOKEN en .env}
+      EARTH_DATA_DIR: /data
+    volumes:
+      - ./volumenes/tierra:/data
+    networks: [enlace-tierra]
+    depends_on:
+      api:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:8090/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT:-8080}:80"
+    networks: [nave]
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # Siembra de la misión simulada (una vez):  docker compose run --rm seed
+  seed:
+    build: *core-build
+    image: orbivia-python-core
+    profiles: ["tools"]
+    command: ["python", "-m", "simulador.seed_mission", "--reset", "--credentials-file", "/demo/credenciales.txt"]
+    environment:
+      <<: [*db-common, *flags]
+      POSTGRES_USER: ${POSTGRES_USER:-orbivia}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      ORBIVIA_DB_ENGINE_PASSWORD: ${ORBIVIA_DB_ENGINE_PASSWORD}
+      CYCLE_ENCRYPTION_KEY: ${CYCLE_ENCRYPTION_KEY:?Define CYCLE_ENCRYPTION_KEY en .env}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-}
+    volumes:
+      - ./volumenes/demo:/demo
+    networks: [nave]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Grafo social en vivo (procesamiento/grafos). Opcional en la demo: su simulador usa
+  # un reloj acelerado propio que no coincide con las fechas de la misión sembrada.
+  #   docker compose --profile social up -d social-graph
+  social-graph:
+    build:
+      context: .
+      dockerfile: docker/social-graph/Dockerfile
+    profiles: ["social"]
+    restart: unless-stopped
+    command: ["python", "-m", "social_graph"]
+    # Las variables SG_* se definen en .env (ver .env.example)
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      <<: *db-common
+      POSTGRES_USER: orbivia_engine
+      POSTGRES_PASSWORD: ${ORBIVIA_DB_ENGINE_PASSWORD}
+      REDIS_HOST: broker
+      REDIS_PORT: 6379
+      SG_CREW: A1,A2,A3,A4
+      SG_OUTPUT_DIR: /data
+      SG_HEARTBEAT_FILE: /tmp/social_graph.heartbeat
+    volumes:
+      - ./volumenes/social-graph:/data
+    networks: [nave]
+    depends_on:
+      db:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-m", "social_graph.healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # Planificador diario de tareas como herramienta de línea de comandos (sin grafo social):
+  #   docker compose run --rm planner python -m crew_planner.simulation --scenario high_fatigue
+  planner:
+    build:
+      context: .
+      dockerfile: docker/planner/Dockerfile
+    profiles: ["planner"]
+    command: ["python", "-m", "crew_planner.simulation", "--scenario", "nominal"]
+    # Las variables CP_* se definen en .env (ver .env.example)
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./volumenes/planner:/data
+    networks: [nave]
+
+networks:
+  nave:
+  enlace-tierra:
+
+volumes:
+  model-cache:

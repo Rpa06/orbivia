@@ -1,0 +1,3 @@
+# Clasificador de texto de procesamiento/texto (desactivado por defecto: ENABLE_NLP=false)
+huggingface-hub>=0.34,<1
+transformers>=4.55,<5

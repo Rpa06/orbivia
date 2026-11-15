@@ -1,0 +1,14 @@
+# worker-ml: consumidor del stream multimedia
+psycopg[binary]>=3.2,<4
+redis>=5,<7
+numpy>=1.26,<2
+# Acústica (openSMILE eGeMAPS) y decodificación de audio de procesamiento/texto
+opensmile>=2.5,<3
+# pyarrow (dependencia de audformat) exige NumPy 2 desde la 18; mediapipe 0.10 exige NumPy < 2
+pyarrow>=14,<18
+faster-whisper>=1.1,<2
+# Vídeo: signos físicos de fatiga (procesamiento/video/requirements.txt)
+onnxruntime>=1.18,<2
+opencv-python-headless>=4.8,<5
+mediapipe>=0.10.14,<0.11
+scipy>=1.10,<2

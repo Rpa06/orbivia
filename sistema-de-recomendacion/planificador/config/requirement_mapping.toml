@@ -1,0 +1,62 @@
+# Traducción de los vectores de exigencia del catálogo (0-1) a requisitos sobre las
+# mediciones del vector de estado del astronauta. Ver docs/task_catalog_methodology.md.
+#
+# TODO ESTE FICHERO ES UNA ESTIMACIÓN TEÓRICA DEL MODELO ORBIVIA. NASA no publica
+# umbrales por tarea. Los umbrales se expresan en la escala de cada parámetro y se
+# cambian aquí sin tocar el código.
+
+[general]
+min_demand = 0.4          # una dimensión por debajo de este nivel no genera requisito
+critical_from = 0.75      # en tareas safety_critical, a partir de aquí el requisito es duro
+demanding_recovery_from = 0.7   # recovery_requirement desde aquí => tarea exigente (descanso después)
+mandatory_from_importance = 3   # importancia desde la que una tarea programada es obligatoria
+
+# Dimensión de exigencia -> parámetros de estado que la condicionan. Varias dimensiones
+# pueden apuntar al mismo parámetro: el requisito se fija con la mayor de sus demandas,
+# no con la suma, porque son evidencias correlacionadas.
+# Sin correspondencia, por diseño:
+#   stress_tolerance  -> descriptiva: compararla exigiría inferir estados psicológicos
+#   recovery_requirement -> no es un estado previo: decide si la tarea es exigente
+# Los parámetros médicos (SpO2, frecuencia cardíaca) no se traducen automáticamente:
+# sus umbrales son una decisión médica.
+[mapping]
+physical_effort = ["grip_strength", "fatigue_self"]
+endurance = ["fatigue_self", "work_hours_3d", "sleep_duration_h"]
+mobility = ["fatigue_self"]
+coordination = ["pvt_lapses", "sleep_duration_h"]
+physical_precision = ["pvt_lapses"]
+fatigue_tolerance = ["fatigue_self", "work_hours_3d"]
+concentration = ["pvt_lapses", "sleep_duration_h"]
+cognitive_load = ["pvt_lapses", "sleep_quality"]
+working_memory = ["pvt_lapses"]
+decision_making = ["pvt_lapses", "sleep_duration_h"]
+attention_to_detail = ["pvt_lapses"]
+problem_solving = ["pvt_lapses", "sleep_quality"]
+multitasking = ["pvt_lapses", "fatigue_self"]
+
+# Umbral según la demanda: pares [demanda, umbral], con interpolación lineal entre ellos.
+# bound = "min" (el valor debe ser al menos el umbral) o "max" (como mucho).
+
+[thresholds.pvt_lapses]          # fallos de atención, puntuación z frente a la línea base propia
+bound = "max"
+levels = [[0.4, 2.0], [0.6, 1.5], [0.8, 1.0], [1.0, 0.5]]
+
+[thresholds.sleep_duration_h]    # horas del último sueño
+bound = "min"
+levels = [[0.4, 5.5], [0.6, 6.0], [0.8, 6.5], [1.0, 7.0]]
+
+[thresholds.sleep_quality]       # eficiencia del sueño, %
+bound = "min"
+levels = [[0.4, 60.0], [0.6, 65.0], [0.8, 70.0], [1.0, 75.0]]
+
+[thresholds.fatigue_self]        # cansancio declarado, 1-5
+bound = "max"
+levels = [[0.4, 4.0], [0.6, 3.5], [0.8, 3.0], [1.0, 2.5]]
+
+[thresholds.grip_strength]       # fuerza de agarre, puntuación z frente a la línea base propia
+bound = "min"
+levels = [[0.4, -2.0], [0.6, -1.5], [0.8, -1.0], [1.0, -0.5]]
+
+[thresholds.work_hours_3d]       # horas trabajadas en los tres últimos días
+bound = "max"
+levels = [[0.4, 33.0], [0.6, 30.0], [0.8, 27.0], [1.0, 24.0]]

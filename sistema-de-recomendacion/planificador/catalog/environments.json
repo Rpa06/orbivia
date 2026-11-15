@@ -1,0 +1,112 @@
+{
+ "_about": "Configuración de cada entorno de misión para la simulación. Tamaño de tripulación, jornada, calendario de tareas específicas de la misión y eventos de ejemplo son estimaciones configurables de Orbivia, no calendarios de NASA.",
+ "environments": {
+  "iss": {
+   "name": "Estación Espacial Internacional",
+   "workday": ["08:00", "17:00"],
+   "crew": {
+    "A1": ["eva_certified", "robotic_arm_operator", "payload_operations"],
+    "A2": ["eva_certified", "electrical_systems", "life_support_systems"],
+    "A3": ["robotic_arm_operator", "medical_officer", "payload_operations"],
+    "A4": ["eva_certified", "life_support_systems", "communications_systems"],
+    "A5": ["medical_officer", "payload_operations", "electrical_systems"],
+    "A6": ["eva_certified", "robotic_arm_operator", "communications_systems", "life_support_systems"]
+   },
+   "mission_plan": {
+    "cycle_days": 14,
+    "days": {
+     "6": ["ISS_COL_017", "ISS_IND_021"],
+     "7": ["ISS_COL_018"]
+    }
+   },
+   "events": {
+    "cycle_days": 14,
+    "days": {
+     "2": ["ISS_COL_011", "ISS_COL_002"],
+     "3": ["ISS_COL_012"],
+     "4": ["ISS_COL_013"],
+     "11": ["ISS_COL_014"]
+    }
+   }
+  },
+  "moon": {
+   "name": "Superficie lunar",
+   "workday": ["08:00", "17:00"],
+   "crew": {
+    "A1": ["eva_certified", "geology_fieldwork", "rover_operator"],
+    "A2": ["eva_certified", "electrical_systems", "payload_operations", "mission_operations"],
+    "A3": ["eva_certified", "geology_fieldwork", "life_support_systems", "communications_systems"],
+    "A4": ["eva_certified", "rover_operator", "mission_operations", "life_support_systems", "electrical_systems"]
+   },
+   "mission_plan": {
+    "cycle_days": 12,
+    "days": {
+     "0": ["MOON_COL_017", "MOON_IND_016"],
+     "1": ["MOON_COL_001", "MOON_COL_020"],
+     "2": ["MOON_COL_005", "MOON_COL_017"],
+     "3": ["MOON_COL_009", "MOON_COL_020"],
+     "4": ["MOON_COL_017", "MOON_IND_016"],
+     "5": ["MOON_COL_002", "MOON_COL_020"],
+     "6": ["MOON_COL_006", "MOON_COL_020", "MOON_COL_021"],
+     "7": ["MOON_COL_017"],
+     "8": ["MOON_COL_003", "MOON_COL_020"],
+     "9": ["MOON_COL_017", "MOON_COL_015"],
+     "10": ["MOON_COL_007", "MOON_COL_020"],
+     "11": ["MOON_COL_010", "MOON_COL_020"]
+    }
+   },
+   "events": {"cycle_days": 12, "days": {}}
+  },
+  "mars": {
+   "name": "Superficie marciana",
+   "workday": ["08:00", "17:00"],
+   "crew": {
+    "A1": ["eva_certified", "geology_fieldwork", "rover_operator", "payload_operations"],
+    "A2": ["eva_certified", "electrical_systems", "life_support_systems", "mission_operations"],
+    "A3": ["eva_certified", "geology_fieldwork", "communications_systems", "ascent_vehicle_systems"],
+    "A4": ["eva_certified", "rover_operator", "electrical_systems", "ascent_vehicle_systems", "life_support_systems", "payload_operations", "mission_operations"]
+   },
+   "mission_plan": {
+    "cycle_days": 10,
+    "days": {
+     "0": ["MARS_COL_015", "MARS_IND_020"],
+     "1": ["MARS_COL_001"],
+     "2": ["MARS_COL_002", "MARS_COL_015"],
+     "3": ["MARS_COL_006"],
+     "4": ["MARS_COL_015", "MARS_COL_020"],
+     "5": ["MARS_COL_003"],
+     "6": ["MARS_COL_015"],
+     "7": ["MARS_COL_007"],
+     "8": ["MARS_COL_015", "MARS_COL_012"],
+     "9": ["MARS_COL_004"]
+    }
+   },
+   "events": {"cycle_days": 10, "days": {"4": ["MARS_COL_018"]}}
+  },
+  "satellite": {
+   "name": "Servicio de satélites en órbita",
+   "workday": ["08:00", "17:00"],
+   "crew": {
+    "A1": ["eva_certified", "satellite_servicing", "electrical_systems"],
+    "A2": ["eva_certified", "satellite_servicing", "propulsion_systems"],
+    "A3": ["eva_certified", "satellite_servicing", "payload_operations", "robotic_arm_operator"],
+    "A4": ["eva_certified", "satellite_servicing", "communications_systems", "robotic_arm_operator"],
+    "A5": ["robotic_arm_operator", "mission_operations", "electrical_systems", "payload_operations", "propulsion_systems"],
+    "A6": ["robotic_arm_operator", "mission_operations", "communications_systems"]
+   },
+   "mission_plan": {
+    "cycle_days": 7,
+    "days": {
+     "0": ["SAT_COL_001", "SAT_COL_014"],
+     "1": ["SAT_COL_003", "SAT_COL_015", "SAT_COL_014"],
+     "2": ["SAT_COL_005", "SAT_COL_015", "SAT_COL_014", "SAT_COL_013"],
+     "3": ["SAT_COL_010", "SAT_COL_015", "SAT_COL_014"],
+     "4": ["SAT_COL_004", "SAT_COL_015", "SAT_COL_014"],
+     "5": ["SAT_COL_008", "SAT_COL_015"],
+     "6": ["SAT_COL_002", "SAT_COL_006", "SAT_COL_009", "SAT_IND_015", "SAT_COL_012"]
+    }
+   },
+   "events": {"cycle_days": 7, "days": {"3": ["SAT_IND_004"]}}
+  }
+ }
+}

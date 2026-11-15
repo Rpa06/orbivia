@@ -1,0 +1,17 @@
+.env
+__pycache__/
+*.py[cod]
+/volumenes/postgre/*
+!/volumenes/postgre/.gitkeep
+/volumenes/redis/*
+!/volumenes/redis/.gitkeep
+/volumenes/social-graph/*
+!/volumenes/social-graph/.gitkeep
+/volumenes/planner/*
+!/volumenes/planner/.gitkeep
+/procesamiento/test-cerrado/respuestas.jsonl
+.DS_Store
+.vscode/
+/volumenes/demo/
+/volumenes/tierra/
+/volumenes/postgre-orbivia/
